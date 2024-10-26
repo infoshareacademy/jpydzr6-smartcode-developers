@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import json
 from datetime import datetime
 
-FILE_PATH = "devices.json"
+FILE_PATH = "../devices.json"
 
 def load_json(file_path = FILE_PATH):
     with open(file_path, 'r') as file:
