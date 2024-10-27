@@ -25,7 +25,6 @@ class Device(ABC):
     """
     Abstract class for all devices
     """
-    connected = False
 
     def __init__(self, device_id: str, device_type: str):
         self.device_id = device_id
@@ -39,17 +38,24 @@ class Device(ABC):
         """
         print(f"{Fore.YELLOW}Connecting to device_id {self.device_id}")
         if self.device_type != self.__class__.__name__.lower():
+            print(f"{Fore.RED}Error while connecting to device_id {self.device_id}")
             raise NotCompatibleDevice
         else:
             print(f"{Fore.GREEN}Connected to device_id {self.device_id}")
             self.connected = True
         
 
-    def disconnect(self):
+    def disconnect_from_device(self):
+        """
+        Disconnect from the device
+        :return:
+        """
         print(f"Disconnecting from device_id {self.device_id}")
         if self.connected:
             self.connected = False
             print(f"{Fore.GREEN}Succesfully disconected from device_id {self.device_id}")
+        else:
+            print(f"{Fore.YELLOW}device_id {self.device_id} was not connected")
 
     def turn_on_off(self, new_state: str) -> None:
         """
