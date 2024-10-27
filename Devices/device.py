@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 import json
 from datetime import datetime
-from colorama import Fore, Back, Style, init
+from colorama import Fore, init
 
-FILE_PATH = "devices.json"
+FILE_PATH = "../devices.json"
 # Initialize Colorama (necessary for Windows compatibility)
 init(autoreset=True)
 
@@ -66,28 +66,24 @@ class Device(ABC):
             if device['device_id'] == self.device_id:
                 device['status']['power'] = new_state
                 break
-        json_data = self.modify_last_updated(json_data)
-        save_json(json_data, FILE_PATH)
+        self.modify_last_updated(json_data)
 
-    def reboot(self):
+    def reboot(self) -> bool:
         """
-        Turn the device on or off.
+        Reboot the device.
 
-        This method loads the JSON data from the file, iterates through the devices,
-        and updates the 'power' status of the device with the matching device_id to the new state.
-        It also updates the 'last_updated' timestamp for the device and saves the modified JSON data back to the file.
-
-        :param new_state: The new power state to set for the device ('on' or 'off').
+        This method turns the device off and then back on, updating the 'last_updated' timestamp.
         """
         if not self.connected:
             print(f"{Fore.RED}Cant perform reboot. Not connected to device_id {self.device_id}")
-            return
+            return False
         print(f"{Fore.YELLOW}Rebooting device_id {self.device_id}")
         self.turn_on_off("off")
         self.turn_on_off("on")
-        print(f"{Fore.GREEN}device_id {self.device_id} back online")        
+        print(f"{Fore.GREEN}device_id {self.device_id} back online")
+        return True
 
-    def get_status(self):
+    def get_status(self) -> str | None:
         if not self.connected:
             print(f"{Fore.RED}Cant get status. Not connected to device_id {self.device_id}")
             return
@@ -95,8 +91,7 @@ class Device(ABC):
         json_data = load_json()
         for device in json_data['devices']:
             if device['device_id'] == self.device_id:
-                print(f"{Fore.BLUE}{json.dumps(device['status'], indent=4)}")
-                break
+                return f"{Fore.BLUE}{json.dumps(device['status'], indent=4)}"
 
     def change_device_name(self, name: str) -> bool:
         """
@@ -123,15 +118,14 @@ class Device(ABC):
                 changed = True
                 break
         if changed:      
-            json_data = self.modify_last_updated(json_data)
-            save_json(json_data, FILE_PATH)
+            self.modify_last_updated(json_data)
             print(f"{Fore.GREEN}Changing name of device_id {self.device_id} succeeded, new {name = }")
             return True
         else:
             print(f"{Fore.RED}Changing name of device_id {self.device_id} failed")
             return False
 
-    def modify_last_updated(self, json_data) -> dict:
+    def modify_last_updated(self, json_data) -> None:
         """
         Update the 'last_updated' timestamp for the device.
 
@@ -146,9 +140,5 @@ class Device(ABC):
             if device['device_id'] == self.device_id:
                 device['last_updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 break
-        return json_data
+        save_json(json_data, FILE_PATH)
 
-
-if __name__ == "__main__":
-    print("Hello:)")
-   
