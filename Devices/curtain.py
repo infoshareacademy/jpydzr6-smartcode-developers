@@ -14,7 +14,7 @@ class Curtain(Device):
         else:
             print(f"Connected to device {self.device_id}")
 
-    def get_current_position(self) -> str:
+    def get_current_position(self) -> float:
         """
         Get the current position of the curtain.
 
@@ -22,15 +22,15 @@ class Curtain(Device):
         and returns the current position for the curtain with the matching device_id.
 
         :return: The current position of the curtain as a string. If the device is not found,
-                 it returns "Position not available".
+                 it returns None.
         """
         json_data = load_json()
         for device in json_data['devices']:
             if device['device_id'] == self.device_id:
-                return device['status']['position']
-        return "Position not available"
+                return float(device['status'].get('position', None))
+        return None
 
-    def get_open_percentage(self) -> str:
+    def get_open_percentage(self) -> float:
         """
         Get the open percentage of the curtain.
 
@@ -38,13 +38,13 @@ class Curtain(Device):
         and returns the open percentage for the curtain with the matching device_id.
 
         :return: The open percentage of the curtain as a string. If the device is not found,
-                 it returns "Open percentage not available".
+                 it returns None.
         """
         json_data = load_json()
         for device in json_data['devices']:
             if device['device_id'] == self.device_id:
-                return device['status']['open_percent']
-        return "Open percentage not available"
+                return float(device['status'].get('open_percent'))
+        return None
 
 
 if __name__ == "__main__":
