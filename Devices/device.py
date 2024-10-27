@@ -50,7 +50,7 @@ class Device(ABC):
         Disconnect from the device
         :return:
         """
-        print(f"Disconnecting from device_id {self.device_id}")
+        print(f"{Fore.YELLOW}Disconnecting from device_id {self.device_id}")
         if self.connected:
             self.connected = False
             print(f"{Fore.GREEN}Succesfully disconected from device_id {self.device_id}")
