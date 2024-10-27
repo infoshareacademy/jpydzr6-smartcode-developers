@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 FILE_PATH = "../devices.json"
 
 def load_json(file_path = FILE_PATH) -> dict:
@@ -15,9 +16,13 @@ def get_device_list() -> list:
     json_data = load_json()
     devices_in_network = []
     for device in json_data['devices']:
-        device_list = {'device_id': device['device_id'], 'name': device['name'], 'status': device['status']}
+        device_list = device['device_id'], device['name']
         devices_in_network.append(device_list)
     return devices_in_network
 
 if __name__ == '__main__':
-    print(get_device_list())
+
+    print('====List of devices====\n')
+
+    pprint(get_device_list())
+
