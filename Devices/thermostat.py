@@ -17,11 +17,10 @@ class Thermostat(Device):
         """
         Get the current temperature of the thermostat.
 
-        This method loads the JSON data from the file, iterates through the devices,
-        and returns the current temperature in Celsius for the device with the matching device_id.
+        Loads the JSON data, searches for the device with the matching device_id,
+        and returns the current temperature in Celsius.
 
-        :return: The current temperature in Celsius as a string. If the device is not found,
-                 it returns None.
+        :return: The current temperature in Celsius as a float, or None if not found.
         """
         json_data = load_json()
         for device in json_data['devices']:
@@ -33,11 +32,10 @@ class Thermostat(Device):
         """
         Get the target temperature of the thermostat.
 
-        This method loads the JSON data from the file, iterates through the devices,
-        and returns the target temperature in Celsius for the device with the matching device_id.
+        Loads the JSON data, searches for the device with the matching device_id,
+        and returns the target temperature in Celsius.
 
-        :return: The target temperature in Celsius as a string. If the device is not found,
-                 it returns None.
+        :return: The target temperature in Celsius as a float, or None if not found.
         """
         json_data = load_json()
         for device in json_data['devices']:
@@ -49,11 +47,10 @@ class Thermostat(Device):
         """
         Get the current humidity level of the thermostat.
 
-        This method loads the JSON data from the file, iterates through the devices,
-        and returns the current humidity percentage for the device with the matching device_id.
+        Loads the JSON data, searches for the device with the matching device_id,
+        and returns the current humidity percentage.
 
-        :return: The current humidity percentage as a string. If the device is not found,
-                 it returns None.
+        :return: The current humidity percentage as a float, or None if not found.
         """
         json_data = load_json()
         for device in json_data['devices']:
