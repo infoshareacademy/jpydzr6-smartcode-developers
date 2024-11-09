@@ -13,7 +13,7 @@ class Thermostat(Device):
         else:
             print(f"Connected to thermostat {self.device_id}")
 
-    def get_current_temperature(self) -> str:
+    def get_current_temperature(self) -> float:
         """
         Get the current temperature of the thermostat.
 
@@ -21,15 +21,15 @@ class Thermostat(Device):
         and returns the current temperature in Celsius for the device with the matching device_id.
 
         :return: The current temperature in Celsius as a string. If the device is not found,
-                 it returns "Temperature not available".
+                 it returns None.
         """
         json_data = load_json()
         for device in json_data['devices']:
             if device['device_id'] == self.device_id:
-                return str(device['status'].get('current_temperature_c', "Temperature not available"))
-        return "Temperature not available"
+                return float(device['status'].get('current_temperature_c', None))
+        return None
 
-    def get_target_temperature(self) -> str:
+    def get_target_temperature(self) -> float:
         """
         Get the target temperature of the thermostat.
 
@@ -37,15 +37,15 @@ class Thermostat(Device):
         and returns the target temperature in Celsius for the device with the matching device_id.
 
         :return: The target temperature in Celsius as a string. If the device is not found,
-                 it returns "Target temperature not available".
+                 it returns None.
         """
         json_data = load_json()
         for device in json_data['devices']:
             if device['device_id'] == self.device_id:
-                return str(device['status'].get('target_temperature_c', "Target temperature not available"))
-        return "Target temperature not available"
+                return float(device['status'].get('target_temperature_c', None))
+        return None
 
-    def get_humidity(self) -> str:
+    def get_humidity(self) -> float:
         """
         Get the current humidity level of the thermostat.
 
@@ -53,13 +53,13 @@ class Thermostat(Device):
         and returns the current humidity percentage for the device with the matching device_id.
 
         :return: The current humidity percentage as a string. If the device is not found,
-                 it returns "Humidity not available".
+                 it returns None.
         """
         json_data = load_json()
         for device in json_data['devices']:
             if device['device_id'] == self.device_id:
-                return str(device['status'].get('humidity', "Humidity not available"))
-        return "Humidity not available"
+                return float(device['status'].get('humidity', None))
+        return None
 
 
 if __name__ == "__main__":
