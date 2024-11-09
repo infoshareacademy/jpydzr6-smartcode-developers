@@ -11,7 +11,7 @@ class Thermostat(Device):
         if self.device_type != "thermostat":
             raise NotCompatibleDevice
         else:
-            print(f"Connected to thermostat {self.device_id}")
+            print(f"Connected to thermostat device {self.device_id}")
 
     def get_current_temperature(self) -> float:
         """
