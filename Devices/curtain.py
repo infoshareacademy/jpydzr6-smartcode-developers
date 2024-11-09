@@ -6,23 +6,21 @@ class Curtain(Device):
 
     def connect_to_device(self) -> None:
         """
-        Connect to the device
-        :return:
+        Connect to the curtain device.
         """
         if self.device_type != "curtain":
             raise NotCompatibleDevice
         else:
-            print(f"Connected to device {self.device_id}")
+            print(f"Connected to curtain device {self.device_id}")
 
     def get_current_position(self) -> float:
         """
         Get the current position of the curtain.
 
-        This method loads the JSON data from the file, iterates through the devices,
-        and returns the current position for the curtain with the matching device_id.
+        Loads the JSON data, searches for the device with the matching device_id,
+        and returns the current position of the curtain.
 
-        :return: The current position of the curtain as a string. If the device is not found,
-                 it returns None.
+        :return: The current position of the curtain as a float, or None if not found.
         """
         json_data = load_json()
         for device in json_data['devices']:
@@ -34,11 +32,10 @@ class Curtain(Device):
         """
         Get the open percentage of the curtain.
 
-        This method loads the JSON data from the file, iterates through the devices,
-        and returns the open percentage for the curtain with the matching device_id.
+        Loads the JSON data, searches for the device with the matching device_id,
+        and returns the open percentage of the curtain.
 
-        :return: The open percentage of the curtain as a string. If the device is not found,
-                 it returns None.
+        :return: The open percentage of the curtain as a float, or None if not found.
         """
         json_data = load_json()
         for device in json_data['devices']:
