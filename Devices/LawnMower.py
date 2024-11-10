@@ -1,4 +1,5 @@
-from device import NotCompatibleDevice, Device, load_json
+from device import NotCompatibleDevice, Device, load_json, save_json
+
 
 class LawnMower(Device):
     def __init__(self, device_id: str, device_type: str):
@@ -60,17 +61,31 @@ class LawnMower(Device):
 
     def turn_on_off(self, state: str) -> None:
         """
-        Turn the lawn mower on or off.
+        Turn the lawn mower on or off and update both its current and target state.
 
         state: Desired state, "on" or "off".
         """
         if state.lower() not in ["on", "off"]:
             raise ValueError("State must be 'on' or 'off'")
-        # Assuming there's a function to send a command to the lawn mower
+
+        # Load JSON data
+        json_data = load_json()
+
+        # Find the device in JSON data and update states
+        for device in json_data['devices']:
+            if device['device_id'] == self.device_id:
+                device['status']['current_state'] = state.upper()  # Update current state
+                device['status']['target_state'] = state.upper()  # Update target state too
+                break
+
+        # Save the updated JSON data 
+        save_json(json_data)
+
         print(f"Lawn Mower {self.device_id} turned {state}")
 
+
 if __name__ == "__main__":
-    lawn_mower_device = LawnMower("abcdef1234568898", "LawnMower")
+    lawn_mower_device = LawnMower("abcdef1234563298", "LawnMower")
     lawn_mower_device.connect_to_device()
     print("Current State:", lawn_mower_device.get_current_state())
     print("Target State:", lawn_mower_device.get_target_state())
