@@ -45,3 +45,4 @@ if __name__ == "__main__":
     plug.reboot()
     plug.get_status()
     plug.change_device_name("new_plug_name")
+    plug.change_device_password()
