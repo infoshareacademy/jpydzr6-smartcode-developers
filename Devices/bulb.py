@@ -88,7 +88,7 @@ class Bulb(Device):
 
         state: Desired state, "ON" or "OFF".
         """
-        if state.upper() not in ["ON", "OFF"]:
+        if state.strip().upper() not in ["ON", "OFF"]:
             raise ValueError("State must be 'ON' or 'OFF'")
 
         json_data = load_json()
