@@ -85,7 +85,7 @@ class LawnMower(Device):
 
 
 if __name__ == "__main__":
-    lawn_mower_device = LawnMower("abcdef1234563298", "LawnMower")
+    lawn_mower_device = LawnMower("mower98765", "LawnMower")
     lawn_mower_device.connect_to_device()
     print("Current State:", lawn_mower_device.get_current_state())
     print("Target State:", lawn_mower_device.get_target_state())
