@@ -31,6 +31,45 @@ def toggle_device(index: int, devices_data: Dict[str, Any], root: tk.Tk) -> None
     save_devices(devices_data)
 
 
+def add_device(devices_data: Dict[str, Any], root: tk.Tk) -> None:
+    device_name = input("Enter the name of the new device: ")
+    device_location = input("Enter the location of the new device: ")
+
+    new_device = {
+        "name": device_name,
+        "location": device_location,
+        "status": {"power": "off"}
+    }
+    devices_data["devices"].append(new_device)
+    update_ui(devices_data, root)
+    save_devices(devices_data)
+
+
+def remove_device(devices_data: Dict[str, Any], root: tk.Tk) -> None:
+    print_devices(devices_data)
+    try:
+        device_number = int(input("Enter the device number to remove: ")) - 1
+        if 0 <= device_number < len(devices_data["devices"]):
+            devices_data["devices"].pop(device_number)
+            update_ui(devices_data, root)
+            save_devices(devices_data)
+            print("Device removed.")
+        else:
+            print("Invalid device number.")
+    except ValueError:
+        print("Enter a valid number.")
+
+
+def print_devices(devices_data: Dict[str, Any]) -> None:
+    if not devices_data["devices"]:
+        print("No devices in the system.")
+        return
+
+    for index, device in enumerate(devices_data["devices"]):
+        power_status = device['status'].get('power', 'unknown')
+        print(f"{index + 1}. {device['name']} ({device['location']}) - Power: {power_status}")
+
+
 def update_ui(devices_data: Dict[str, Any], root: tk.Tk) -> None:
     for widget in root.winfo_children():
         widget.destroy()
@@ -53,6 +92,12 @@ def update_ui(devices_data: Dict[str, Any], root: tk.Tk) -> None:
             command=lambda idx=index: toggle_device(idx, devices_data, root)
         )
         button.pack(side="right")
+
+    add_button = tk.Button(root, text="Add Device", command=lambda: add_device(devices_data, root))
+    add_button.pack(padx=10, pady=5, fill="x")
+
+    remove_button = tk.Button(root, text="Remove Device", command=lambda: remove_device(devices_data, root))
+    remove_button.pack(padx=10, pady=5, fill="x")
 
     print("UI updated.")
 

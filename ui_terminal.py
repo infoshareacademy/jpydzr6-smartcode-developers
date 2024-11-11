@@ -44,6 +44,29 @@ def print_devices(devices_data: Dict[str, Any]) -> None:
         print(f"{index + 1}. {device['name']} ({device['location']}) - Power: {power_status}")
 
 
+def add_device(devices_data: Dict[str, Any]) -> None:
+    name = input("Enter device name: ")
+    location = input("Enter device location: ")
+    new_device = {"name": name, "location": location, "status": {"power": "off"}}
+    devices_data["devices"].append(new_device)
+    save_devices(devices_data)
+    print(f"Device '{name}' added successfully.")
+
+
+def remove_device(devices_data: Dict[str, Any]) -> None:
+    print_devices(devices_data)
+    try:
+        device_number = int(input("Enter the device number to remove: ")) - 1
+        if 0 <= device_number < len(devices_data["devices"]):
+            removed_device = devices_data["devices"].pop(device_number)
+            save_devices(devices_data)
+            print(f"Device '{removed_device['name']}' removed successfully.")
+        else:
+            print("Invalid device number.")
+    except ValueError:
+        print("Enter a valid number.")
+
+
 def menu() -> None:
     devices_data = load_devices()
 
@@ -51,7 +74,9 @@ def menu() -> None:
         print("\nChoose an option:")
         print("1. Show devices")
         print("2. Toggle device")
-        print("3. Save and exit")
+        print("3. Add device")
+        print("4. Remove device")
+        print("5. Save and exit")
 
         option = input("Choose an option number: ")
 
@@ -71,6 +96,12 @@ def menu() -> None:
                 print("Enter a valid number.")
 
         elif option == "3":
+            add_device(devices_data)
+
+        elif option == "4":
+            remove_device(devices_data)
+
+        elif option == "5":
             save_devices(devices_data)
             print("Data has been saved.")
             break
