@@ -1,7 +1,12 @@
 from abc import ABC
 import json
+import sys
+import os
 from datetime import datetime
 from colorama import Fore, init
+
+sys.path.append(os.path.abspath('..'))
+from logging_config import get_logger
 
 FILE_PATH = "../devices.json"
 MAX_ATTEMPTS = 3
@@ -41,21 +46,26 @@ class Device(ABC):
         self.device_id = device_id
         self.device_type = device_type
         self.connected = False
+        self.logger = get_logger()
 
     def connect_to_device(self) -> None:
         """
         Connects to the device if compatible with the current class.
         """
         print(f"{Fore.YELLOW}Connecting to device {self.device_id}...")
+        self.logger.info(f"Connecting to device {self.device_id}...")
 
         if self.device_type != self.__class__.__name__.lower():
             print(f"{Fore.RED}Connection error: Device {self.device_id} is not compatible.")
+            self.logger.error(f"Connection error: Device {self.device_id} is not compatible.")
             raise NotCompatibleDevice
         if self.__login_to_device():
             self.connected = True
             print(f"{Fore.GREEN}Successfully connected to device {self.device_id}.")
+            self.logger.info(f"Successfully connected to device {self.device_id}.")
         else:
             print(f"{Fore.RED}Wrong password, failed to connect to device {self.device_id}.")
+            self.logger.error(f"Wrong password, failed to connect to device {self.device_id}.")
             raise CantConnectToDevice
 
     def __login_to_device(self) -> bool:
@@ -87,6 +97,7 @@ class Device(ABC):
         """
         if not self.connected:
             print(f"{Fore.RED}Cannot change password. Device {self.device_id} is not connected.")
+            self.logger.error(f"Cannot change password. Device {self.device_id} is not connected.")
             return False
 
         counter = 0
@@ -114,8 +125,10 @@ class Device(ABC):
                 device['device_secret_key'] = new_password
                 save_json(json_data)
                 print(f"{Fore.GREEN}Password changed successfully for device {self.device_id}.")
+                self.logger.info(f"Password changed for device {self.device_id}.")
                 return True
         print(f"{Fore.RED}Failed to change password for device {self.device_id}.")
+        self.logger.error(f"Failed to change password for device {self.device_id}.")
         return False
 
 
@@ -128,6 +141,7 @@ class Device(ABC):
         if self.connected:
             self.connected = False
             print(f"{Fore.GREEN}Successfully disconnected from device {self.device_id}.")
+            self.logger.info(f"disconnected from device {self.device_id}.")
         else:
             print(f"{Fore.YELLOW}Device {self.device_id} was not connected.")
 
@@ -148,6 +162,7 @@ class Device(ABC):
                 device['status']['power'] = new_state
                 self.modify_last_updated(json_data)
                 print(f"{Fore.GREEN}Device {self.device_id} power set to {new_state}.")
+                self.logger.info(f"Device {self.device_id} power set to {new_state}.")
                 break
 
     def reboot(self) -> bool:
@@ -162,11 +177,13 @@ class Device(ABC):
             return False
 
         print(f"{Fore.YELLOW}Rebooting device {self.device_id}...")
+        self.logger.info(f"Rebooting device {self.device_id}...")
         
         self.turn_on_off("off")
         self.turn_on_off("on")
         
         print(f"{Fore.GREEN}Device {self.device_id} is back online.")
+        self.logger.info(f"Device {self.device_id} is back online.")
         return True
 
     def get_status(self) -> str | None:
@@ -178,9 +195,11 @@ class Device(ABC):
         """
         if not self.connected:
             print(f"{Fore.RED}Cannot get status. Device {self.device_id} is not connected.")
+            self.logger.error(f"Cannot get status. Device {self.device_id} is not connected.")
             return None
 
         print(f"{Fore.GREEN}Getting status for device {self.device_id}")
+        self.logger.info(f"Getting status for device {self.device_id}")
 
         json_data = load_json()
         device_status = next(
@@ -192,6 +211,7 @@ class Device(ABC):
             return f"{Fore.BLUE}{json.dumps(device_status, indent=4)}"
         else:
             print(f"{Fore.RED}Status not found for device {self.device_id}.")
+            self.logger.error(f"Status not found for device {self.device_id}.")
             return None
 
     def change_device_name(self, name: str) -> bool:
@@ -209,6 +229,7 @@ class Device(ABC):
         """
         if not self.connected:
             print(f"{Fore.RED}Cannot change device name. Device {self.device_id} is not connected.")
+            self.logger.error(f"Cannot change device name. Device {self.device_id} is not connected.")
             return False
 
         json_data = load_json()
@@ -218,9 +239,11 @@ class Device(ABC):
                 device['name'] = name
                 self.modify_last_updated(json_data)
                 print(f"{Fore.GREEN}Device name changed successfully. New name: {name}")
+                self.logger.info(f"Device name changed successfully. New name: {name}")
                 return True
 
         print(f"{Fore.RED}Failed to change device name. Device {self.device_id} not found.")
+        self.logger.error(f"Failed to change device name. Device {self.device_id} not found.")
         return False
 
     def modify_last_updated(self, json_data) -> None:
