@@ -6,7 +6,7 @@ class Thermostat(Device):
 
     """ def connect_to_device(self) -> None:
         """
-        Connect to the thermostat device.
+        '''Connect to the thermostat device.'''
         """
         if self.device_type != "thermostat":
             raise NotCompatibleDevice
