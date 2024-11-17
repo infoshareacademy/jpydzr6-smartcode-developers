@@ -4,14 +4,7 @@ class Curtain(Device):
     def __init__(self, device_id: str, device_type: str):
         super().__init__(device_id, device_type)
 
-    def connect_to_device(self) -> None:
-        """
-        Connect to the curtain device.
-        """
-        if self.device_type != "curtain":
-            raise NotCompatibleDevice
-        else:
-            print(f"Connected to curtain device {self.device_id}")
+
 
     def get_current_position(self) -> float:
         """
