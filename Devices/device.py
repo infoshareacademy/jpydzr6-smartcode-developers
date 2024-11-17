@@ -4,6 +4,7 @@ from datetime import datetime
 from colorama import Fore, init
 
 FILE_PATH = "../devices.json"
+MAX_ATTEMPTS = 3
 # Initialize Colorama (necessary for Windows compatibility)
 init(autoreset=True)
 
@@ -19,6 +20,16 @@ def save_json(data, file_path = FILE_PATH):
 class NotCompatibleDevice(Exception):
     """
     Exception raised when device is not compatible
+    """
+
+class CantConnectToDevice(Exception):
+    """
+    Exception raised when device can't connect
+    """
+
+class ToManyAttempts(Exception):
+    """
+    Exception raised when too many attempts are made
     """
 
 class Device(ABC):
@@ -40,9 +51,73 @@ class Device(ABC):
         if self.device_type != self.__class__.__name__.lower():
             print(f"{Fore.RED}Connection error: Device {self.device_id} is not compatible.")
             raise NotCompatibleDevice
+        if self.__login_to_device():
+            self.connected = True
+            print(f"{Fore.GREEN}Successfully connected to device {self.device_id}.")
+        else:
+            print(f"{Fore.RED}Wrong password, failed to connect to device {self.device_id}.")
+            raise CantConnectToDevice
 
-        self.connected = True
-        print(f"{Fore.GREEN}Successfully connected to device {self.device_id}.")      
+    def __login_to_device(self) -> bool:
+        """
+        Logs in to the device during connection process.
+        """
+        password = input(f"Enter password for device {self.device_id}: ")
+        device_secret_key = self.__get_device_secret_key()
+
+        if device_secret_key == password:
+            return True
+        return False
+
+    def __get_device_secret_key(self) -> str | None:
+        """
+        Retrieves the device secret key from the JSON data.
+        """
+        device_secret_key = None
+        json_data = load_json()
+        for device in json_data['devices']:
+            if device['device_id'] == self.device_id:
+                device_secret_key = device['device_secret_key']
+                break
+        return device_secret_key
+
+    def change_device_password(self) -> bool:
+        """
+        Changes the password for the device if connected.
+        """
+        if not self.connected:
+            print(f"{Fore.RED}Cannot change password. Device {self.device_id} is not connected.")
+            return False
+
+        counter = 0
+        prompt = f"Enter current password for device {self.device_id}: "
+        current_password = self.__get_device_secret_key()
+        while input(prompt) != current_password:
+            counter += 1
+            if counter >= MAX_ATTEMPTS:
+                raise ToManyAttempts
+            print(f"{Fore.RED}Incorrect password. Please try again.")
+
+        counter = 0
+        prompt_new_password = f"Enter new password for device {self.device_id}: "
+        prompt_confirm_password = f"Confirm new password for device {self.device_id}: "
+        while (new_password:= input(prompt_new_password)) != input(prompt_confirm_password):
+            counter += 1
+            if counter > MAX_ATTEMPTS:
+                print(f"{Fore.RED}Too many attempts. Please try again later.")
+                return False
+            print(f"{Fore.RED}Incorrect password. Please try again.")
+
+        json_data = load_json()
+        for device in json_data['devices']:
+            if device['device_id'] == self.device_id:
+                device['device_secret_key'] = new_password
+                save_json(json_data)
+                print(f"{Fore.GREEN}Password changed successfully for device {self.device_id}.")
+                return True
+        print(f"{Fore.RED}Failed to change password for device {self.device_id}.")
+        return False
+
 
     def disconnect_from_device(self) -> None:
         """

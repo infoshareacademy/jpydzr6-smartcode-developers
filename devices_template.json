@@ -2,6 +2,7 @@
   "devices": [
     {
       "device_id": "1234567890abcdef",
+      "device_secret_key": "xxx",
       "name": "Smart Light Bulb",
       "type": "light",
       "brand": "Tuya",
@@ -22,6 +23,7 @@
     },
     {
       "device_id": "abcdef1234567890",
+      "device_secret_key": "xxx",
       "name": "Smart Light Bulb",
       "type": "light",
       "brand": "Tuya",
@@ -42,6 +44,7 @@
     },
     {
       "device_id": "1234567890abcdef",
+      "device_secret_key": "xxx",
       "name": "Smart Light Bulb",
       "type": "light",
       "brand": "Tuya",
@@ -62,6 +65,7 @@
     },
     {
       "device_id": "abcdef1234567999",
+      "device_secret_key": "xxx",
       "name": "Smart Plug",
       "type": "plug",
       "brand": "Tuya",
@@ -79,6 +83,7 @@
     },
     {
       "device_id": "abcdef1234561547",
+      "device_secret_key": "xxx",
       "name": "Smart Plug",
       "type": "plug",
       "brand": "Tuya",
@@ -96,6 +101,7 @@
     },
     {
       "device_id": "abcdef123456578",
+      "device_secret_key": "xxx",
       "name": "Smart Plug",
       "type": "plug",
       "brand": "Tuya",
@@ -113,6 +119,7 @@
     },
     {
       "device_id": "abcdef1234563298",
+      "device_secret_key": "xxx",
       "name": "Smart Thermostat",
       "type": "thermostat",
       "brand": "Tuya",
@@ -129,6 +136,7 @@
     },
     {
       "device_id": "curtain12345",
+      "device_secret_key": "xxx",
       "name": "Automatic Curtain",
       "type": "curtain",
       "brand": "Tuya",
@@ -144,6 +152,7 @@
     },
     {
       "device_id": "weatherstation56789",
+      "device_secret_key": "xxx",
       "name": "Smart Weather Station",
       "type": "weather_station",
       "brand": "Tuya",
@@ -161,6 +170,7 @@
     },
     {
       "device_id": "mower98765",
+      "device_secret_key": "xxx",
       "name": "Automatic Lawn Mower",
       "type": "lawn_mower",
       "brand": "Tuya",
