@@ -1,0 +1,21 @@
+{
+  "users": [
+    {"user_id": "01",
+      "name": "first_user"
+    },
+    {"user_id": "02",
+      "name": "second_user"
+    },
+    {"user_id": "03",
+      "name": "third_user"
+    },
+    {
+      "user_id": "04",
+      "name": "fourth_user"
+    },
+    {
+      "user_id": "05",
+      "name": "fifth_user"
+    }
+  ]
+}
