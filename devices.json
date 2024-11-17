@@ -1,0 +1,191 @@
+{
+    "devices": [
+        {
+            "device_id": "1234567890abcdef",
+            "device_secret_key": "xxx",
+            "name": "Smart Light Bulb",
+            "type": "light",
+            "brand": "Tuya",
+            "model": "TY-SLB-01",
+            "status": {
+                "power": "on",
+                "brightness": 80,
+                "color_temp": 5000,
+                "rgb": {
+                    "red": 255,
+                    "green": 100,
+                    "blue": 50
+                }
+            },
+            "location": "Living Room",
+            "connected": true,
+            "last_updated": "2024-10-19T14:52:00Z"
+        },
+        {
+            "device_id": "abcdef1234567890",
+            "device_secret_key": "xxx",
+            "name": "Smart Light Bulb",
+            "type": "light",
+            "brand": "Tuya",
+            "model": "TY-SLB-01",
+            "status": {
+                "power": "on",
+                "brightness": 80,
+                "color_temp": 5000,
+                "rgb": {
+                    "red": 255,
+                    "green": 100,
+                    "blue": 50
+                }
+            },
+            "location": "Kitchen",
+            "connected": true,
+            "last_updated": "2024-10-19T14:52:00Z"
+        },
+        {
+            "device_id": "1234567890abcdef",
+            "device_secret_key": "xxx",
+            "name": "Smart Light Bulb",
+            "type": "light",
+            "brand": "Tuya",
+            "model": "TY-SLB-01",
+            "status": {
+                "power": "off",
+                "brightness": 80,
+                "color_temp": 5000,
+                "rgb": {
+                    "red": 255,
+                    "green": 100,
+                    "blue": 50
+                }
+            },
+            "location": "Living Room",
+            "connected": true,
+            "last_updated": "2024-10-19T14:52:00Z"
+        },
+        {
+            "device_id": "abcdef1234567999",
+            "device_secret_key": "xxx",
+            "name": "new_plug_name",
+            "type": "plug",
+            "brand": "Tuya",
+            "model": "TY-SP-01",
+            "status": {
+                "power": "on",
+                "energy_consumption": {
+                    "current_power_w": 20,
+                    "total_energy_kwh": 5.4
+                }
+            },
+            "location": "Living Room",
+            "connected": true,
+            "last_updated": "2024-11-10 20:07:02"
+        },
+        {
+            "device_id": "abcdef1234561547",
+            "device_secret_key": "xxx",
+            "name": "Smart Plug",
+            "type": "plug",
+            "brand": "Tuya",
+            "model": "TY-SP-01",
+            "status": {
+                "power": "off",
+                "energy_consumption": {
+                    "current_power_w": 0,
+                    "total_energy_kwh": 0.4
+                }
+            },
+            "location": "Kitchen",
+            "connected": true,
+            "last_updated": "2024-10-19T14:50:00Z"
+        },
+        {
+            "device_id": "abcdef123456578",
+            "device_secret_key": "xxx",
+            "name": "Smart Plug",
+            "type": "plug",
+            "brand": "Tuya",
+            "model": "TY-SP-01",
+            "status": {
+                "power": "off",
+                "energy_consumption": {
+                    "current_power_w": 10,
+                    "total_energy_kwh": 15.4
+                }
+            },
+            "location": "Hallway",
+            "connected": true,
+            "last_updated": "2024-10-19T14:50:00Z"
+        },
+        {
+            "device_id": "abcdef1234563298",
+            "device_secret_key": "xxx",
+            "name": "Smart Thermostat",
+            "type": "thermostat",
+            "brand": "Tuya",
+            "model": "TY-TH-01",
+            "status": {
+                "power": "on",
+                "target_temperature_c": 22,
+                "current_temperature_c": 21,
+                "humidity": 45
+            },
+            "location": "Bedroom",
+            "connected": true,
+            "last_updated": "2024-10-19T14:55:00Z"
+        },
+        {
+            "device_id": "curtain12345",
+            "device_secret_key": "xxx",
+            "name": "Automatic Curtain",
+            "type": "curtain",
+            "brand": "Tuya",
+            "model": "TY-AC-01",
+            "status": {
+                "power": "on",
+                "position": 75,
+                "open_percent": 75
+            },
+            "location": "Living Room",
+            "connected": true,
+            "last_updated": "2024-10-19T14:58:00Z"
+        },
+        {
+            "device_id": "weatherstation56789",
+            "device_secret_key": "xxx",
+            "name": "Smart Weather Station",
+            "type": "weather_station",
+            "brand": "Tuya",
+            "model": "TY-WS-01",
+            "status": {
+                "temperature_c": 16.5,
+                "humidity_percent": 65,
+                "pressure_hpa": 1013,
+                "wind_speed_kmh": 12,
+                "rainfall_mm": 2.3
+            },
+            "location": "Garden",
+            "connected": true,
+            "last_updated": "2024-10-19T14:59:00Z"
+        },
+        {
+            "device_id": "mower98765",
+            "device_secret_key": "xxx",
+            "name": "Automatic Lawn Mower",
+            "type": "lawn_mower",
+            "brand": "Tuya",
+            "model": "TY-AM-01",
+            "status": {
+                "power": "on",
+                "battery_percent": 85,
+                "cutting_mode": "auto",
+                "cutting_height_mm": 30,
+                "current_area_m2": 500,
+                "total_cutting_time_minutes": 120
+            },
+            "location": "Backyard",
+            "connected": true,
+            "last_updated": "2024-10-19T15:00:00Z"
+        }
+    ]
+}
