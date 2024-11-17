@@ -5,14 +5,14 @@ class WeatherStation(Device):
     def __init__(self, device_id: str, device_type: str):
         super().__init__(device_id, device_type)
 
-    def connect_to_device(self) -> None:
+    '''def connect_to_device(self) -> None:
         """
         Connect to the weather station device.
         """
         if self.device_type != "WeatherStation":
             raise NotCompatibleDevice("Device type is not compatible.")
         else:
-            print(f"Connected to Weather Station {self.device_id}")
+            print(f"Connected to Weather Station {self.device_id}")'''
 
     def load_device_info(self) -> dict:
         """
