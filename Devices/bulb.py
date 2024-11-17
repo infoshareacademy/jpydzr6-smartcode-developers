@@ -5,14 +5,7 @@ class Bulb(Device):
     def __init__(self, device_id: str, device_type: str):
         super().__init__(device_id, device_type)
 
-    def connect_to_device(self) -> None:
-        """
-        Connect to the bulb device.
-        """
-        if self.device_type != "Bulb":
-            raise NotCompatibleDevice("Device type is not compatible.")
-        else:
-            print(f"Connected to Bulb {self.device_id}")
+ 
 
     def load_device_info(self) -> dict:
         """
