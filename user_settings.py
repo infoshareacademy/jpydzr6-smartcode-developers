@@ -34,61 +34,56 @@ class UserSettings:
 
     # Querying list of users
     def get_users_list(self):
-        json_data = self.load_json_user_file()
-        if len(json_data) == 0:
+        users = self.load_json_user_file()
+        if len(users) == 0:
             return "There are no users"
         else:
-            return [(self.user["user_id"], self.user["name"] for self.user in json_data["users"]]
+            return [(user["user_id"], user["name"]) for user in users["users"]]
 
 
     # Adding new user
     def add_new_user(self, user_id: int, name: str):
-        json_data = self.load_json_user_file()
+        users = self.load_json_user_file()
        # Verification if the user already exists and adding the user to the list
-        if user_id or name in json_data:
+        if user_id or name in users:
             return "The user already exists"
         else:
-            json_data[user_id, name].append(self.user_id, self.name)
+            users[user_id, name].append(self.user_id, self.name)
 
     # Deleting user
     def delete_user(self, user_id: int, name: str):
-        json_data = self.load_json_user_file()
+        users = self.load_json_user_file()
         # Verification and deleting
-        if user_id and name in json_data:
-            del json_data[user_id, name]
+        if user_id and name in users:
+            del users[user_id, name]
         else:
             print("User not found")
 
     # Updating user's name
     def update_user_name(self, user_id: int, new_name: str):
-        json_data = self.load_json_user_file()
+        users = self.load_json_user_file()
         # Verification if the user exist and changing their name
-        if user_id in json_data:
+        if user_id in users:
             self.name = new_name
         else:
             print("User not found")
 
     # Finding user
-    def find_user(self, user_id: int, name: str):
-        json_data = self.load_json_user_file()
-        if user_id or name in json_data:
-            return json_data[user_id, name]
+    def get_user(self, user_id: int, name: str):
+        users = self.load_json_user_file()
+        if user_id or name in users:
+            return users[user_id, name]
         else:
             return "User not found"
 
     # Listing devices the user has access to
     def accessed_devices(self, user_id: int):
-        json_data_devices = self.load_json_devices_file()
-        json_data_users = self.load_json_user_file()
+        devices = self.load_json_devices_file()
+        users = self.load_json_user_file()
         # Iterating "devices" file to find ID of the user from "users" list
-        for device in json_data_devices["devices"]:
+        for device in devices["devices"]:
             try:
-                if self.user_id in device and self.user_id in json_data_users:
+                if self.user_id in device and self.user_id in users:
                     return device
             except:
                 pass
-
-
-
-if __name__ == '__main__':
-    ...
