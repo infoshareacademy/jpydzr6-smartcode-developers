@@ -5,7 +5,7 @@ class Curtain(Device):
         super().__init__(device_id, device_type)
 
 
-    def get_current_position(self) -> float:
+    def get_current_position(self) -> float | None:
         """
         Get the current position of the curtain.
 
@@ -20,7 +20,7 @@ class Curtain(Device):
                 return float(device['status'].get('position', None))
         return None
 
-    def get_open_percentage(self) -> float:
+    def get_open_percentage(self) -> float | None:
         """
         Get the open percentage of the curtain.
 
