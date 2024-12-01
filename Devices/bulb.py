@@ -5,28 +5,7 @@ class Bulb(Device):
     def __init__(self, device_id: str, device_type: str):
         super().__init__(device_id, device_type)
 
-    '''def connect_to_device(self) -> None:
-        """
-        Connect to the bulb device.
-        """
-        if self.device_type != "Bulb":
-            raise NotCompatibleDevice("Device type is not compatible.")
-        else:
-            print(f"Connected to Bulb {self.device_id}")'''
-
-    def load_device_info(self) -> dict:
-        """
-        Load the JSON data and retrieve the information for this specific bulb.
-
-        A dictionary containing the device's information, or an empty dictionary if not found.
-        """
-        json_data = load_json()
-        for device in json_data.get('devices', []):
-            if device['device_id'] == self.device_id:
-                return device
-        return {}
-
-    def get_name(self) -> str:
+    def get_name(self) -> str | None:
         """
         Get the name of the bulb.
 
@@ -34,7 +13,7 @@ class Bulb(Device):
         """
         return self.load_device_info().get('name', None)
 
-    def get_brand(self) -> str:
+    def get_brand(self) -> str | None:
         """
         Get the brand of the bulb.
 
@@ -42,7 +21,7 @@ class Bulb(Device):
         """
         return self.load_device_info().get('brand', None)
 
-    def get_model(self) -> str:
+    def get_model(self) -> str | None:
         """
         Get the model of the bulb.
 
@@ -50,7 +29,7 @@ class Bulb(Device):
         """
         return self.load_device_info().get('model', None)
 
-    def get_power(self) -> str:
+    def get_power(self) -> str | None:
         """
         Get the current power status of the bulb (on or off).
 
@@ -58,7 +37,7 @@ class Bulb(Device):
         """
         return self.load_device_info().get('status', {}).get('power', None)
 
-    def get_brightness(self) -> int:
+    def get_brightness(self) -> int | None:
         """
         Get the current brightness level of the bulb.
 
@@ -66,7 +45,7 @@ class Bulb(Device):
         """
         return self.load_device_info().get('status', {}).get('brightness', None)
 
-    def get_color_temp(self) -> int:
+    def get_color_temp(self) -> int | None:
         """
         Get the color temperature of the bulb.
 
@@ -74,31 +53,13 @@ class Bulb(Device):
         """
         return self.load_device_info().get('status', {}).get('color_temp', None)
 
-    def get_rgb(self) -> dict:
+    def get_rgb(self) -> dict | None:
         """
         Get the RGB color settings of the bulb.
 
         A dictionary with 'red', 'green', 'blue' values, or None if not found.
         """
         return self.load_device_info().get('status', {}).get('rgb', None)
-
-    def turn_on_off(self, state: str) -> None:
-        """
-        Turn the bulb on or off and update the power state in the JSON data.
-
-        state: Desired state, "ON" or "OFF".
-        """
-        if state.strip().upper() not in ["ON", "OFF"]:
-            raise ValueError("State must be 'ON' or 'OFF'")
-
-        json_data = load_json()
-        for device in json_data['devices']:
-            if device['device_id'] == self.device_id:
-                device['status']['power'] = state.lower()  # Update power state
-                break
-        save_json(json_data)
-        print(f"Bulb {self.device_id} turned {state}")
-
 
 if __name__ == '__main__':
     bulb_device = Bulb("1234567890abcdef", "Bulb")
@@ -111,3 +72,4 @@ if __name__ == '__main__':
     print("Color Temperature:", bulb_device.get_color_temp())
     print("RGB:", bulb_device.get_rgb())
     bulb_device.turn_on_off("OFF")
+    bulb_device.display_device_info()

@@ -4,7 +4,7 @@
       "device_id": "1234567890abcdef",
       "device_secret_key": "xxx",
       "name": "Smart Light Bulb",
-      "type": "light",
+      "type": "bulb",
       "brand": "Tuya",
       "model": "TY-SLB-01",
       "status": {
@@ -25,7 +25,7 @@
       "device_id": "abcdef1234567890",
       "device_secret_key": "xxx",
       "name": "Smart Light Bulb",
-      "type": "light",
+      "type": "bulb",
       "brand": "Tuya",
       "model": "TY-SLB-01",
       "status": {
@@ -46,7 +46,7 @@
       "device_id": "1234567890abcdef",
       "device_secret_key": "xxx",
       "name": "Smart Light Bulb",
-      "type": "light",
+      "type": "bulb",
       "brand": "Tuya",
       "model": "TY-SLB-01",
       "status": {

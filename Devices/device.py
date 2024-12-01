@@ -55,7 +55,7 @@ class Device(ABC):
         print(f"{Fore.YELLOW}Connecting to device {self.device_id}...")
         self.logger.info(f"Connecting to device {self.device_id}...")
 
-        if self.device_type != self.__class__.__name__.lower():
+        if self.device_type.lower() != self.__class__.__name__.lower():
             print(f"{Fore.RED}Connection error: Device {self.device_id} is not compatible.")
             self.logger.error(f"Connection error: Device {self.device_id} is not compatible.")
             raise NotCompatibleDevice
@@ -245,6 +245,33 @@ class Device(ABC):
         print(f"{Fore.RED}Failed to change device name. Device {self.device_id} not found.")
         self.logger.error(f"Failed to change device name. Device {self.device_id} not found.")
         return False
+
+    def load_device_info(self) -> dict | None:
+        """
+        Load the JSON data and retrieve the information for this specific device.
+
+        A dictionary containing the device's information, or an empty dictionary if not found.
+        """
+        if not self.connected:
+            print(f"{Fore.RED}Cannot change device name. Device {self.device_id} is not connected.")
+            self.logger.error(f"Cannot change device name. Device {self.device_id} is not connected.")
+            return None
+
+        json_data = load_json()
+        for device in json_data.get('devices', []):
+            if device['device_id'] == self.device_id:
+                return device
+        return {}
+
+    def display_device_info(self) -> None:
+        """
+        Display the information for this specific device.
+        """
+        device_info = self.load_device_info()
+        if device_info:
+            print(f"{Fore.BLUE}{json.dumps(device_info, indent=4)}")
+        else:
+            print(f"{Fore.RED}Device information not found for device {self.device_id}.")
 
     def modify_last_updated(self, json_data) -> None:
         """

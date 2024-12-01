@@ -4,11 +4,11 @@
             "device_id": "1234567890abcdef",
             "device_secret_key": "xxx",
             "name": "Smart Light Bulb",
-            "type": "light",
+            "type": "bulb",
             "brand": "Tuya",
             "model": "TY-SLB-01",
             "status": {
-                "power": "on",
+                "power": "OFF",
                 "brightness": 80,
                 "color_temp": 5000,
                 "rgb": {
@@ -19,13 +19,13 @@
             },
             "location": "Living Room",
             "connected": true,
-            "last_updated": "2024-10-19T14:52:00Z"
+            "last_updated": "2024-12-01 20:12:21"
         },
         {
             "device_id": "abcdef1234567890",
             "device_secret_key": "xxx",
             "name": "Smart Light Bulb",
-            "type": "light",
+            "type": "bulb",
             "brand": "Tuya",
             "model": "TY-SLB-01",
             "status": {
@@ -46,7 +46,7 @@
             "device_id": "1234567890abcdef",
             "device_secret_key": "xxx",
             "name": "Smart Light Bulb",
-            "type": "light",
+            "type": "bulb",
             "brand": "Tuya",
             "model": "TY-SLB-01",
             "status": {
@@ -71,7 +71,7 @@
             "brand": "Tuya",
             "model": "TY-SP-01",
             "status": {
-                "power": "on",
+                "power": "off",
                 "energy_consumption": {
                     "current_power_w": 20,
                     "total_energy_kwh": 5.4
@@ -79,7 +79,7 @@
             },
             "location": "Living Room",
             "connected": true,
-            "last_updated": "2024-11-10 20:07:02"
+            "last_updated": "2024-12-01 20:04:41"
         },
         {
             "device_id": "abcdef1234561547",
@@ -162,11 +162,12 @@
                 "humidity_percent": 65,
                 "pressure_hpa": 1013,
                 "wind_speed_kmh": 12,
-                "rainfall_mm": 2.3
+                "rainfall_mm": 2.3,
+                "power": "off"
             },
             "location": "Garden",
             "connected": true,
-            "last_updated": "2024-10-19T14:59:00Z"
+            "last_updated": "2024-12-01 20:26:09"
         },
         {
             "device_id": "mower98765",
@@ -176,7 +177,7 @@
             "brand": "Tuya",
             "model": "TY-AM-01",
             "status": {
-                "power": "on",
+                "power": "off",
                 "battery_percent": 85,
                 "cutting_mode": "auto",
                 "cutting_height_mm": 30,
@@ -185,7 +186,7 @@
             },
             "location": "Backyard",
             "connected": true,
-            "last_updated": "2024-10-19T15:00:00Z"
+            "last_updated": "2024-12-01 20:20:42"
         }
     ]
 }
