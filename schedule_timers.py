@@ -116,7 +116,7 @@ def menu() -> None:
         print("6. Save and exit")
 
         # Checking if there are any time schedules set and activating them if conditions are met
-        ScheduleUpdate.check_schedule_time(devices_data["devices"])        
+        ScheduleUpdate.check_schedule_time(scheduled_devices["task_list"])        
            
         elif option == "5":
             print("\nChoose an option:")
@@ -125,7 +125,7 @@ def menu() -> None:
 
             option_time = input("Choose an option: ")
             if option_time == "a":
-                ScheduleUpdate.add_turn_on_off_time(devices_data)
+                ScheduleUpdate.add_turn_on_off_time(devices_list)
             if option_time == "b":
-                ScheduleUpdate.duration_time(devices_data, devices_data)
+                ScheduleUpdate.add_working_time(devices_data)
 """
