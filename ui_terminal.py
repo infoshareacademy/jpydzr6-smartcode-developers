@@ -118,6 +118,12 @@ def loop_specific_operations(device, specific_operations):
         else:
             print(f"Method does not exist.")
 
+def show_logs():
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs\\app.log")
+    with open(file_path, "r") as file:
+        for line in file:
+            print(line.strip())
+
 def interact_with_device():
     device_id = input("Enter device id: ")
     device_type = input("Enter device type: ")
@@ -173,7 +179,8 @@ def menu() -> None:
         print("3. Add device")
         print("4. Remove device")
         print("5. Interact with device")
-        print("6. Save and exit")
+        print("6. Show logs")
+        print("7. Save and exit")
 
         option = input("Choose an option number: ")
 
@@ -199,9 +206,12 @@ def menu() -> None:
             remove_device(devices_data)
 
         elif option == "5":
-            interact_with_device()            
+            interact_with_device()     
 
         elif option == "6":
+            show_logs()            
+
+        elif option == "7":
             save_devices(devices_data)
             print("Data has been saved.")
             break
