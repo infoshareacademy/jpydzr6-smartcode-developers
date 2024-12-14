@@ -9,7 +9,7 @@ from colorama import Fore, init
 sys.path.append(os.path.abspath('..'))
 from logging_config import get_logger
 
-FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..\\devices.json")
+FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../devices.json")
 MAX_ATTEMPTS = 3
 # Initialize Colorama (necessary for Windows compatibility)
 init(autoreset=True)

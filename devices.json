@@ -3,7 +3,7 @@
         {
             "device_id": "bulb1",
             "device_secret_key": "xxx",
-            "name": "Smart Light Bulb",
+            "name": "bulb111111",
             "type": "bulb",
             "brand": "Tuya",
             "model": "TY-SLB-01",
@@ -19,7 +19,7 @@
             },
             "location": "Living Room",
             "connected": true,
-            "last_updated": "2024-12-14 13:43:52"
+            "last_updated": "2024-12-14 14:43:20"
         },
         {
             "device_id": "bulb2",
@@ -50,7 +50,7 @@
             "brand": "Tuya",
             "model": "TY-SLB-01",
             "status": {
-                "power": "off",
+                "power": "on",
                 "brightness": 80,
                 "color_temp": 5000,
                 "rgb": {
@@ -154,7 +154,7 @@
             "device_id": "station1",
             "device_secret_key": "xxx",
             "name": "Smart Weather Station",
-            "type": "weather_station",
+            "type": "weatherstation",
             "brand": "Tuya",
             "model": "TY-WS-01",
             "status": {
@@ -186,7 +186,7 @@
             },
             "location": "Backyard",
             "connected": true,
-            "last_updated": "2024-12-14 14:02:46"
+            "last_updated": "2024-12-14 14:47:52"
         }
     ]
 }

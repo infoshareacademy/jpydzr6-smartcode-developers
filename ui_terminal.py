@@ -59,7 +59,9 @@ def print_devices(devices_data: Dict[str, Any]) -> None:
 def add_device(devices_data: Dict[str, Any]) -> None:
     name = input("Enter device name: ")
     location = input("Enter device location: ")
-    new_device = {"name": name, "location": location, "status": {"power": "off"}}
+    device_id = input("Enter device id: ")
+    device_type = input("Enter device type: ")
+    new_device = {"name": name, "location": location, "device_id":device_id,"type":device_type, "status": {"power": "off"}}
     devices_data["devices"].append(new_device)
     save_devices(devices_data)
     print(f"Device '{name}' added successfully.")
@@ -91,7 +93,7 @@ def create_device_object(device_id: str, device_type: str):
             return LawnMower(device_id, device_type)
         case "thermostat":
             return Thermostat(device_id, device_type)
-        case "weather_station":
+        case "weatherstation":
             return WeatherStation(device_id, device_type)
         case _:
             print("Unsupported device type")
@@ -107,9 +109,9 @@ def loop_specific_operations(device, specific_operations):
     specific_operations.append("Return")
     while True:
         for index, element in enumerate(specific_operations):
-            print(f"{index}: {element}")
+            print(f"{index+1}: {element}")
 
-        specific_operation = int(input("\nChoose an option number: "))
+        specific_operation = int(input("\nChoose an option number: "))-1
         if hasattr(device, specific_operations[specific_operation]):
             method = getattr(device, specific_operations[specific_operation])
             print(f"\n{method()}\n")
@@ -119,7 +121,7 @@ def loop_specific_operations(device, specific_operations):
             print(f"Method does not exist.")
 
 def show_logs():
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs\\app.log")
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs/app.log")
     with open(file_path, "r") as file:
         for line in file:
             print(line.strip())
@@ -209,7 +211,7 @@ def menu() -> None:
             interact_with_device()     
 
         elif option == "6":
-            show_logs()            
+            show_logs()
 
         elif option == "7":
             save_devices(devices_data)
