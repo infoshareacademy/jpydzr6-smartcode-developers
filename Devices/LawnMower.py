@@ -1,27 +1,9 @@
-from device import NotCompatibleDevice, Device, load_json, save_json
+from .device import NotCompatibleDevice, Device, load_json, save_json
 
 
 class LawnMower(Device):
     def __init__(self, device_id: str, device_type: str):
         super().__init__(device_id, device_type)
-
-    def get_name(self) -> str | None:
-        """
-        Get the name of the lawn mower.
-        """
-        return self.load_device_info().get('name', None)
-
-    def get_brand(self) -> str | None:
-        """
-        Get the brand of the lawn mower.
-        """
-        return self.load_device_info().get('brand', None)
-
-    def get_model(self) -> str | None:
-        """
-        Get the model of the lawn mower.
-        """
-        return self.load_device_info().get('model', None)
 
     def get_power(self) -> str | None:
         """
@@ -59,33 +41,15 @@ class LawnMower(Device):
         """
         return self.load_device_info().get('status', {}).get('total_cutting_time_minutes', None)
 
-    def get_location(self) -> str | None:
-        """
-        Get the location of the lawn mower.
-        """
-        return self.load_device_info().get('location', None)
-
-    def get_last_updated(self) -> str | None:
-        """
-        Get the last updated time of the lawn mower.
-        """
-        return self.load_device_info().get('last_updated', None)
-
 if __name__ == "__main__":
     lawn_mower_device = LawnMower("mower98765", "LawnMower")
     lawn_mower_device.connect_to_device()
 
-
-    print("Name:", lawn_mower_device.get_name())
-    print("Brand:", lawn_mower_device.get_brand())
-    print("Model:", lawn_mower_device.get_model())
     print("Power:", lawn_mower_device.get_power())
     print("Battery Percentage:", lawn_mower_device.get_battery_percent())
     print("Cutting Mode:", lawn_mower_device.get_cutting_mode())
     print("Cutting Height (mm):", lawn_mower_device.get_cutting_height())
     print("Current Area (m²):", lawn_mower_device.get_current_area())
     print("Total Cutting Time (minutes):", lawn_mower_device.get_total_cutting_time())
-    print("Location:", lawn_mower_device.get_location())
-    print("Last Updated:", lawn_mower_device.get_last_updated())
 
     lawn_mower_device.turn_on_off("off")

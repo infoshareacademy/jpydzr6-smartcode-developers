@@ -1,4 +1,4 @@
-from device import NotCompatibleDevice, Device, load_json
+from .device import NotCompatibleDevice, Device, load_json
 
 class Plug(Device):
     def __init__(self, device_id: str, device_type: str):
