@@ -5,27 +5,6 @@ class WeatherStation(Device):
     def __init__(self, device_id: str, device_type: str):
         super().__init__(device_id, device_type)
 
-    '''def connect_to_device(self) -> None:
-        """
-        Connect to the weather station device.
-        """
-        if self.device_type != "WeatherStation":
-            raise NotCompatibleDevice("Device type is not compatible.")
-        else:
-            print(f"Connected to Weather Station {self.device_id}")'''
-
-    def load_device_info(self) -> dict:
-        """
-        Load the JSON data and retrieve the information for this specific weather station.
-
-        Returns the device's information as a dictionary, or an empty dictionary if not found.
-        """
-        json_data = load_json()
-        for device in json_data.get('devices', []):
-            if device['device_id'] == self.device_id:
-                return device
-        return {}
-
     def get_name(self) -> str:
         """
         Get the name of the weather station.
@@ -85,23 +64,6 @@ class WeatherStation(Device):
         Get the last updated timestamp of the weather station.
         """
         return self.load_device_info().get('last_updated', None)
-
-    def turn_on_off(self, state: str) -> None:
-        """
-        Turn the weather station on or off and update its power state in the JSON data.
-        """
-        if state.upper() not in ["ON", "OFF"]:
-            raise ValueError("State must be 'ON' or 'OFF'")
-
-        json_data = load_json()
-        for device in json_data['devices']:
-            if device['device_id'] == self.device_id:
-                device['status']['power'] = state.upper()  # Update power state
-                break
-
-        save_json(json_data)
-        print(f"Weather Station {self.device_id} turned {state}")
-
 
 if __name__ == "__main__":
     weather_station_device = WeatherStation("weatherstation56789", "WeatherStation")
