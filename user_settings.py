@@ -4,9 +4,10 @@ FILE_PATH_USERS = "../users.json"
 FILE_PATH_DEVICES = "../devices.json"
 
 class UserSettings:
-    def __init__(self, user_id: int, name: str):
+    def __init__(self, user_id: int, name: str, controlled_devices_ids: List[int]):
         self.user_id = user_id
         self.name = name
+        self.controlled_devices_ids = controlled_devices_ids
 
 
     # Opening users file
@@ -38,7 +39,7 @@ class UserSettings:
         if len(users) == 0:
             return "There are no users"
         else:
-            return [(user["user_id"], user["name"]) for user in users["users"]]
+            return [(user["user_id"], user["user_name"], user["controlled_devices_ids"]) for user in users["users"]]
 
 
     # Adding new user
@@ -51,11 +52,11 @@ class UserSettings:
             users[user_id, name].append(self.user_id, self.name)
 
     # Deleting user
-    def delete_user(self, user_id: int, name: str):
+    def delete_user(self, user_id: int, name: str, controlled_devices_ids):
         users = self.load_json_user_file()
         # Verification and deleting
-        if user_id and name in users:
-            del users[user_id, name]
+        if user_id or name in users:
+            del users[user_id, user_name, controlled_devices_ids]
         else:
             print("User not found")
 
@@ -69,21 +70,33 @@ class UserSettings:
             print("User not found")
 
     # Finding user
-    def get_user(self, user_id: int, name: str):
+    def get_user(self, user_id: int, name: str, controlled_devices_ids):
         users = self.load_json_user_file()
         if user_id or name in users:
-            return users[user_id, name]
+            return users[user_id, name, controlled_devices_ids]
         else:
             return "User not found"
 
-    # Listing devices the user has access to
-    def accessed_devices(self, user_id: int):
-        devices = self.load_json_devices_file()
+    #Listing users who have access to particular device
+    def users_by_controlled_devices(self, user_id: int, name, controlled_devices_ids):
         users = self.load_json_user_file()
-        # Iterating "devices" file to find ID of the user from "users" list
-        for device in devices["devices"]:
+        for user in users["users"]:
             try:
-                if self.user_id in device and self.user_id in users:
-                    return device
+                if self.controlled_devices_ids.index(user["controlled_devices_ids"]):
+                    return user
             except:
                 pass
+
+    # Adding devices to users
+    def add_device(self, user_id: int, name: str):
+        users = self.load_json_user_file()
+        for user in users["users"]:
+            if user_id == user["user_id"] or name in users["users"]:
+                self.controlled_devices_ids.append(user["controlled_devices_ids"])
+            else:
+                print("User not found")
+
+
+
+
+
