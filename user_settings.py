@@ -4,7 +4,7 @@ FILE_PATH_USERS = "../users.json"
 FILE_PATH_DEVICES = "../devices.json"
 
 class UserSettings:
-    def __init__(self, user_id: int, name: str, controlled_devices_ids: List[int]):
+    def __init__(self, user_id: int, name: str, controlled_devices_ids: [int]):
         self.user_id = user_id
         self.name = name
         self.controlled_devices_ids = controlled_devices_ids
@@ -56,7 +56,7 @@ class UserSettings:
         users = self.load_json_user_file()
         # Verification and deleting
         if user_id or name in users:
-            del users[user_id, user_name, controlled_devices_ids]
+            del users[user_id, name, controlled_devices_ids]
         else:
             print("User not found")
 
@@ -82,8 +82,8 @@ class UserSettings:
         users = self.load_json_user_file()
         for user in users["users"]:
             try:
-                if self.controlled_devices_ids.index(user["controlled_devices_ids"]):
-                    return user
+                if controlled_devices_ids in user["controlled_devices_ids"]:
+                    return user[user_id, name]
             except:
                 pass
 
@@ -95,8 +95,3 @@ class UserSettings:
                 self.controlled_devices_ids.append(user["controlled_devices_ids"])
             else:
                 print("User not found")
-
-
-
-
-
