@@ -6,12 +6,12 @@ from datetime import timedelta, datetime
 from ui_terminal import *
 import datetime
 from devices import *
-import enum
+from enum import Enum
 
 class Task:
     def __init__(self, change_time, change_action, device):
         self.change_time = change_time
-        self.change_action = change_action
+        self.change_action = Enum("Change action", [("turn on", 0), ("turn off", 1)])
         self.device = device
 
 class Scheduler(Task):
@@ -34,6 +34,4 @@ class Scheduler(Task):
         for task in self.tasks_list:
             if task.change_time < datetime.now():
                 change_action(device)
-            else:
-                pass
 
