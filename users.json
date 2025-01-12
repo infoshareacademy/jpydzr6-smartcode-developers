@@ -1,21 +1,26 @@
 {
   "users": [
     {"user_id": 1,
-      "name": "first_user"
+      "name": "first_user",
+      "controlled_devices_ids": []
     },
     {"user_id": 2,
-      "name": "second_user"
+      "name": "second_user",
+      "controlled_devices_ids": []
     },
     {"user_id": 3,
-      "name": "third_user"
+      "name": "third_user",
+      "controlled_devices_ids": []
     },
     {
       "user_id": 4,
-      "name": "fourth_user"
+      "name": "fourth_user",
+      "controlled_devices_ids": []
     },
     {
       "user_id": 5,
-      "name": "fifth_user"
+      "name": "fifth_user",
+      "controlled_devices_ids": []
     }
   ]
 }
