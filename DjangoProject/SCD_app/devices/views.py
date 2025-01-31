@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Device
 
+# from models import *
+
 def index(request):
     qs = Device.objects.all()
     device = qs.first()
