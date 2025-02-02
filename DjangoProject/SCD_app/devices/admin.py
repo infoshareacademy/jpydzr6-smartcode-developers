@@ -8,4 +8,4 @@ admin.site.register(ThermostatStatus)
 admin.site.register(CurtainStatus)
 admin.site.register(WeatherStationStatus)
 admin.site.register(LawnMowerStatus)
-# Register your models here.
+
