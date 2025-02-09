@@ -1,0 +1,12 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  {% if not user.is_authenticated %}
+    <h1>Welcome to Smart Code Developers!</h1>
+    <span>Register or login to access the site.</span>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <h1>Welcome, {{ user.username }}!</h1>
+  {% endif %}
+
+{% endblock %}

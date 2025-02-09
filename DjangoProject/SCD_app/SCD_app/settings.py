@@ -59,7 +59,7 @@ ROOT_URLCONF = 'SCD_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,3 +135,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ['EMAIL']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
 DEFAULT_FROM_EMAIL = f"Smart Code Developers {os.environ['EMAIL']}"
+
+AUTH_USER_MODEL = 'users.CustomUser'

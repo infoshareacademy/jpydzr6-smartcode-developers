@@ -17,10 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from devices import views
+from users.views import UserRegisterView, ActivateUserView, UserEditView, home
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    #path('', views.index, name='index'),
+    path('', home, name='home'),  # Ścieżka o nazwie 'home'
+    path('register/', UserRegisterView.as_view(), name='register'),
+    path('activate/<str:token>/', ActivateUserView.as_view(), name='activate'),
+    path('edit-profile/', UserEditView.as_view(), name='edit_profile'),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
 
 
