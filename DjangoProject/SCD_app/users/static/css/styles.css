@@ -6,12 +6,19 @@
 }
 
 /* Global body styles */
+html, body {
+  height: 100%; /* Ustawia wysokość na 100% ekranu */
+  margin: 0; /* Usuwa marginesy, aby nie było pustych przestrzeni */
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f4f8;
     color: #333;
     line-height: 1.6;
     padding: 0 20px;
+    display: flex;
+    flex-direction: column; /* Ustawia układ w kolumnach */
+}
 }
 
 /* Header Styles */
@@ -105,6 +112,9 @@ form button {
 form button:hover {
     background-color: #354db7;
     transform: scale(1.05);
+}
+main {
+  flex: 1; /* Sprawia, że główna treść zajmuje dostępne miejsce */
 }
 
 /* Error & Success Messages */

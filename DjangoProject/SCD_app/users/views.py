@@ -60,9 +60,17 @@ class UserEditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        # Nasza dodatkowa logika (np. wysłanie e-maila)
         user = form.save()
         send_mail('Your profile has been updated', f'Hello {user.username}, your profile has been successfully updated.', 'noreply@scd.com', [user.email])
-
-        # Wywołanie domyślnej logiki UpdateView (zapisanie danych i przekierowanie)
         return super().form_valid(form)
+
+class DeleteUserAccount(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'registration/delete_user.html')
+
+    def post(self, request):
+        user = request.user
+        user_email = user.email
+        user.delete()
+        send_mail('Account deleted', f'Your account has been successfully deleted.', 'noreply@scd.com', [user_email])
+        return redirect('login')
