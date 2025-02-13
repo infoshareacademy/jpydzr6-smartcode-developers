@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from django.template.context_processors import static
 from dotenv import load_dotenv
 import os
 
