@@ -1,17 +1,22 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 from .models import Device
 
 # from models import *
 
-def index(request):
-    qs = Device.objects.all()
-    device = qs.first()
-    response = ""
 
-    for device in qs:
-        response += f"{device.name}, {device.brand}, {device.connected}, {device.last_updated}"
+def devices(request):
+    return render(request, 'devices.html')
 
-    return HttpResponse(response)
+def device_list(request):
+    devices = Device.objects.all()
+    # print(devices)
+    return render(request, 'device_list.html', {'devices': devices})
+
+
+def device_detail(request, device_id):
+    # device = Device.objects.get(id=id)
+    device = get_object_or_404(Device, id=device_id)
+    return render(request, 'device_detail.html', {'device': device})
+
 
 # Create your views here.
