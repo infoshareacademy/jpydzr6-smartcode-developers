@@ -1,0 +1,9 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>{{ device.name }}</h2>
+  <p>Marka: {{ device.brand }}</p>
+  <p>Połączone: {{ device.connected }}</p>
+  <p>Ostatnia aktualizacja: {{ device.last_updated }}</p>
+  <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
+{% endblock %}

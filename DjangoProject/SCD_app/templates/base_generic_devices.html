@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Smart Home</title>
+	</head>
+	<body>
+		<header>
+			<h1>System Smart Home</h1>
+			<nav>
+				<ul>
+					<li><a href="{% url 'device_list' %}">Urządzenia</a></li>
+					<li><a href="{% url 'device_detail' 1 %}">Przykład urządzenia</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>{% block content %}{% endblock %}</main>
+	</body>
+</html>
