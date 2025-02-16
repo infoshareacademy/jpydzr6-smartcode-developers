@@ -25,6 +25,6 @@ urlpatterns = [
 
     path('devices/', views.devices, name='devices'),
     path('devices/list/', views.device_list, name='device_list'),
-    path('devices/<int:id>/', views.device_detail, name='device_detail'),
+    path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
 ]
 
