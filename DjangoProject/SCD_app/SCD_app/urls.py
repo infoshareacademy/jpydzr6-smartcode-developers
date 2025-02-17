@@ -22,16 +22,24 @@ from devices import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', views.index, name='index'),
-    # device
+# device
     path('devices/', views.devices, name='devices'),
     path('devices/list/', views.device_list, name='device_list'),
     path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
     path('devices/add/', views.add_device, name='add_device'),
-    # bulb
+# bulb
     path('bulbs/', views.bulb_list, name='bulb_list'),
     path('bulbs/<int:pk>/', views.bulb_detail, name='bulb_detail'),
     path('bulbs/add/', views.bulb_create, name='bulb_create'),
     path('bulbs/<int:pk>/edit/', views.bulb_update, name='bulb_update'),
     path('bulbs/<int:pk>/delete/', views.bulb_delete, name='bulb_delete'),
+# plug
+    path('plugs/', views.plug_list, name='plug_list'),
+    path('plugs/add/', views.plug_create, name='plug_create'),
+    path('plugs/<int:plug_id>/', views.plug_detail, name='plug_detail'),
+    path('plugs/<int:plug_id>/edit/', views.plug_update, name='plug_update'),
+    path('plugs/<int:plug_id>/delete/', views.plug_delete, name='plug_delete'),
 ]
+
+
 

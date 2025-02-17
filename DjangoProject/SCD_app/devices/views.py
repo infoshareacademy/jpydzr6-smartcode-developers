@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Device, BulbStatus
-from .forms import DeviceForm, BulbStatusForm
+from .models import Device, BulbStatus, PlugStatus
+from .forms import DeviceForm, BulbStatusForm, PlugStatusForm
 
 
 # from models import *
@@ -71,3 +71,42 @@ def bulb_delete(request, pk):
         bulb.delete()
         return redirect('bulb_list')
     return render(request, 'bulbs/bulb_confirm_delete.html', {'bulb': bulb})
+
+# PLUG
+def plug_list(request):
+    plugs = PlugStatus.objects.all()
+    return render(request, 'plugs/plug_list.html', {'plugs': plugs})
+
+
+def plug_detail(request, plug_id):
+    plug = get_object_or_404(PlugStatus, pk=plug_id)
+    return render(request, 'plugs/plug_detail.html', {'plug': plug})
+
+
+def plug_create(request):
+    if request.method == 'POST':
+        form = PlugStatusForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('plug_list')
+    else:
+        form = PlugStatusForm()
+    return render(request, 'plugs/plug_form.html', {'form': form})
+
+def plug_update(request, plug_id):
+    plug = get_object_or_404(PlugStatus, pk=plug_id)
+    if request.method == 'POST':
+        form = PlugStatusForm(request.POST, instance=plug)
+        if form.is_valid():
+            form.save()
+            return redirect('plug_list')
+    else:
+        form = PlugStatusForm(instance=plug)
+    return render(request, 'plugs/plug_form.html', {'form': form})
+
+def plug_delete(request, plug_id):
+    plug = get_object_or_404(PlugStatus, pk=plug_id)
+    if request.method == 'POST':
+        plug.delete()
+        return redirect('plug_list')
+    return render(request, 'plugs/plug_confirm_delete.html', {'plug': plug})
