@@ -2,15 +2,26 @@
 
 {% block content %}
 <h2>Lista urządzeń</h2>
-<a href="{% url 'add_device' %}">Dodaj urządzenie</a>
+<ul>
+	<li>
+		<a href="{% url 'add_device' %}">Dodaj urządzenie</a>
+	<li>
+	<li>
+		<a href="{% url 'bulb_list' %}">Żarówki</a>
+	<li>
+<!--	<li>-->
+<!--		<a href="{% url 'bulb_list' %}">Zarządzaj żarówkami</a>-->
+<!--	<li>-->
+<ul>
+
 <ul>
 	{% for device in devices %}
-	<li>
-		<a href="{% url 'device_detail' device.id %}">
-			{{ device.name }} - {{ device.brand }}
-		</a>
-		(Połączone: {{ device.connected }})
-	</li>
+<!--	<li>-->
+<!--		<a href="{% url 'device_detail' device.id %}">-->
+<!--			{{ device.name }} - {{ device.brand }}-->
+<!--		</a>-->
+<!--		(Połączone: {{ device.connected }})-->
+<!--	</li>-->
 	{% empty %}
 	<p>Brak dostępnych urządzeń.</p>
 	{% endfor %}

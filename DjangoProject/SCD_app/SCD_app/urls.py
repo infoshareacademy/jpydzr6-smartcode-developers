@@ -16,16 +16,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from devices import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', views.index, name='index'),
-
+    # device
     path('devices/', views.devices, name='devices'),
     path('devices/list/', views.device_list, name='device_list'),
     path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
     path('devices/add/', views.add_device, name='add_device'),
+    # bulb
+    path('bulbs/', views.bulb_list, name='bulb_list'),
+    path('bulbs/<int:pk>/', views.bulb_detail, name='bulb_detail'),
+    path('bulbs/add/', views.bulb_create, name='bulb_create'),
+    path('bulbs/<int:pk>/edit/', views.bulb_update, name='bulb_update'),
+    path('bulbs/<int:pk>/delete/', views.bulb_delete, name='bulb_delete'),
 ]
 
