@@ -1,5 +1,5 @@
 from django import forms
-from .models import Device, BulbStatus, PlugStatus
+from .models import Device, BulbStatus, PlugStatus, ThermostatStatus
 
 
 class DeviceForm(forms.ModelForm):
@@ -16,3 +16,8 @@ class PlugStatusForm(forms.ModelForm):
     class Meta:
         model = PlugStatus
         fields = ['power', 'current_power_w', 'total_energy_kwh', 'device_id']
+
+class ThermostatStatusForm(forms.ModelForm):
+    class Meta:
+        model = ThermostatStatus
+        fields = ['power', 'target_temperature', 'current_temperature', 'humidity', 'device_id']

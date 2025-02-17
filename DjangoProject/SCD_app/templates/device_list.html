@@ -1,33 +1,27 @@
-{% extends 'base_generic_devices.html' %} 
+{% extends 'base_generic_devices.html' %}
 
 {% block content %}
-<h2>Lista urządzeń</h2>
-<ul>
-	<li>
-		<a href="{% url 'add_device' %}">Dodaj urządzenie</a>
-	<li>
-	<li>
-		<a href="{% url 'bulb_list' %}">Żarówki</a>
-	<li>
-	<li>
-	    <a href="{% url 'plug_list' %}">Gniazdka</a>
-	<li>
-<!--	<li>-->
-<!--		<a href="{% url 'bulb_list' %}">Zarządzaj żarówkami</a>-->
-<!--	<li>-->
-<ul>
+  <h2>Lista urządzeń</h2>
 
-<ul>
-	{% for device in devices %}
-<!--	<li>-->
-<!--		<a href="{% url 'device_detail' device.id %}">-->
-<!--			{{ device.name }} - {{ device.brand }}-->
-<!--		</a>-->
-<!--		(Połączone: {{ device.connected }})-->
-<!--	</li>-->
-	{% empty %}
-	<p>Brak dostępnych urządzeń.</p>
-	{% endfor %}
-</ul>
-<a href="{% url 'devices' %}">Powrót</a>
+  <ul>
+    {% for device in devices %}
+      <li>
+        <a href="{% url 'device_detail' device.id %}">
+          {{ device.name }} - {{ device.brand }}
+        </a>
+        (Połączone: {{ device.connected }})
+      </li>
+    {% empty %}
+      <p>Brak dostępnych urządzeń.</p>
+    {% endfor %}
+	<li><a href="{% url 'add_device' %}">Dodaj urządzenie</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="{% url 'bulb_list' %}">Żarówki</a></li>
+    <li><a href="{% url 'plug_list' %}">Gniazdka</a></li>
+    <li><a href="{% url 'thermostat_list' %}">Termostaty</a></li>
+  </ul>
+
+  <a href="{% url 'devices' %}">Powrót</a>
 {% endblock %}

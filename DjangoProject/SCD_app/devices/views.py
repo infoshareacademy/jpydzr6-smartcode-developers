@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Device, BulbStatus, PlugStatus
-from .forms import DeviceForm, BulbStatusForm, PlugStatusForm
+from .models import Device, BulbStatus, PlugStatus, ThermostatStatus
+from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm
 
 
 # from models import *
@@ -110,3 +110,36 @@ def plug_delete(request, plug_id):
         plug.delete()
         return redirect('plug_list')
     return render(request, 'plugs/plug_confirm_delete.html', {'plug': plug})
+
+# THERMOSTAT
+
+
+def thermostat_status_list(request):
+    thermostats = ThermostatStatus.objects.all()
+    return render(request, 'thermostats/thermostat_list.html', {'thermostats': thermostats})
+
+def thermostat_status_create(request):
+    if request.method == 'POST':
+        form = ThermostatStatusForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thermostat_list')
+    else:
+        form = ThermostatStatusForm()
+    return render(request, 'thermostats/thermostat_form.html', {'form': form})
+
+def thermostat_status_edit(request, pk):
+    thermostat = ThermostatStatus.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = ThermostatStatusForm(request.POST, instance=thermostat)
+        if form.is_valid():
+            form.save()
+            return redirect('thermostat_list')
+    else:
+        form = ThermostatStatusForm(instance=thermostat)
+    return render(request, 'thermostats/thermostat_form.html', {'form': form})
+
+def thermostat_status_delete(request, pk):
+    thermostat = ThermostatStatus.objects.get(pk=pk)
+    thermostat.delete()
+    return redirect('thermostat_list')

@@ -39,6 +39,12 @@ urlpatterns = [
     path('plugs/<int:plug_id>/', views.plug_detail, name='plug_detail'),
     path('plugs/<int:plug_id>/edit/', views.plug_update, name='plug_update'),
     path('plugs/<int:plug_id>/delete/', views.plug_delete, name='plug_delete'),
+# thermostat
+    path('thermostat/', views.thermostat_status_list, name='thermostat_list'),
+    path('thermostat/add/', views.thermostat_status_create, name='thermostat_create'),
+    path('thermostat/edit/<int:pk>/', views.thermostat_status_edit, name='thermostat_edit'),
+    path('thermostat/delete/<int:pk>/', views.thermostat_status_delete, name='thermostat_delete'),
+
 ]
 
 
