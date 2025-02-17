@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Device
-
+from .forms import DeviceForm
 # from models import *
 
 
@@ -19,4 +19,16 @@ def device_detail(request, device_id):
     return render(request, 'device_detail.html', {'device': device})
 
 
+def add_device(request):
+    if request.method == "POST":
+        form = DeviceForm(request.POST)
+        if form.is_valid():
+            device = form.save(commit=False)
+            device.owner = request.user
+            device.save()
+            return redirect('device_list')
+    else:
+        form = DeviceForm()
+
+    return render(request, 'device_form.html', {'form': form})
 # Create your views here.

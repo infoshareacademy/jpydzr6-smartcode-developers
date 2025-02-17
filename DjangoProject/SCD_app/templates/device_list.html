@@ -2,6 +2,7 @@
 
 {% block content %}
 <h2>Lista urządzeń</h2>
+<a href="{% url 'add_device' %}">Dodaj urządzenie</a>
 <ul>
 	{% for device in devices %}
 	<li>
@@ -14,4 +15,5 @@
 	<p>Brak dostępnych urządzeń.</p>
 	{% endfor %}
 </ul>
+<a href="{% url 'devices' %}">Powrót</a>
 {% endblock %}
