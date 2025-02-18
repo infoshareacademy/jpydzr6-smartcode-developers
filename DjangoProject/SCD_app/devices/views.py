@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Device, BulbStatus, PlugStatus, ThermostatStatus
-from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm
+from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus
+from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm, CurtainStatusForm
 
 
 # from models import *
@@ -77,11 +77,9 @@ def plug_list(request):
     plugs = PlugStatus.objects.all()
     return render(request, 'plugs/plug_list.html', {'plugs': plugs})
 
-
 def plug_detail(request, plug_id):
     plug = get_object_or_404(PlugStatus, pk=plug_id)
     return render(request, 'plugs/plug_detail.html', {'plug': plug})
-
 
 def plug_create(request):
     if request.method == 'POST':
@@ -112,13 +110,15 @@ def plug_delete(request, plug_id):
     return render(request, 'plugs/plug_confirm_delete.html', {'plug': plug})
 
 # THERMOSTAT
-
-
-def thermostat_status_list(request):
+def thermostat_list(request):
     thermostats = ThermostatStatus.objects.all()
     return render(request, 'thermostats/thermostat_list.html', {'thermostats': thermostats})
 
-def thermostat_status_create(request):
+def thermostat_detail(request, pk):
+    thermostat = get_object_or_404(ThermostatStatus, pk=pk)
+    return render(request, 'thermostats/thermostat_detail.html', {'thermostat': thermostat})
+
+def thermostat_create(request):
     if request.method == 'POST':
         form = ThermostatStatusForm(request.POST)
         if form.is_valid():
@@ -128,8 +128,8 @@ def thermostat_status_create(request):
         form = ThermostatStatusForm()
     return render(request, 'thermostats/thermostat_form.html', {'form': form})
 
-def thermostat_status_edit(request, pk):
-    thermostat = ThermostatStatus.objects.get(pk=pk)
+def thermostat_update(request, pk):
+    thermostat = get_object_or_404(ThermostatStatus, pk=pk)
     if request.method == 'POST':
         form = ThermostatStatusForm(request.POST, instance=thermostat)
         if form.is_valid():
@@ -139,7 +139,47 @@ def thermostat_status_edit(request, pk):
         form = ThermostatStatusForm(instance=thermostat)
     return render(request, 'thermostats/thermostat_form.html', {'form': form})
 
-def thermostat_status_delete(request, pk):
-    thermostat = ThermostatStatus.objects.get(pk=pk)
-    thermostat.delete()
-    return redirect('thermostat_list')
+def thermostat_delete(request, pk):
+    thermostat = get_object_or_404(ThermostatStatus, pk=pk)
+    if request.method == 'POST':
+        thermostat.delete()
+        return redirect('thermostat_list')
+    return render(request, 'thermostats/thermostat_confirm_delete.html', {'thermostat': thermostat})
+
+# CURTAIN
+def curtain_list(request):
+    curtains = CurtainStatus.objects.all()
+    return render(request, 'curtains/curtain_list.html', {'curtains': curtains})
+
+
+def curtain_detail(request, pk):
+    curtain = get_object_or_404(CurtainStatus, pk=pk)
+    return render(request, 'curtains/curtain_detail.html', {'curtain': curtain})
+
+def curtain_create(request):
+    if request.method == 'POST':
+        form = CurtainStatusForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('curtain_list')
+    else:
+        form = CurtainStatusForm()
+    return render(request, 'curtains/curtain_form.html', {'form': form})
+
+def curtain_update(request, pk):
+    curtain = get_object_or_404(CurtainStatus, pk=pk)
+    if request.method == "POST":
+        form = CurtainStatusForm(request.POST, instance=curtain)
+        if form.is_valid():
+            form.save()
+            return redirect('curtain_list')
+    else:
+        form = CurtainStatusForm(instance=curtain)
+    return render(request, 'curtains/curtain_form.html', {'form': form})
+
+def curtain_delete(request, pk):
+    curtain = get_object_or_404(CurtainStatus, pk=pk)
+    if request.method == 'POST':
+        curtain.delete()
+        return redirect('curtain_list')
+    return render(request, 'curtains/curtain_confirm_delete.html', {'curtain': curtain})

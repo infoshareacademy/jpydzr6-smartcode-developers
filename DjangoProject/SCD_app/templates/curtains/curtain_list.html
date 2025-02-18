@@ -1,0 +1,27 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>Lista rolet</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+<!--    <button type="submit">Dodaj</button>-->
+  </form>
+
+  <ul>
+    {% for curtain in curtains %}
+      <li>
+        <a href="{% url 'curtain_detail' curtain.id %}">
+          {{ curtain.device_id.name }} - Pozycja: {{ curtain.position }} - Otworzenie: {{ curtain.open_percent }}%
+        </a>
+        | <a href="{% url 'curtain_update' curtain.id %}">Edytuj</a>
+        | <a href="{% url 'curtain_delete' curtain.id %}">Usuń</a>
+      </li>
+    {% empty %}
+      <p>Brak dostępnych rolet.</p>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'curtain_create' %}">Dodaj nową roletę</a> |
+  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+{% endblock %}

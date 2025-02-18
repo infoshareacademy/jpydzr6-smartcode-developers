@@ -1,0 +1,14 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>Szczegóły roletki: {{ curtain.device_id.name }}</h2>
+  <p><strong>Pozycja:</strong> {{ curtain.position }}</p>
+  <p><strong>Otworzenie:</strong> {{ curtain.open_percent }}%</p>
+  <p><strong>Data utworzenia:</strong> {{ curtain.created_at }}</p>
+  <p><strong>Ostatnia aktualizacja:</strong> {{ curtain.updated_at }}</p>
+
+  <a href="{% url 'curtain_update' curtain.id %}">Edytuj</a> |
+  <a href="{% url 'curtain_delete' curtain.id %}">Usuń</a> |
+  <a href="{% url 'curtain_list' %}">Powrót do listy rolet</a> |
+  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+{% endblock %}

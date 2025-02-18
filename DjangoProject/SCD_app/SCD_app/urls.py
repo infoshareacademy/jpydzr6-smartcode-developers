@@ -25,8 +25,8 @@ urlpatterns = [
 # device
     path('devices/', views.devices, name='devices'),
     path('devices/list/', views.device_list, name='device_list'),
-    path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
     path('devices/add/', views.add_device, name='add_device'),
+    path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
 # bulb
     path('bulbs/', views.bulb_list, name='bulb_list'),
     path('bulbs/<int:pk>/', views.bulb_detail, name='bulb_detail'),
@@ -35,15 +35,22 @@ urlpatterns = [
     path('bulbs/<int:pk>/delete/', views.bulb_delete, name='bulb_delete'),
 # plug
     path('plugs/', views.plug_list, name='plug_list'),
-    path('plugs/add/', views.plug_create, name='plug_create'),
     path('plugs/<int:plug_id>/', views.plug_detail, name='plug_detail'),
+    path('plugs/add/', views.plug_create, name='plug_create'),
     path('plugs/<int:plug_id>/edit/', views.plug_update, name='plug_update'),
     path('plugs/<int:plug_id>/delete/', views.plug_delete, name='plug_delete'),
 # thermostat
-    path('thermostat/', views.thermostat_status_list, name='thermostat_list'),
-    path('thermostat/add/', views.thermostat_status_create, name='thermostat_create'),
-    path('thermostat/edit/<int:pk>/', views.thermostat_status_edit, name='thermostat_edit'),
-    path('thermostat/delete/<int:pk>/', views.thermostat_status_delete, name='thermostat_delete'),
+    path('thermostat/', views.thermostat_list, name='thermostat_list'),
+    path('thermostat/<int:pk>/', views.thermostat_detail, name='thermostat_detail'),
+    path('thermostat/add/', views.thermostat_create, name='thermostat_create'),
+    path('thermostat/<int:pk>/edit/', views.thermostat_update, name='thermostat_update'),
+    path('thermostat/<int:pk>/delete/', views.thermostat_delete, name='thermostat_delete'),
+# curtain
+    path('curtains/', views.curtain_list, name='curtain_list'),
+    path('curtains/<int:pk>/', views.curtain_detail, name='curtain_detail'),
+    path('curtains/add/', views.curtain_create, name='curtain_create'),
+    path('curtains/<int:pk>/edit/', views.curtain_update, name='curtain_update'),
+    path('curtains/<int:pk>/delete/', views.curtain_delete, name='curtain_delete'),
 
 ]
 

@@ -1,0 +1,12 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>Czy na pewno chcesz usunąć termostat: {{ thermostat.device_id.name }}?</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Tak, usuń</button>
+  </form>
+
+  <a href="{% url 'thermostat_list' %}">Powrót do listy termostatów</a>
+{% endblock %}

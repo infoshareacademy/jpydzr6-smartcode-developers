@@ -4,16 +4,18 @@
   <h2>Lista Termostatów</h2>
   <a href="{% url 'thermostat_create' %}">Dodaj nowy termostat</a>
   <ul>
-    {% for thermostat in thermostats %}
-      <li>
-        {{ thermostat.device_id.name }} - {{ thermostat.current_temperature }}°C, 
-        Cel: {{ thermostat.target_temperature }}°C, Wilgotność: {{ thermostat.humidity }}%
-        <a href="{% url 'thermostat_edit' thermostat.id %}">Edytuj</a>
-        <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
-      </li>
-    {% empty %}
-      <p>Brak dostępnych termostatów.</p>
-    {% endfor %}
-  </ul>
+  {% for thermostat in thermostats %}
+    <li>
+      <a href="{% url 'thermostat_detail' thermostat.id %}">
+        {{ thermostat.device_id.name }} - Status: {{ thermostat.status }} - Temperatura: {{ thermostat.temperature }}°C
+      </a>
+      | <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a>
+      | <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
+    </li>
+  {% empty %}
+    <p>Brak dostępnych termostatów.</p>
+  {% endfor %}
+</ul>
+
   <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
 {% endblock %}
