@@ -25,8 +25,11 @@ urlpatterns = [
 # device
     path('devices/', views.devices, name='devices'),
     path('devices/list/', views.device_list, name='device_list'),
-    path('devices/add/', views.add_device, name='add_device'),
     path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
+    path('devices/add/', views.add_device, name='add_device'),
+    path('devices/<int:pk>/edit/', views.device_update, name='device_update'),
+    path('devices/<int:pk>/delete/', views.device_delete, name='device_delete'),
+
 # bulb
     path('bulbs/', views.bulb_list, name='bulb_list'),
     path('bulbs/<int:pk>/', views.bulb_detail, name='bulb_detail'),
@@ -51,6 +54,12 @@ urlpatterns = [
     path('curtains/add/', views.curtain_create, name='curtain_create'),
     path('curtains/<int:pk>/edit/', views.curtain_update, name='curtain_update'),
     path('curtains/<int:pk>/delete/', views.curtain_delete, name='curtain_delete'),
+# weather station
+    path("weather_stations/", views.weather_station_list, name="weather_station_list"),
+    path("weather_stations/<int:pk>/", views.weather_station_detail, name="weather_station_detail"),
+    path("weather_stations/add/", views.weather_station_create, name="weather_station_create"),
+    path("weather_stations/<int:pk>/edit/", views.weather_station_update, name="weather_station_update"),
+    path("weather_stations/<int:pk>/delete/", views.weather_station_delete, name="weather_station_delete"),
 
 ]
 

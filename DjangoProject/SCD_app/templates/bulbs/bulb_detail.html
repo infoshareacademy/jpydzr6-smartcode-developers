@@ -5,7 +5,7 @@
 <p>Jasność: {{ bulb.brightness }}</p>
 <p>Temperatura koloru: {{ bulb.color_temp }}</p>
 <p>RGB: {{ bulb.red_temp }}, {{ bulb.green_temp }}, {{ bulb.blue_temp }}</p>
-<a href="{% url 'bulb_update' bulb.id %}">Edytuj</a>
-<a href="{% url 'bulb_delete' bulb.id %}">Usuń</a>
-<a href="{% url 'bulb_list' %}">Powrót</a>
+<a href="{% url 'bulb_update' bulb.id %}">Edytuj</a> |
+<a href="{% url 'bulb_delete' bulb.id %}">Usuń</a> |
+<a href="{% url 'bulb_list' %}">Powrót do listy żarówek</a>
 {% endblock %}

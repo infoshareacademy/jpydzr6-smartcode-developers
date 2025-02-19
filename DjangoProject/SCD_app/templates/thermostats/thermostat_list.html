@@ -7,10 +7,10 @@
   {% for thermostat in thermostats %}
     <li>
       <a href="{% url 'thermostat_detail' thermostat.id %}">
-        {{ thermostat.device_id.name }} - Status: {{ thermostat.status }} - Temperatura: {{ thermostat.temperature }}°C
-      </a>
-      | <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a>
-      | <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
+        {{ thermostat.device_id.name }} - Status: {{ thermostat.power }} - Temperatura: {{ thermostat.current_temperature }}°C
+      </a> |
+      <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a> |
+      <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
     </li>
   {% empty %}
     <p>Brak dostępnych termostatów.</p>

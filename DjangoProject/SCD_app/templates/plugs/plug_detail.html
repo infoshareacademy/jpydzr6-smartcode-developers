@@ -6,7 +6,7 @@
 <p>Current Power: {{ plug.current_power_w }} W</p>
 <p>Total Energy: {{ plug.total_energy_kwh }} kWh</p>
 
-<a href="{% url 'plug_update' plug.id %}">Edytuj</a>
-<a href="{% url 'plug_delete' plug.id %}">Usuń</a>
-<a href="{% url 'plug_list' %}">Powrót</a>
+<a href="{% url 'plug_update' plug.id %}">Edytuj</a> |
+<a href="{% url 'plug_delete' plug.id %}">Usuń</a> |
+<a href="{% url 'plug_list' %}">Powrót do listy gniazdek</a>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus
-from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm, CurtainStatusForm
+from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus, WeatherStationStatus
+from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm, CurtainStatusForm, WeatherStationStatusForm
 
 
 # from models import *
@@ -33,9 +33,28 @@ def add_device(request):
         form = DeviceForm()
 
     return render(request, 'device_form.html', {'form': form})
+
+def device_update(request, pk):
+    device = get_object_or_404(Device, pk=pk)
+    if request.method == 'POST':
+        form = DeviceForm(request.POST, instance=device)
+        if form.is_valid():
+            form.save()
+            return redirect('device_list')  # Upewnij się, że taka nazwa istnieje
+    else:
+        form = DeviceForm(instance=device)
+    return render(request, 'device_form.html', {'form': form})
+
+def device_delete(request, pk):
+    device = get_object_or_404(Device, pk=pk)
+    if request.method == 'POST':
+        device.delete()
+        return redirect('device_list')
+    return render(request, 'device_confirm_delete.html', {'device': device})
+
 # Create your views here.
 
-# BULB
+# bulb
 def bulb_list(request):
     bulbs = BulbStatus.objects.all()
     return render(request, 'bulbs/bulb_list.html', {'bulbs': bulbs})
@@ -72,7 +91,7 @@ def bulb_delete(request, pk):
         return redirect('bulb_list')
     return render(request, 'bulbs/bulb_confirm_delete.html', {'bulb': bulb})
 
-# PLUG
+# plug
 def plug_list(request):
     plugs = PlugStatus.objects.all()
     return render(request, 'plugs/plug_list.html', {'plugs': plugs})
@@ -109,7 +128,7 @@ def plug_delete(request, plug_id):
         return redirect('plug_list')
     return render(request, 'plugs/plug_confirm_delete.html', {'plug': plug})
 
-# THERMOSTAT
+# thermostat
 def thermostat_list(request):
     thermostats = ThermostatStatus.objects.all()
     return render(request, 'thermostats/thermostat_list.html', {'thermostats': thermostats})
@@ -146,7 +165,7 @@ def thermostat_delete(request, pk):
         return redirect('thermostat_list')
     return render(request, 'thermostats/thermostat_confirm_delete.html', {'thermostat': thermostat})
 
-# CURTAIN
+# curtain
 def curtain_list(request):
     curtains = CurtainStatus.objects.all()
     return render(request, 'curtains/curtain_list.html', {'curtains': curtains})
@@ -183,3 +202,41 @@ def curtain_delete(request, pk):
         curtain.delete()
         return redirect('curtain_list')
     return render(request, 'curtains/curtain_confirm_delete.html', {'curtain': curtain})
+
+# weather station
+
+def weather_station_list(request):
+    stations = WeatherStationStatus.objects.all()
+    return render(request, "weather_stations/weatherstation_list.html", {"stations": stations})
+
+def weather_station_detail(request, pk):
+    station = get_object_or_404(WeatherStationStatus, pk=pk)
+    return render(request, "weather_stations/weatherstation_detail.html", {"station": station})
+
+def weather_station_create(request):
+    if request.method == "POST":
+        form = WeatherStationStatusForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("weather_station_list")
+    else:
+        form = WeatherStationStatusForm()
+    return render(request, "weather_stations/weatherstation_form.html", {"form": form})
+
+def weather_station_update(request, pk):
+    station = get_object_or_404(WeatherStationStatus, pk=pk)
+    if request.method == "POST":
+        form = WeatherStationStatusForm(request.POST, instance=station)
+        if form.is_valid():
+            form.save()
+            return redirect("weather_station_list")
+    else:
+        form = WeatherStationStatusForm(instance=station)
+    return render(request, "weather_stations/weatherstation_form.html", {"form": form})
+
+def weather_station_delete(request, pk):
+    station = get_object_or_404(WeatherStationStatus, pk=pk)
+    if request.method == "POST":
+        station.delete()
+        return redirect("weather_station_list")
+    return render(request, "weather_stations/weatherstation_confirm_delete.html", {"station": station})
