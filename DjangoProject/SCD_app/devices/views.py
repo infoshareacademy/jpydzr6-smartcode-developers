@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus, WeatherStationStatus
-from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm, CurtainStatusForm, WeatherStationStatusForm
+from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus, WeatherStationStatus, LawnMowerStatus
+from .forms import DeviceForm, BulbStatusForm, PlugStatusForm, ThermostatStatusForm, CurtainStatusForm, WeatherStationStatusForm, LawnMowerStatusForm
 
 
 # from models import *
@@ -204,7 +204,6 @@ def curtain_delete(request, pk):
     return render(request, 'curtains/curtain_confirm_delete.html', {'curtain': curtain})
 
 # weather station
-
 def weather_station_list(request):
     stations = WeatherStationStatus.objects.all()
     return render(request, "weather_stations/weatherstation_list.html", {"stations": stations})
@@ -240,3 +239,41 @@ def weather_station_delete(request, pk):
         station.delete()
         return redirect("weather_station_list")
     return render(request, "weather_stations/weatherstation_confirm_delete.html", {"station": station})
+
+# lawn mower
+def lawn_mower_list(request):
+    lawn_mowers = LawnMowerStatus.objects.all()
+    return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
+
+def lawn_mower_detail(request, pk):
+    lawn_mower = get_object_or_404(LawnMowerStatus, pk=pk)
+    return render(request, "lawn_mowers/lawnmower_detail.html", {"status": lawn_mower})
+
+def lawn_mower_create(request):
+    if request.method == "POST":
+        form = LawnMowerStatusForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("lawnmower_list")
+    else:
+        form = LawnMowerStatusForm()
+    return render(request, "lawn_mowers/lawnmower_form.html", {"form": form})
+
+def lawn_mower_update(request, pk):
+    lawn_mower = get_object_or_404(LawnMowerStatus, pk=pk)
+    if request.method == "POST":
+        form = LawnMowerStatusForm(request.POST, instance=lawn_mower)
+        if form.is_valid():
+            form.save()
+            return redirect("lawn_mower_list")
+    else:
+        form = LawnMowerStatusForm(instance=lawn_mower)
+    return render(request, "lawn_mowers/lawnmower_form.html", {"form": form})
+
+def lawn_mower_delete(request, pk):
+    lawn_mower = get_object_or_404(LawnMowerStatus, pk=pk)
+    if request.method == "POST":
+        lawn_mower.delete()
+        return redirect("lawn_mower_list")
+    return render(request, "lawn_mowers/lawnmower_confirm_delete.html", {"status": lawn_mower})
+

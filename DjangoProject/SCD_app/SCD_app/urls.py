@@ -60,6 +60,12 @@ urlpatterns = [
     path("weather_stations/add/", views.weather_station_create, name="weather_station_create"),
     path("weather_stations/<int:pk>/edit/", views.weather_station_update, name="weather_station_update"),
     path("weather_stations/<int:pk>/delete/", views.weather_station_delete, name="weather_station_delete"),
+# lawn mower
+    path('lawn_mowers', views.lawn_mower_list, name='lawn_mower_list'),
+    path('lawn_mowers/<int:pk>/', views.lawn_mower_detail, name='lawn_mower_detail'),
+    path('lawn_mowers/add/', views.lawn_mower_create, name='lawn_mower_create'),
+    path('lawn_mowers/<int:pk>/edit', views.lawn_mower_update, name='lawn_mower_update'),
+    path('lawn_mowers/<int:pk>/delete/', views.lawn_mower_delete, name='lawn_mower_delete'),
 
 ]
 

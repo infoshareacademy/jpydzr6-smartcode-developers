@@ -89,7 +89,7 @@ class WeatherStationStatus(models.Model):
 
 class LawnMowerStatus(models.Model):
     power = models.CharField(max_length=10)
-    battery_percent = models.IntegerField()
+    battery_percent = models.IntegerField(default=100)
     cutting_mode = models.CharField(max_length=50)
     cutting_height_mm = models.IntegerField()
     current_area_m2 = models.IntegerField()
