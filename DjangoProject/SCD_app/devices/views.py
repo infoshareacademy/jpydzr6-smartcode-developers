@@ -40,7 +40,7 @@ def device_update(request, pk):
         form = DeviceForm(request.POST, instance=device)
         if form.is_valid():
             form.save()
-            return redirect('device_list')  # Upewnij się, że taka nazwa istnieje
+            return redirect('device_list')
     else:
         form = DeviceForm(instance=device)
     return render(request, 'device_form.html', {'form': form})
