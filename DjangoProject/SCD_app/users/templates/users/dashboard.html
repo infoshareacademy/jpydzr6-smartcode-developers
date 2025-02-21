@@ -8,14 +8,14 @@
     <h1>Dashboard</h1>
 
     <p1>User settings</p1>
-        <p2>Log out</p2>
-        <p2>Change password</p2>
+        <p2>Log out <a href="/logout/"></a> </p2>
+        <p2>Change password <a href="/change_password/"></a> </p2>
 
 
     <p1>Device settings</p1>
-        <p2>List of devices <a href="device_list.html"></a> </p2>
-        <p2>Add device <a href="device_form.html"></a></p2>
-        <p2>Delete device <a href="device_confirm_delete"></a></p2>
+        <p2><a href="{% url 'devices:device_list' %}">List of devices </a> </p2>
+        <p2><a href="{% url 'devices:device_form' %}">Add device </a></p2>
+        <p2><a href="{% url 'devices:device_confirm_delete' %}">Delete device</a></p2>
 
 </body>
 </html>
