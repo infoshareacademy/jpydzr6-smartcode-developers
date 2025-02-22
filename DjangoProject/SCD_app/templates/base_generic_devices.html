@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Smart Home</title>
+		{% load static %}
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 	</head>
 	<body>
 		<header>
@@ -11,6 +13,20 @@
 			<nav>
 <!--				<a href="{% url 'bulb_list' %}">Żarówki</a>-->
 				<ul>
+					<li><a href="{% url 'home' %}">Home</a></li>
+					{% if not user.is_authenticated %}
+					  <li><a href="{% url 'login' %}">Login</a></li>
+					  <li><a href="{% url 'register' %}">Register</a></li>
+					{% endif %}
+					{% if user.is_authenticated %}
+					  <li><a href="{% url 'devices' %}">Devices</a></li>
+					  <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+					  <li><a href="{% url 'change_password' %}">Change Password</a></li>
+					  <li><a href="{% url 'delete_user' %}">Delete Account</a></li>
+					  <form action="{% url 'logout' %}" method="post">
+						  {% csrf_token %}
+						  <button type="submit">Logout</button>
+					  </form>
 <!--					<li><a href="{% url 'device_list' %}">Urządzenia</a></li>-->
 <!--					<li><a href="{% url 'device_detail' 1 %}">Przykład urządzenia</a></li>-->
 <!--					<li><a href="/bulbs/">Żarówki</a></li>-->
@@ -20,5 +36,6 @@
 		</header>
 
 		<main>{% block content %}{% endblock %}</main>
+		{% endif %}
 	</body>
 </html>
