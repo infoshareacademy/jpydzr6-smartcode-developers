@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from devices import views
 from users.views import UserRegisterView, ActivateUserView, UserEditView, home, DeleteUserAccount
 from django.contrib.auth import views as auth_views

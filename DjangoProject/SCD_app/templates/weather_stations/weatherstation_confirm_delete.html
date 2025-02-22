@@ -1,0 +1,12 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>Potwierdzenie usunięcia</h2>
+  <p>Na pewno chcesz usunąć stację pogodową {{ station.device_id.name }}?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Tak, usuń</button>
+  </form>
+  <a href="{% url 'weather_station_list' %}">Anuluj</a>
+{% endblock %}

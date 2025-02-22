@@ -1,0 +1,10 @@
+{% extends 'base_generic_devices.html' %}
+{% block content %}
+<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} żarówkę</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz</button>
+</form>
+<a href="{% url 'bulb_list' %}">Powrót</a>
+{% endblock %}
