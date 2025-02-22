@@ -1,0 +1,14 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>Szczegóły kosiarki: {{ status.device_id.name }}</h2>
+  <ul>
+    <li>Power: {{ status.power }}</li>
+    <li>Bateria: {{ status.battery_percent }}%</li>
+    <li>Tryb cięcia: {{ status.cutting_mode }}</li>
+    <li>Wysokość cięcia: {{ status.cutting_height_mm }} mm</li>
+    <li>Aktualny obszar: {{ status.current_area_m2 }} m²</li>
+    <li>Całkowity czas cięcia: {{ status.total_cutting_time_minutes }} minut</li>
+  </ul>
+  <a href="{% url 'lawn_mower_list' %}">Powrót do listy kosiarek</a>
+{% endblock %}

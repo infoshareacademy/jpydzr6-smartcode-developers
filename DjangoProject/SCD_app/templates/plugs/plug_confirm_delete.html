@@ -1,0 +1,10 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+<h2>Na pewno chcesz usunąć gniazdko {{ plug.device_id.name }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Usuń</button>
+</form>
+<a href="{% url 'plug_list' %}">Powrót</a>
+{% endblock %}

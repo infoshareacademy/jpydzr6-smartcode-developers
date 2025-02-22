@@ -74,7 +74,7 @@ class CurtainStatus(models.Model):
 
 class WeatherStationStatus(models.Model):
     temperature_c = models.DecimalField(max_digits=5, decimal_places=2)
-    humidity_percent = models.IntegerField
+    humidity_percent = models.IntegerField(default=0)
     pressure_hpa = models.DecimalField(max_digits=7, decimal_places=2)
     wind_speed_kmh = models.DecimalField(max_digits=5, decimal_places=2)
     rainfall = models.DecimalField(max_digits=5, decimal_places=2)
@@ -89,7 +89,7 @@ class WeatherStationStatus(models.Model):
 
 class LawnMowerStatus(models.Model):
     power = models.CharField(max_length=10)
-    battery_percent = models.IntegerField()
+    battery_percent = models.IntegerField(default=100)
     cutting_mode = models.CharField(max_length=50)
     cutting_height_mm = models.IntegerField()
     current_area_m2 = models.IntegerField()

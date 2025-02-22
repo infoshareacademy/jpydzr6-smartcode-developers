@@ -1,0 +1,15 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+  <h2>Szczegóły stacji pogodowej: {{ station.device_id.name }}</h2>
+  <ul>
+    <li>Temperatura: {{ station.temperature_c }}°C</li>
+    <li>Wilgotność: {{ station.humidity_percent }}%</li>
+    <li>Ciśnienie: {{ station.pressure_hpa }} hPa</li>
+    <li>Prędkość wiatru: {{ station.wind_speed_kmh }} km/h</li>
+    <li>Opad deszczu: {{ station.rainfall }} mm</li>
+  </ul>
+  <p><a href="{% url 'weather_station_update' station.id %}">Edytuj</a> | 
+     <a href="{% url 'weather_station_delete' station.id %}">Usuń</a> | 
+     <a href="{% url 'weather_station_list' %}">Powrót do listy</a></p>
+{% endblock %}
