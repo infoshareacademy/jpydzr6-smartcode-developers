@@ -1,0 +1,8 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+                <p3><a href="{% url 'weatherstation_list' %}">Lista stacji pogodowych</a> </p3>
+                <p3><a href="{% url 'devices:weatherstation_confirm_delete' %}">Usuń stacje pogodową</a> </p3>
+                <p3><a href="{% url 'devices:weatherstation_detail' %}">Szczegóły</a> </p3>
+                <p3><a href="{% url 'devices:weatherstation_form' %}">Dodaj stację pogodową</a> </p3>
+{% endblock %}

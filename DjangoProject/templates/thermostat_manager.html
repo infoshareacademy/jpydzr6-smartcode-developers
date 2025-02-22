@@ -1,0 +1,8 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+                <p3><a href="{% url 'thermostat_list' %}">Lista termostatów</a> </p3>
+                <p3><a href="{% url 'devices:thermostat_confirm_delete' %}">Usuń termostat</a> </p3>
+                <p3><a href="{% url 'devices:thermostat_detail' %}">Szczegóły</a> </p3>
+                <p3><a href="{% url 'devices:thermostat_form' %}">Dodaj termostat</a> </p3>
+{% endblock %}

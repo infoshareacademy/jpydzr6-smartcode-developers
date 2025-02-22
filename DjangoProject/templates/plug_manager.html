@@ -1,0 +1,8 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+                <p3><a href="{% url 'devices:plug_list' %}">Lista wtyczek</a> </p3>
+                <p3><a href="{% url 'devices:plug_confirm_delete' %}">Usuń wtyczkę</a> </p3>
+                <p3><a href="{% url 'devices:plug_detail' %}">Szczegóły</a> </p3>
+                <p3><a href="{% url 'devices:plug_form' %}">Dodaj wtyczkę</a> </p3>
+{% endblock %}

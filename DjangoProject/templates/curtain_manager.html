@@ -1,0 +1,8 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+                <p3><a href="{% url 'devices:curtain_confirm_delete' %}">Usuń zasłonę</a> </p3>
+                <p3><a href="{% url 'devices:curtain_detail' %}">Szczegóły</a> </p3>
+                <p3><a href="{% url 'devices:curtain_form' %}">Dodaj zasłonę</a> </p3>
+
+{% endblock %}

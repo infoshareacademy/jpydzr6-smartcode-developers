@@ -1,0 +1,9 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+        <p3><a href="{% url 'devices:bulb_list' %}">Lista żarówek</a></p3>
+        <p3><a href="{% url 'devices:bulb_detail' %}">Szczegóły</a> </p3>
+        <p3><a href="{% url 'devices:bulb_confirm_delete' %}">Usuń żarówkę</a> </p3>
+        <p3><a href="{% url 'devices:bulb_form' %}">Dodaj żarówkę</a> </p3>
+
+{% endblock %}

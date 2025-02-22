@@ -1,0 +1,9 @@
+{% extends 'base_generic_devices.html' %}
+
+{% block content %}
+                <p3><a href="{% url 'devices:lawnmower_list' %}">Lista kosiarek</a> </p3>
+                <p3><a href="{% url 'devices:lawnmower_confirm_delete' %}">Usuń kosiarkę</a> </p3>
+                <p3><a href="{% url 'devices:lawnmower_detail' %}">Szczegóły</a> </p3>
+                <p3><a href="{% url 'devices:lawnmower_form' %}">Dodaj kosiarkę</a> </p3>
+
+{% endblock %}

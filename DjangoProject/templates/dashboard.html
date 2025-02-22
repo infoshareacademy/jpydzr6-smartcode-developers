@@ -4,47 +4,35 @@
 
     <h1>Dashboard</h1>
 
-    <h2>User settings</h2>
+    <h2>Ustawienia użytkownika</h2>
         <p1><a href="/logout/">Wyloguj się</a> </p1>
         <p1><a href="/change_password/">Zmień hasło</a> </p1>
 
-    <h2>Device settings</h2>
+    <h2>Ustawienia urządzeń</h2>
         <p1><a href="{% url 'devices:device_list' %}">Lista urządzeń, którymi zarządzasz</a> </p1>
+
             <p2>Żarówki</p2>
                 <p3><a href="{% url 'devices:bulb_list' %}">Lista żarówek</a></p3>
-                <p3><a href="{% url 'devices:bulb_confirm_delete' %}">Usuń żarówkę</a> </p3>
-                <p3><a href="{% url 'devices:bulb_detail' %}">Szczegóły</a> </p3>
-                <p3><a href="{% url 'devices:bulb_form' %}">Dodaj żarówkę</a> </p3>
+                <p3><a href="/bulb_manager/">Zarządzaj żarówkami</a> </p3>
 
             <p2>Zasłony</p2>
                 <p3><a href="{% url 'devices:curtain_list' %}">Lista zasłon</a> </p3>
-                <p3><a href="{% url 'devices:curtain_confirm_delete' %}">Usuń zasłonę</a> </p3>
-                <p3><a href="{% url 'devices:curtain_detail' %}">Szczegóły</a> </p3>
-                <p3><a href="{% url 'devices:curtain_form' %}">Dodaj zasłonę</a> </p3>
+                <p3><a href="/curtain_manager/">Zarządzaj zasłonami</a> </p3>
 
             <p2>Kosiarki</p2>
                 <p3><a href="{% url 'devices:lawnmower_list' %}">Lista kosiarek</a> </p3>
-                <p3><a href="{% url 'devices:lawnmower_confirm_delete' %}">Usuń kosiarkę</a> </p3>
-                <p3><a href="{% url 'devices:lawnmower_detail' %}">Szczegóły</a> </p3>
-                <p3><a href="{% url 'devices:lawnmower_form' %}">Dodaj kosiarkę</a> </p3>
+                <p3><a href="/lawnmower_manager/">Zarządzaj kosiarkami</a> </p3>
 
             <p2>Wtyczki</p2>
                 <p3><a href="{% url 'devices:plug_list' %}">Lista wtyczek</a> </p3>
-                <p3><a href="{% url 'devices:plug_confirm_delete' %}">Usuń wtyczkę</a> </p3>
-                <p3><a href="{% url 'devices:plug_detail' %}">Szczegóły</a> </p3>
-                <p3><a href="{% url 'devices:plug_form' %}">Dodaj wtyczkę</a> </p3>
+                <p3><a href="/plug_manager/">Zarządzaj wtyczkami</a> </p3>
 
             <p2>Termostaty</p2>
                 <p3><a href="{% url 'thermostat_list' %}">Lista termostatów</a> </p3>
-                <p3><a href="{% url 'devices:thermostat_confirm_delete' %}">Usuń termostat</a> </p3>
-                <p3><a href="{% url 'devices:thermostat_detail' %}">Szczegóły</a> </p3>
-                <p3><a href="{% url 'devices:thermostat_form' %}">Dodaj termostat</a> </p3>
+                <p3><a href="/thermostat_manager/">Zarządzaj termostatmi</a> </p3>
 
             <p2>Stacje pogodowe</p2>
                 <p3><a href="{% url 'weatherstation_list' %}">Lista stacji pogodowych</a> </p3>
-                <p3><a href="{% url 'devices:weatherstation_confirm_delete' %}">Usuń stacje pogodową</a> </p3>
-                <p3><a href="{% url 'devices:weatherstation_detail' %}">Szczegóły</a> </p3>
-                <p3><a href="{% url 'devices:weatherstation_form' %}">Dodaj stację pogodową</a> </p3>
-
+                <p3><a href="/weatherstation_manager/">Zarządzaj stacjami pogodowymi</a> </p3>
 
 {% endblock %}
