@@ -14,27 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from devices import views
-from users.views import UserRegisterView, ActivateUserView, UserEditView, home, DeleteUserAccount
-from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-# User views
-    path('', home, name='home'),  # Ścieżka o nazwie 'home'
-    path('register/', UserRegisterView.as_view(), name='register'),
-    path('activate/<str:token>/', ActivateUserView.as_view(), name='activate'),
-    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/change_password.html'), name='change_password'),
-    path('accounts/password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_changed.html'), name='password_change_done'),
-    path('accounts/delete-user', DeleteUserAccount.as_view(), name='delete_user'),
-    path('edit-profile/', UserEditView.as_view(), name='edit_profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/reset_password.html'), name='password_reset'),
-    path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
-
+    # path('', views.index, name='index'),
 # device
     path('devices/', views.devices, name='devices'),
     path('devices/list/', views.device_list, name='device_list'),
@@ -79,4 +66,5 @@ urlpatterns = [
     path('lawn_mowers/add/', views.lawn_mower_create, name='lawn_mower_create'),
     path('lawn_mowers/<int:pk>/edit', views.lawn_mower_update, name='lawn_mower_update'),
     path('lawn_mowers/<int:pk>/delete/', views.lawn_mower_delete, name='lawn_mower_delete'),
+
 ]
