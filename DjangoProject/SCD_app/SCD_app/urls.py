@@ -68,3 +68,6 @@ urlpatterns = [
     path('lawn_mowers/<int:pk>/delete/', views.lawn_mower_delete, name='lawn_mower_delete'),
 
 ]
+
+
+
