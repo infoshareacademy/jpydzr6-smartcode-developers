@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 
+
 urlpatterns = [
     path('', views.dashboard),
     # path('log_out/', log_out.views, name='logout'),
