@@ -1,11 +1,11 @@
 {% extends 'base_generic_devices.html' %}
 {% block content %}
-<h2>Żarówka: {{ bulb.device_id.name }}</h2>
-<p>Moc: {{ bulb.power }}</p>
-<p>Jasność: {{ bulb.brightness }}</p>
-<p>Temperatura koloru: {{ bulb.color_temp }}</p>
+<h2>Bulb: {{ bulb.device_id.name }}</h2>
+<p>Power: {{ bulb.power }}</p>
+<p>Brighteness: {{ bulb.brightness }}</p>
+<p>Colour temperature: {{ bulb.color_temp }}</p>
 <p>RGB: {{ bulb.red_temp }}, {{ bulb.green_temp }}, {{ bulb.blue_temp }}</p>
-<a href="{% url 'bulb_update' bulb.id %}">Edytuj</a> |
-<a href="{% url 'bulb_delete' bulb.id %}">Usuń</a> |
-<a href="{% url 'bulb_list' %}">Powrót do listy żarówek</a>
+<a href="{% url 'bulb_update' bulb.id %}">Edit</a> |
+<a href="{% url 'bulb_delete' bulb.id %}">Delete</a> |
+<a href="{% url 'bulb_list' %}">Back to bulb list</a>
 {% endblock %}

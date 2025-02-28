@@ -2,11 +2,11 @@
 
 {% block content %}
   <h2>{{ device.name }}</h2>
-  <p>Marka: {{ device.brand }}</p>
-  <p>Połączone: {{ device.connected }}</p>
-  <p>Ostatnia aktualizacja: {{ device.last_updated }}</p>
+  <p>Brand: {{ device.brand }}</p>
+  <p>Connected: {{ device.connected }}</p>
+  <p>Last update: {{ device.last_updated }}</p>
 
-  <a href="{% url 'device_update' device.id %}">Edytuj</a> |
-  <a href="{% url 'device_delete' device.id %}">Usuń</a> |
-  <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
+  <a href="{% url 'device_update' device.id %}">Edit</a> |
+  <a href="{% url 'device_delete' device.id %}">Delete</a> |
+  <a href="{% url 'device_list' %}">Back to devices</a>
 {% endblock %}

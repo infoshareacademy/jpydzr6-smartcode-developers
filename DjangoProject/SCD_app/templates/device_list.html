@@ -1,8 +1,8 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>Lista urządzeń</h2>
-<p><a href="{% url 'add_device' %}">Dodaj nowe urządzenie</a></p>
+  <h2>Device list</h2>
+<p><a href="{% url 'add_device' %}">Add new device</a></p>
 
 <ul>
   {% for device in devices %}
@@ -10,23 +10,23 @@
       <a href="{% url 'device_detail' device.id %}">
         {{ device.name }} - {{ device.brand }}
       </a>
-      (Połączone: {{ device.connected }})
-<!--      <a href="{% url 'device_update' device.id %}">Edytuj</a> |-->
-<!--      <a href="{% url 'device_delete' device.id %}">Usuń</a>-->
+      (Connected: {{ device.connected }})
+<!--      <a href="{% url 'device_update' device.id %}">Edit</a> |-->
+<!--      <a href="{% url 'device_delete' device.id %}">Delete</a>-->
     </li>
   {% empty %}
-    <p>Brak dostępnych urządzeń.</p>
+    <p>There are no devices.</p>
   {% endfor %}
 </ul>
 
   <ul>
-    <li><a href="{% url 'bulb_list' %}">Żarówki</a></li>
-    <li><a href="{% url 'plug_list' %}">Gniazdka</a></li>
-    <li><a href="{% url 'thermostat_list' %}">Termostaty</a></li>
-    <li><a href="{% url 'curtain_list' %}">Rolety</a></li>
-    <li><a href="{% url 'weather_station_list' %}">Stacja Pogodowa</a></li>
-    <li><a href="{% url 'lawn_mower_list' %}">Kosiarka</a></li>
+    <li><a href="{% url 'bulb_list' %}">Bulbs</a></li>
+    <li><a href="{% url 'plug_list' %}">Plugs</a></li>
+    <li><a href="{% url 'thermostat_list' %}">Thermostats</a></li>
+    <li><a href="{% url 'curtain_list' %}">Curtains</a></li>
+    <li><a href="{% url 'weather_station_list' %}">Weather station</a></li>
+    <li><a href="{% url 'lawn_mower_list' %}">Lawn mower</a></li>
   </ul>
 
-  <a href="{% url 'devices' %}">Powrót</a>
+  <a href="{% url 'devices' %}">Back</a>
 {% endblock %}

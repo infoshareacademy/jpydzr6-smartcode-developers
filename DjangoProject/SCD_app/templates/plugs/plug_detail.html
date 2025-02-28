@@ -1,12 +1,12 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-<h2>Detal Gniazdka: {{ plug.device_id.name }}</h2>
+<h2>Plug: {{ plug.device_id.name }}</h2>
 <p>Power: {{ plug.power }}</p>
 <p>Current Power: {{ plug.current_power_w }} W</p>
 <p>Total Energy: {{ plug.total_energy_kwh }} kWh</p>
 
-<a href="{% url 'plug_update' plug.id %}">Edytuj</a> |
-<a href="{% url 'plug_delete' plug.id %}">Usuń</a> |
-<a href="{% url 'plug_list' %}">Powrót do listy gniazdek</a>
+<a href="{% url 'plug_update' plug.id %}">Edit</a> |
+<a href="{% url 'plug_delete' plug.id %}">Delete</a> |
+<a href="{% url 'plug_list' %}">Back to plug list</a>
 {% endblock %}

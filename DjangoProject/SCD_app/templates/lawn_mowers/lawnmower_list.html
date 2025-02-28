@@ -1,21 +1,21 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>Lista Statusów Kosiarek</h2>
+  <h2>Lawn mower list</h2>
 
-  <a href="{% url 'lawn_mower_create' %}">Dodaj nową kosiarkę</a>
+  <a href="{% url 'lawn_mower_create' %}">Add new curtain</a>
   <ul>
     {% for status in statusy %}
       <li>
         <a href="{% url 'lawn_mower_detail' status.id %}">
-          {{ status.device_id.name }} - Bateria: {{ status.battery_percent }}%, Tryb cięcia: {{ status.cutting_mode }}, Wysokość cięcia: {{ status.cutting_height_mm }} mm
+          {{ status.device_id.name }} - Battery: {{ status.battery_percent }}%, Cutting mode: {{ status.cutting_mode }}, Cutting height: {{ status.cutting_height_mm }} mm
         </a> | 
-        <a href="{% url 'lawn_mower_update' status.id %}">Edytuj</a> |
-        <a href="{% url 'lawn_mower_delete' status.id %}">Usuń</a>
+        <a href="{% url 'lawn_mower_update' status.id %}">Edit</a> |
+        <a href="{% url 'lawn_mower_delete' status.id %}">Delete</a>
       </li>
     {% empty %}
-      <p>Brak statusów kosiarek.</p>
+      <p>There are no lawn mowers.</p>
     {% endfor %}
   </ul>
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+  <a href="{% url 'device_list' %}">Back to devices</a>
 {% endblock %}

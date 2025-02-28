@@ -1,13 +1,13 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} roletę</h2>
+  <h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} curtain</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Aktualizuj{% else %}Dodaj{% endif %}</button>
+    <button type="submit">{% if form.instance.pk %}Aktualizuj{% else %}Add{% endif %}</button>
   </form>
 
-  <a href="{% url 'curtain_list' %}">Powrót do listy rolet</a> |
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+  <a href="{% url 'curtain_list' %}">Back to curtain list</a> |
+  <a href="{% url 'device_list' %}">Back to devices</a>
 {% endblock %}
