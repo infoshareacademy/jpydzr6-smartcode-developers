@@ -1,0 +1,28 @@
+{% extends 'base_dashboard.html' %}
+{% block content %}
+<h1>Dashboard</h1>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+{#            <img src="{{ bulb.image }}" class="card-img-top" alt="...">#}
+            <div class="card-body">
+                <h5 class="card-title">Bulb</h5>
+                <p class="card-text">Bulb</p>
+                <a href="{% url 'bulbs:bulb_list' %}" class="btn btn-primary">Bulb list</a>
+                <a href="{% url 'bulbs:bulb_form' %}" class="btn btn-primary">Add new bulb</a>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+{#<li>Bulb#}
+{#            <a href="{% url 'bulbs:bulb_list' %}">List</a>#}
+{#            <a href="{% url 'bulbs:bulb_form' %}">Details</a>#}
+{#        </li>#}
+{#    #}
+{##}
+{##}
+{##}
+{#</ul>#}

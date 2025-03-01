@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail
@@ -9,11 +10,19 @@ from django.contrib.auth import login
 from .models import CustomUser  # Import modelu użytkownika
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from ..devices import models
+from ..devices.models import Device
+
+
 def home(request):
     context = {
         'message': 'Welcome to the Home Page!'
     }
     return render(request, 'home.html', context)
+
+def dashboard(request):
+    devices = Device.objects.all()
+    return render(request, 'dashboard.html', {'devices': devices})
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
