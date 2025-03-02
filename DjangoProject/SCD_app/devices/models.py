@@ -2,10 +2,34 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
 
+class DeviceType(models.Model):
+    BULB = 1
+    PLUG = 2
+    THERMOSTAT = 3
+    CURTAIN = 4
+    WEATHER_STATION = 5
+    LAWN_MOWER = 6
+
+    TYPE_CHOICES = [
+        (BULB, 'Bulb'),
+        (PLUG, 'Plug'),
+        (THERMOSTAT, 'Thermostat'),
+        (CURTAIN, 'Curtain'),
+        (WEATHER_STATION, 'Weather Station'),
+        (LAWN_MOWER, 'Lawn Mower'),
+    ]
+
+    id = models.PositiveSmallIntegerField(primary_key=True, choices=TYPE_CHOICES)
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Device(models.Model):
     device_secret_key = models.CharField(max_length=100, unique=True, null=False)
     name = models.CharField(max_length=255, null=False)
-    type_id = models.IntegerField(null=False)
+    type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
     brand = models.CharField(max_length=100, null=True)
     model = models.CharField(max_length=100)
     location = models.CharField(max_length=255)

@@ -1,11 +1,11 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>Dodaj nowe urządzenie</h2>
+  <h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} urządzenie</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Dodaj</button>
+    <button type="submit">Zapisz</button>
   </form>
   <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
 {% endblock %}
