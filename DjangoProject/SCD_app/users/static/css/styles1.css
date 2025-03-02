@@ -1,3 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global body styles */
+html, body {
+  height: 100%; /* Ustawia wysokość na 100% ekranu */
+  margin: 0; /* Usuwa marginesy, aby nie było pustych przestrzeni */
+}
+
 body {
     margin: 0;
     background: #4ac1f7;
@@ -5,6 +17,14 @@ body {
     font-weight: 400;
 }
 
+.background{
+    background-image: url(../images/background_pic.jpg);
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
 .container {
     width: 80%;
     margin: auto;

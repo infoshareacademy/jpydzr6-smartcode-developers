@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Dashboard</title>
-        <link href="https://fonts.google.com/specimen/Work+Sans:400" rel="stylesheet">
-		{% load static %}
+        {% load static %}
   		<link rel="stylesheet" type="text/css" href="{% static 'css/styles1.css' %}">
 	</head>
     <body>
+        <img src="{% static 'images/background_pic.html' %}" alt="image"
+             style="width:120px; margin-bottom:-50px; ">
+
     <header>
         <div class="container">
             <img src="assets/mobile-app_7438172.png" alt="logo" class="logo">
-
             <nav>
                 <ul>
                     <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
@@ -29,17 +30,11 @@
 
 
                 </ul>
-
             </nav>
-
-
         </div>
-
     </header>
 
     {% block content %}
-
-
 
     {% endblock %}
     </body>
