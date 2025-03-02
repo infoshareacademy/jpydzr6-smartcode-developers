@@ -1,12 +1,12 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>Potwierdzenie usunięcia kosiarki</h2>
-  <p>Czy na pewno chcesz usunąć kosiarkę {{ status.device_id.name }}?</p>
+  <h2>Delete lawn mower</h2>
+  <p>Are you sure you want to delete lawn mower {{ status.device_id.name }}?</p>
   
   <form method="POST">
     {% csrf_token %}
-    <button type="submit">Usuń</button>
+    <button type="submit">Delete</button>
   </form>
-  <a href="{% url 'lawn_mower_list' %}">Powrót do listy kosiarek</a>
+  <a href="{% url 'lawn_mower_list' %}">Back to lawn mower list</a>
 {% endblock %}

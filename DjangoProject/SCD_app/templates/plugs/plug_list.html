@@ -1,18 +1,18 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-<h2>Lista Gniazdek</h2>
-<a href="{% url 'plug_create' %}">Dodaj nowe gniazdko</a>
+<h2>Plug list</h2>
+<a href="{% url 'plug_create' %}">Add new plug</a>
 <ul>
     {% for plug in plugs %}
     <li>
         <a href="{% url 'plug_detail' plug.id %}">{{ plug.device_id.name }} - {{ plug.current_power_w }}W</a> |
-        <a href="{% url 'plug_update' plug.id %}">Edytuj</a> |
-        <a href="{% url 'plug_delete' plug.id %}">Usuń</a>
+        <a href="{% url 'plug_update' plug.id %}">Edit</a> |
+        <a href="{% url 'plug_delete' plug.id %}">Delete</a>
     </li>
     {% empty %}
-    <p>Brak dostępnych gniazdek.</p>
+    <p>There are no plugs.</p>
     {% endfor %}
 </ul>
-<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+<a href="{% url 'device_list' %}">Back to devices</a>
 {% endblock %}

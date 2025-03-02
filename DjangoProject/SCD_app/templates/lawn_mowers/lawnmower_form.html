@@ -1,13 +1,13 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>{% if form.instance.pk %}Edytuj kosiarkę{% else %}Dodaj nową kosiarkę{% endif %}</h2>
+  <h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %}</h2>
 
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Zapisz zmiany{% else %}Dodaj {% endif %}</button>
+    <button type="submit">{% if form.instance.pk %}Save{% else %}Add {% endif %}</button>
   </form>
 
-  <a href="{% url 'lawn_mower_list' %}">Powrót do listy kosiarek</a>
+  <a href="{% url 'lawn_mower_list' %}">Back to lawn mower list</a>
 {% endblock %}

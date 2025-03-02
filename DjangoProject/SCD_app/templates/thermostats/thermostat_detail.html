@@ -1,14 +1,14 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>Termostat: {{ thermostat.device_id.name }}</h2>
+  <h2>Thermostat: {{ thermostat.device_id.name }}</h2>
   <p>Status: {{ thermostat.power }}</p>
-  <p>Temperatura: {{ thermostat.current_temperature }}°C</p>
-  <p>Ustawiona temperatura: {{ thermostat.target_temperature }}°C</p>
-  <p>Wilgotność: {{ thermostat.humidity }}%</p>
+  <p>Temperature: {{ thermostat.current_temperature }}°C</p>
+  <p>Target temperature: {{ thermostat.target_temperature }}°C</p>
+  <p>Humidity: {{ thermostat.humidity }}%</p>
 
-  <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a> |
-  <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a> |
+  <a href="{% url 'thermostat_update' thermostat.id %}">Edit</a> |
+  <a href="{% url 'thermostat_delete' thermostat.id %}">Delete</a> |
 
-  <a href="{% url 'thermostat_list' %}">Powrót do listy termostatów</a>
+  <a href="{% url 'thermostat_list' %}">Back to thermostat list</a>
 {% endblock %}

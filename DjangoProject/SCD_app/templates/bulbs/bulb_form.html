@@ -1,10 +1,10 @@
 {% extends 'base_generic_devices.html' %}
 {% block content %}
-<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} żarówkę</h2>
+<h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} bulb</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Zapisz</button>
+    <button type="submit">Save</button>
 </form>
-<a href="{% url 'bulb_list' %}">Powrót</a>
+<a href="{% url 'bulb_list' %}">Go back to bulb list</a>
 {% endblock %}
