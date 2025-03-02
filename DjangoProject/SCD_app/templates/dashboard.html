@@ -1,28 +1,72 @@
 {% extends 'base_dashboard.html' %}
+
 {% block content %}
-<h1>Dashboard</h1>
-    <div class="row">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-{#            <img src="{{ bulb.image }}" class="card-img-top" alt="...">#}
-            <div class="card-body">
-                <h5 class="card-title">Bulb</h5>
-                <p class="card-text">Bulb</p>
-                <a href="{% url 'bulbs:bulb_list' %}" class="btn btn-primary">Bulb list</a>
-                <a href="{% url 'bulbs:bulb_form' %}" class="btn btn-primary">Add new bulb</a>
-            </div>
-            </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card h-100">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Bulbs</h5>
+            <a href="bulbs/bulb_list.html" class="btn btn-primary">Bulbs' list</a>
+            <a href="bulbs/bulb_form.html" class="btn btn-primary">Add bulb</a>
+          </div>
         </div>
-    {% endfor %}
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Curtains</h5>
+            <a href="curtains/curtain_list.html" class="btn btn-primary">Curtains' list</a>
+            <a href="curtains/curtain_form.html" class="btn btn-primary">Add curtain</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Lawn mowers</h5>
+            <a href="lawn_mowers/lawnmower_list.html" class="btn btn-primary">Lawn mowers' list</a>
+            <a href="lawn_mowers/lawnmower_form.html" class="btn btn-primary">Add lawn mower</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Plugs</h5>
+            <a href="plugs/plug_list.html" class="btn btn-primary">Plugs' list</a>
+            <a href="plugs/plug_form.html" class="btn btn-primary">Add plug</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Thermostats</h5>
+            <a href="thermostats/thermostat_list.html" class="btn btn-primary">Thermostats' list</a>
+            <a href="thermostats/thermostat_form.html" class="btn btn-primary">Add thermostat</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Weather stations</h5>
+            <a href="weather_stations/weatherstation_list.html" class="btn btn-primary">Weather stations' list</a>
+            <a href="weather_stations/weatherstation_form.html" class="btn btn-primary">Add weather station</a>
+          </div>
+        </div>
+      </div>
+      </div>
+
 {% endblock %}
 
 
-{#<li>Bulb#}
-{#            <a href="{% url 'bulbs:bulb_list' %}">List</a>#}
-{#            <a href="{% url 'bulbs:bulb_form' %}">Details</a>#}
-{#        </li>#}
-{#    #}
-{##}
-{##}
-{##}
-{#</ul>#}
+
+

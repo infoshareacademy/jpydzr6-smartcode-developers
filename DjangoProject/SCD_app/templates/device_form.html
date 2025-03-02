@@ -1,11 +1,11 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>Dodaj nowe urządzenie</h2>
+  <h2>Add new device</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Dodaj</button>
+    <button type="submit">Add</button>
   </form>
-  <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
+  <a href="{% url 'device_list' %}">Back to devices</a>
 {% endblock %}
