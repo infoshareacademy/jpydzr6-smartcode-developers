@@ -12,19 +12,12 @@ html, body {
 
 body {
     margin: 0;
-    background: #4ac1f7;
+    background-image: url(../images/background_pic.jpg);
+    background-size: 100%;
     font-family: 'Work Sans', sans-serif;
     font-weight: 400;
 }
 
-.background{
-    background-image: url(../images/background_pic.jpg);
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    margin: 0 auto;
-}
 .container {
     width: 80%;
     margin: auto;
