@@ -11,8 +11,7 @@
         {{ device.name }} - {{ device.brand }}
       </a>
       (Połączone: {{ device.connected }})
-<!--      <a href="{% url 'device_update' device.id %}">Edytuj</a> |-->
-<!--      <a href="{% url 'device_delete' device.id %}">Usuń</a>-->
+
     </li>
   {% empty %}
     <p>Brak dostępnych urządzeń.</p>
@@ -28,5 +27,5 @@
     <li><a href="{% url 'lawn_mower_list' %}">Kosiarka</a></li>
   </ul>
 
-  <a href="{% url 'devices' %}">Powrót</a>
+  <a href="{% url 'home' %}">Powrót</a>
 {% endblock %}
