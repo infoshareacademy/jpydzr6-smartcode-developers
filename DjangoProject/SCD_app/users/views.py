@@ -10,8 +10,7 @@ from django.contrib.auth import login
 from .models import CustomUser  # Import modelu użytkownika
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from ..devices import models
-from ..devices.models import Device
+from devices.models import Device
 
 
 def home(request):
@@ -23,6 +22,12 @@ def home(request):
 def dashboard(request):
     devices = Device.objects.all()
     return render(request, 'dashboard.html', {'devices': devices})
+
+def about_us(request):
+    return render(request, 'about_us.html')
+
+def instruction(request):
+    return render(request, 'instruction.html')
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:

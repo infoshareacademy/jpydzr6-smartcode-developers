@@ -3,38 +3,67 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Dashboard</title>
+		<title>{% block title %}Smart Home{% endblock %}</title>
         {% load static %}
   		<link rel="stylesheet" type="text/css" href="{% static 'css/styles1.css' %}">
 	</head>
     <body>
-        <img src="{% static 'images/background_pic.html' %}" alt="image"
+        <img src="{% static 'images/background_pic.html' %}" alt="background_pic"
              style="width:120px; margin-bottom:-50px; ">
 
     <header>
-        <div class="container">
-            <img src="assets/mobile-app_7438172.png" alt="logo" class="logo">
-            <nav>
-                <ul>
-                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
+        <img src="assets/mobile-app_7438172.png" class="logo" alt="logo">
+        <div>
 
+            <span>
+{#                {% if user.is_authenticated %}#}
+                    <span>Hi {{ user.username}}!</span>
+                    {% url 'dashboard' as dashboard_url %}
+                    <span>{% if request.path == dashboard_url %}Home{% else %}<a href="{% url 'dashboard' %}">Home</a>{% endif %}</span>
+                    {% url 'edit_profile' as edit_profile_url %}
+                    <span>{% if request.path == edit_profile_url %}Edit profile{% else %}<a href="{% url 'edit_profile' %}">Edit profile</a>{% endif %}</span>
+                    {% url 'change_password' as change_password_url %}
+                    <span>{% if request.path == change_password_url %}Change password{% else %}<a href="{% url 'change_password' %}">Change password</a>{% endif %}</span>
+                    {% url 'delete_user' as delete_user_url %}
+                    <span>{% if request.path == delete_user_url %}Delete account{% else %}<a href="{% url 'delete_user' %}">Delete user</a>{% endif %}</span>
+                    <span><a href="{% url 'home' %}">Logout</a></span>
+
+{#                {% else %}#}
+{#                    <span><a href="{% url 'login' %}">Login</a></span>#}
+{#                    <span><a href="{% url 'register' %}">Register</a></span>#}
+{#                {% endif %}#}
+{#                    <span><a href="{% url 'about_us' %}">About authors</a></span>#}
+
+            </span>
+
+        </div>
+
+
+{#        <div class="container">#}
+{#
+{#            <nav>#}
+{#                <ul>#}
+{#                    <li><a href="{% url 'dashboard' %}">Home</a></li>#}
+{#                    <li><a href="{% url 'change_password' %}">Change password</a></li>#}
+{#                    <li><a href="{% url 'edit_profile' %}">Edit profile</a></li>#}
+{#                    <li><a href="{% url 'delete_user' %}">Delete account</a></li>#}
+{#                    <li><a href="{% url 'logout' %}">Logout</a></li>#}
+{##}
 {#                    <form action="{% url 'logout' %}" method="post">#}
 {#						  {% csrf_token %}#}
 {#						  <button type="submit">Logout</button>#}
 {#                    </form>#}
+{##}
+{#                </ul>#}
+{#            </nav>#}
+{#        </div>#}
 
-                    <li><a href="{% url 'change_password' %}">Change password</a></li>
-                    <li><a href="{% url 'edit_profile' %}">Edit profile</a></li>
-                    <li><a href="{% url 'delete_user' %}">Delete account</a></li>
-
-
-                </ul>
-            </nav>
-        </div>
     </header>
 
     {% block content %}
+
+
+
 
     {% endblock %}
     </body>

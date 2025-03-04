@@ -1,0 +1,52 @@
+{% extends 'base_dashboard.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card-body">
+          <div class="p-3 mb-2 bg-light text-dark">
+              <h5 class="card-title">Bulbs</h5>
+              <a href="../../templates/bulbs/bulb_list.html" class="btn btn-primary">Show</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title">Curtains</h5>
+          <a href="../../templates/curtains/curtain_list.html" class="btn btn-primary">Show</a>
+        </div>
+      </div>
+      <div class="col">
+         <div class="card-body">
+           <h5 class="card-title">Lawn mowers</h5>
+           <a href="../../templates/lawn_mowers/lawnmower_list.html" class="btn btn-primary">Show</a>
+         </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title">Plugs</h5>
+          <a href="../../templates/plugs/plug_list.html" class="btn btn-primary">Show</a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title">Thermostats</h5>
+          <a href="../../templates/thermostats/thermostat_list.html" class="btn btn-primary">Show</a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title">Weather stations</h5>
+          <a href="../../templates/weather_stations/weatherstation_list.html" class="btn btn-primary">Show</a>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+

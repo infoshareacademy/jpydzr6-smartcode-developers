@@ -4,18 +4,14 @@
     box-sizing: border-box;
 }
 
-/* Global body styles */
-html, body {
-  height: 100%; /* Ustawia wysokość na 100% ekranu */
-  margin: 0; /* Usuwa marginesy, aby nie było pustych przestrzeni */
-}
-
 body {
     margin: 0;
     background-image: url(../images/background_pic.jpg);
     background-size: 100%;
     font-family: 'Work Sans', sans-serif;
     font-weight: 400;
+    font-size: 30px;
+    position: relative;
 }
 
 .container {
@@ -24,7 +20,7 @@ body {
 }
 
 header {
-    background: #003366;
+    background: aqua;
 }
 
 header::after {
@@ -51,34 +47,34 @@ nav ul {
 nav li {
     display: inline-block;
     margin-left: 70px;
-    padding-top: 23px;
+    padding-top: 10px;
 
     position: relative;
 }
 
 nav a {
-    color: #2e52ff;
+    color: black;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 30px;
 }
 
 nav s:hover {
-    color: black;
+    color: aqua;
 }
 
-nav a::before {
-    content: '';
-    display: block;
-    height: 5px;
-    background-color: #c4dce8;
+/*nav a::before {*/
+/*    content: '';*/
+/*    display: block;*/
+/*    height: 5px;*/
+/*    background-color: black;*/
 
-    position: absolute;
-    top: 0;
-    width: 0%;
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    width: 0%;*/
 
-    transition: all ease-in-out 250ms;
-}
+/*    transition: all ease-in-out 250ms;*/
+/*}*/
 
 nav a:hover::before {
     width: 100%;

@@ -17,8 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from ..devices import views
-from ..users.views import UserRegisterView, ActivateUserView, UserEditView, home, DeleteUserAccount
+from devices import views
+from users.views import UserRegisterView, ActivateUserView, UserEditView, home, DeleteUserAccount, dashboard
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -38,6 +38,7 @@ urlpatterns = [
     path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/reset_password_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/reset_password_done.html'), name='password_reset_complete'),
+    path('dashboard/', dashboard, name='dashboard'),
 
 # device
     path('devices/', views.devices, name='devices'),

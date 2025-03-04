@@ -1,20 +1,20 @@
 from django.contrib import admin
 from django.urls import path, include
 from ..devices import views
-from ..users import views
-from django.views.generic.base import TemplateView
+from . import views
 
 
-app_name = 'devices'
+app_name = 'users'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('index'), name='index'),
-    path('users/', include('users.urls'), name='users'),
-    path('users/dashboard/', views.dashboard, name='dashboard'),
+    path('devices/', include('devices.urls'), name='devices'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('about_us/', views.about_us, name='about_us'),
     path('instruction', views.instruction, name='instruction'),
-    # path('dashboard/', TemplateView.as_view(template_name="dashboard.html"), name='dashboard'),
+    path('registration/edit_profile/', views.UserEditView.as_view(template_name="registration/edit_profile.html"), name='edit_profile'),
+
 ]
 
 
