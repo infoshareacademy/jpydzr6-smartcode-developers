@@ -1,48 +1,222 @@
 {% extends 'base_dashboard.html' %}
-{% block title %}Home{% endblock %}
 
 {% block content %}
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card-body">
-          <div class="p-3 mb-2 bg-light text-dark">
-              <h5 class="card-title">Bulbs</h5>
-              <a href="../../templates/bulbs/bulb_list.html" class="btn btn-primary">Show</a>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card-body">
-          <h5 class="card-title">Curtains</h5>
-          <a href="../../templates/curtains/curtain_list.html" class="btn btn-primary">Show</a>
-        </div>
-      </div>
-      <div class="col">
-         <div class="card-body">
-           <h5 class="card-title">Lawn mowers</h5>
-           <a href="../../templates/lawn_mowers/lawnmower_list.html" class="btn btn-primary">Show</a>
-         </div>
-      </div>
-      <div class="col">
-        <div class="card-body">
-          <h5 class="card-title">Plugs</h5>
-          <a href="../../templates/plugs/plug_list.html" class="btn btn-primary">Show</a>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card-body">
-          <h5 class="card-title">Thermostats</h5>
-          <a href="../../templates/thermostats/thermostat_list.html" class="btn btn-primary">Show</a>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card-body">
-          <h5 class="card-title">Weather stations</h5>
-          <a href="../../templates/weather_stations/weatherstation_list.html" class="btn btn-primary">Show</a>
-        </div>
-      </div>
-    </div>
+<!-- Devices Grid-->
+        <section class="page-section bg-light" id="devices">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Manage your devices</h2>
+                    <h3 class="section-subheading text-muted">Choose a device type</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- devices item 1-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/bulbs/bulb_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/bulb.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                                <div class="devices-caption-heading">Bulbs</div>
+{#                                <div class="devices-caption-subheading text-muted">Illustration</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- devices item 2-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/plugs/plug_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/plug.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                                <div class="devices-caption-heading">Plugs</div>
+{#                                <div class="devices-caption-subheading text-muted">Graphic Design</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- devices item 3-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/curtains/curtain_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/curtain.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                                <div class="devices-caption-heading">Curtains</div>
+{#                                <div class="devices-caption-subheading text-muted">Identity</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+                        <!-- devices item 4-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/lawn_mowers/lawnmower_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/lawnmower.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                                <div class="devices-caption-heading">Lawn mowers</div>
+{#                                <div class="devices-caption-subheading text-muted">Branding</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+                        <!-- devices item 5-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/thermostats/thermostat_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/thermostat.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                                <div class="devices-caption-heading">Thermostats</div>
+{#                                <div class="devices-caption-subheading text-muted">Website Design</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <!-- devices item 6-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/weather_stations/weatherstation_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/weatherstation.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                                <div class="devices-caption-heading">Weather stations</div>
+{#                                <div class="devices-caption-subheading text-muted">Photography</div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+
+<!-- Options -->
+    <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Manage application</h2>
+                    <h3 class="section-subheading text-muted">Add or accept a device. Find out more how to manage your devices.</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+
+                        <div class="option-item">
+                            <a class="option-link" data-bs-toggle="modal" href="../../templates/device_form.html">
+                                <div class="option-hover">
+                                    <div class="option-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/add.webp" alt="..." />
+                            </a>
+                            <div class="option-caption">
+
+{#                        <span class="fa-stack fa-4x">#}
+{#                            <i class="fas fa-circle fa-stack-2x text-primary"></i>#}
+{#                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>#}
+{#                        </span>#}
+                        <h4 class="my-3">Add device</h4>
+{#                        <p class="text-muted">Add device</p>#}
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="option-item">
+                            <a class="option-link" data-bs-toggle="modal" href="../../templates/device_accept.html">
+                                <div class="option-hover">
+                                    <div class="option-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/accept.webp" alt="..." />
+                            </a>
+                            <div class="option-caption">
+
+{#                        <span class="fa-stack fa-4x">#}
+{#                            <i class="fas fa-circle fa-stack-2x text-primary"></i>#}
+{#                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>#}
+{#                        </span>#}
+                        <h4 class="my-3">Accept device</h4>
+{#                        <p class="text-muted">Accept device</p>#}
+                    </div>
+                    <div class="col-md-4">
+                         <div class="option-item">
+                            <a class="option-link" data-bs-toggle="modal" href="instruction.html">
+                                <div class="option-hover">
+                                    <div class="option-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/instruction.webp" alt="..." />
+                            </a>
+                         <div class="option-caption">
+
+{#                        <span class="fa-stack fa-4x">#}
+{#                            <i class="fas fa-circle fa-stack-2x text-primary"></i>#}
+{#                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>#}
+{#                        </span>#}
+                        <h4 class="my-3">Instruction</h4>
+{#                        <p class="text-muted">Instruction</p>#}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+{#    <div class="row row-cols-1 row-cols-md-3 g-4">#}
+{#      <div class="col">#}
+{#        <div class="card-body">#}
+{#          <div class="p-3 mb-2 bg-light text-dark">#}
+{#              <h5 class="card-title">Bulbs</h5>#}
+{#              <a href="../../templates/bulbs/bulb_list.html" class="btn btn-primary">Show</a>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="col">#}
+{#        <div class="card-body">#}
+{#          <h5 class="card-title">Curtains</h5>#}
+{#          <a href="../../templates/curtains/curtain_list.html" class="btn btn-primary">Show</a>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="col">#}
+{#         <div class="card-body">#}
+{#           <h5 class="card-title">Lawn mowers</h5>#}
+{#           <a href="../../templates/lawn_mowers/lawnmower_list.html" class="btn btn-primary">Show</a>#}
+{#         </div>#}
+{#      </div>#}
+{#      <div class="col">#}
+{#        <div class="card-body">#}
+{#          <h5 class="card-title">Plugs</h5>#}
+{#          <a href="../../templates/plugs/plug_list.html" class="btn btn-primary">Show</a>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="col">#}
+{#        <div class="card-body">#}
+{#          <h5 class="card-title">Thermostats</h5>#}
+{#          <a href="../../templates/thermostats/thermostat_list.html" class="btn btn-primary">Show</a>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="col">#}
+{#        <div class="card-body">#}
+{#          <h5 class="card-title">Weather stations</h5>#}
+{#          <a href="../../templates/weather_stations/weatherstation_list.html" class="btn btn-primary">Show</a>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
 
 
 {% endblock %}
