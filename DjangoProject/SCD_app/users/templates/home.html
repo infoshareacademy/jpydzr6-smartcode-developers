@@ -8,9 +8,8 @@
             <div class="masthead-subheading">Register or login to access the site.</div>
             <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'login' %}">Login</a>
             <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'register' %}">Register</a>
-        {% endif %}
-        {% if user.is_authenticated %}
-            <form action="{% url 'dashboard' %}" method="post"></form>
+        {% else %}
+            <a href="{% url 'dashboard' %}"></a>
         {% endif %}
     </div>
  </header>
