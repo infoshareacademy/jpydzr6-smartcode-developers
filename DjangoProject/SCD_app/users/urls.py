@@ -14,7 +14,7 @@ urlpatterns = [
     path('about_us/', views.about_us, name='about_us'),
     path('instruction', views.instruction, name='instruction'),
     path('registration/edit_profile/', views.UserEditView.as_view(template_name="registration/edit_profile.html"), name='edit_profile'),
-    path('bulbs/bulb_list/', include('devices.urls'), name='bulb_list'),
+    # path('bulb_list/', include('bulb_list'), name='bulb_list'),
 ]
 
 
