@@ -1,13 +1,25 @@
-{% extends 'base_generic.html' %}
+{% extends 'base_dashboard.html' %}
+
+
 
 {% block content %}
   {% if not user.is_authenticated %}
-    <h1>Welcome to Smart Code Developers!</h1>
-    <span>Register or login to access the site.<br></span>
+      <header class="masthead">
+          <div class="container">
+              <div class="masthead-heading text-uppercase">Welcome to Smart Code Developers!</div>
+              <div class="masthead-subheading">Register or login to access the site.</div>
+              <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'login' %}">Login</a>
+              <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'register' %}">Register</a>
+            </div>
+      </header>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <header class="masthead">
+          <div class="container">
+              <div class="masthead-heading text-uppercase">Welcome, {{ user.username }}!</div>
+{#              <div class="masthead-subheading">Manage your devices</div>              #}
+              <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'dashboard' %}">Manage your devices</a>
+            </div>
+      </header>
   {% endif %}
-  {% if user.is_authenticated %}
-    <h1>Welcome, {{ user.username }}!</h1>
-  {% endif %}
-<img src="https://media.tenor.com/2roX3uxz_68AAAAM/cat-space.gif" alt="Smart Code Developers Logo">
-
 {% endblock %}

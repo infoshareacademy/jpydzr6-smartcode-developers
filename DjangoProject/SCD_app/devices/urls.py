@@ -9,7 +9,7 @@ app_name = 'devices'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('index'), name='index'),
+    path('', include('home'), name='home'),
     path('users/', include('users.urls'), name='users'),
     path('users/dashboard/', views.dashboard, name='dashboard'),
     path('about_us/', views.about_us, name='about_us'),

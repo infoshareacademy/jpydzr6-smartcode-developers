@@ -10841,7 +10841,7 @@ p {
 }
 
 .page-section {
-  padding: 6rem 0;
+  padding: 8rem 0;
 }
 
 .page-section h2.section-heading, .page-section .section-heading.h2 {
@@ -10951,7 +10951,7 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header-bg.jpg");
+  background-image: url("../images/header-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
