@@ -1,25 +1,17 @@
 {% extends 'base_dashboard.html' %}
 
-
-
 {% block content %}
-  {% if not user.is_authenticated %}
-      <header class="masthead">
-          <div class="container">
-              <div class="masthead-heading text-uppercase">Welcome to Smart Code Developers!</div>
-              <div class="masthead-subheading">Register or login to access the site.</div>
-              <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'login' %}">Login</a>
-              <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'register' %}">Register</a>
-            </div>
-      </header>
-    {% endif %}
-    {% if user.is_authenticated %}
-        <header class="masthead">
-          <div class="container">
-              <div class="masthead-heading text-uppercase">Welcome, {{ user.username }}!</div>
-{#              <div class="masthead-subheading">Manage your devices</div>              #}
-              <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'dashboard' %}">Manage your devices</a>
-            </div>
-      </header>
-  {% endif %}
+ <header class="masthead">
+    <div class="container">
+        {% if not user.is_authenticated %}
+            <div class="masthead-heading text-uppercase">Welcome to Smart Code Developers!</div>
+            <div class="masthead-subheading">Register or login to access the site.</div>
+            <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'login' %}">Login</a>
+            <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'register' %}">Register</a>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'dashboard' %}" method="post"></form>
+        {% endif %}
+    </div>
+ </header>
 {% endblock %}
