@@ -1,0 +1,109 @@
+{% extends 'base_dashboard.html' %}
+
+{% block content %}
+        <section class="page-section bg-light" id="devices">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Manage {{ 'devices' }}</h2>
+                    <h3 class="section-subheading text-muted">Choose option</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- devices item 1-->
+                        <div class="devices-item">
+                            <a class="devices-link" href="{% url 'bulb_list' %}">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/bulb.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                            <h4 class="my-3">Bulbs</h4>
+{#                                <div class="devices-caption-subheading text-muted">Illustration</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- devices item 2-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/plugs/plug_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/plug.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                            <h4 class="my-3">Plugs</h4>
+{#                                <div class="devices-caption-subheading text-muted">Graphic Design</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- devices item 3-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/curtains/curtain_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/curtain.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                            <h4 class="my-3">Curtains</h4>
+{#                                <div class="devices-caption-subheading text-muted">Identity</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+                        <!-- devices item 4-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/lawn_mowers/lawnmower_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/lawnmower.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                            <h4 class="my-3">Lawn mowers</h4>
+{#                                <div class="devices-caption-subheading text-muted">Branding</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+                        <!-- devices item 5-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/thermostats/thermostat_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/thermostat.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                            <h4 class="my-3">Thermostats</h4>
+{#                                <div class="devices-caption-subheading text-muted">Website Design</div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <!-- devices item 6-->
+                        <div class="devices-item">
+                            <a class="devices-link" data-bs-toggle="modal" href="../../templates/weather_stations/weatherstation_list.html">
+                                <div class="devices-hover">
+                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="../static/images/weatherstation.webp" alt="..." />
+                            </a>
+                            <div class="devices-caption">
+                            <h4 class="my-3">Weather stations</h4>
+{#                                <div class="devices-caption-subheading text-muted">Photography</div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+{% endblock %}
+
