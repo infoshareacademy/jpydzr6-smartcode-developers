@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class DeviceType(models.Model):
     BULB = 1
@@ -43,11 +44,11 @@ class Device(models.Model):
 
 class BulbStatus(models.Model):
     power = models.CharField(max_length=10)
-    brightness = models.IntegerField()
+    brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     color_temp = models.IntegerField()
-    red_temp = models.IntegerField()
-    green_temp = models.IntegerField()
-    blue_temp = models.IntegerField()
+    red_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    green_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    blue_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
@@ -74,7 +75,7 @@ class ThermostatStatus(models.Model):
     power = models.CharField(max_length=10)
     target_temperature = models.DecimalField(max_digits=10, decimal_places=2)
     current_temperature = models.DecimalField(max_digits=10, decimal_places=2)
-    humidity = models.IntegerField()
+    humidity = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
@@ -87,7 +88,7 @@ class ThermostatStatus(models.Model):
 class CurtainStatus(models.Model):
     power = models.CharField(max_length=10)
     position = models.IntegerField()
-    open_percent = models.IntegerField()
+    open_percent = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
@@ -114,11 +115,11 @@ class WeatherStationStatus(models.Model):
 
 class LawnMowerStatus(models.Model):
     power = models.CharField(max_length=10)
-    battery_percent = models.IntegerField(default=100)
+    battery_percent = models.IntegerField(default=100, validators=[MinValueValidator(0), MaxValueValidator(100)])
     cutting_mode = models.CharField(max_length=50)
-    cutting_height_mm = models.IntegerField()
-    current_area_m2 = models.IntegerField()
-    total_cutting_time_minutes = models.IntegerField()
+    cutting_height_mm = models.IntegerField(validators=[MinValueValidator(0)])
+    current_area_m2 = models.IntegerField(validators=[MinValueValidator(0)])
+    total_cutting_time_minutes = models.IntegerField(validators=[MinValueValidator(0)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
