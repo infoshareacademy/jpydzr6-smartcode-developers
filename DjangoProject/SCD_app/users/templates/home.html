@@ -1,10 +1,10 @@
-{% extends 'base_dashboard.html' %}
+-{% extends 'base_dashboard.html' %}
 
 {% block content %}
  <header class="masthead">
     <div class="container">
         {% if not user.is_authenticated %}
-            <div class="masthead-heading text-uppercase">Welcome to Smart Code Developers!</div>
+            <div class="masthead-heading text-uppercase">Welcome to Smart Home Application!</div>
             <div class="masthead-subheading">Register or login to access the site.</div>
             <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'login' %}">Login</a>
             <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'register' %}">Register</a>
