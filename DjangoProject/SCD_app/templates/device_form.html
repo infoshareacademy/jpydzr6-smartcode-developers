@@ -1,11 +1,12 @@
 {% extends 'base_generic_devices.html' %}
 
 {% block content %}
-  <h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} urządzenie</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Zapisz</button>
-  </form>
-  <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
+    <h2>Create a New Device</h2>
+    <form method="post">
+        {% csrf_token %}
+        <h3>Device Data</h3>
+        {{ specific_form.as_p }}
+
+        <button type="submit">Create Device</button>
+    </form>
 {% endblock %}

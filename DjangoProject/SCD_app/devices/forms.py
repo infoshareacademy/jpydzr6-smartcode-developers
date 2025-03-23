@@ -1,13 +1,25 @@
 from django import forms
-from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus, WeatherStationStatus, LawnMowerStatus
+from .models import BaseDevice, Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower
 
 
-class DeviceForm(forms.ModelForm):
+class BaseDeviceForm(forms.ModelForm):
     class Meta:
-        model = Device
-        fields = ['device_secret_key', 'name', 'type', 'brand', 'model', 'location', 'connected']
+        model = BaseDevice
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected']
 
-class BulbStatusForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Use PasswordInput widget for device_secret_key
+        self.fields['device_secret_key'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
+        # Optionally, add a custom help text if necessary
+        self.fields['device_secret_key'].help_text = "Enter a secure device secret key."
+
+        # Remove owner field from form
+        if 'owner' in self.fields:
+            del self.fields['owner']
+            
+
+class BulbForm(BaseDeviceForm):
     brightness = forms.IntegerField(
         min_value=0, max_value=100,
         widget=forms.NumberInput(attrs={'min': 0, 'max': 100})
@@ -29,10 +41,11 @@ class BulbStatusForm(forms.ModelForm):
         widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
     )
     class Meta:
-        model = BulbStatus
-        fields = ['power', 'brightness', 'color_temp', 'red_temp', 'green_temp', 'blue_temp', 'device_id']
+        model = Bulb
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'brightness', 'color_temp', 'red_temp', 'green_temp', 'blue_temp']
 
-class PlugStatusForm(forms.ModelForm):
+
+class PlugForm(BaseDeviceForm):
     current_power_w = forms.FloatField(
         min_value=0, widget=forms.NumberInput(attrs={'min': 0})
     )
@@ -40,10 +53,11 @@ class PlugStatusForm(forms.ModelForm):
         min_value=0, widget=forms.NumberInput(attrs={'min': 0})
     )
     class Meta:
-        model = PlugStatus
-        fields = ['power', 'current_power_w', 'total_energy_kwh', 'device_id']
+        model = Plug
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'current_power_w', 'total_energy_kwh']
 
-class ThermostatStatusForm(forms.ModelForm):
+
+class ThermostatForm(BaseDeviceForm):
     target_temperature = forms.FloatField(
         min_value=10, max_value=30,
         widget=forms.NumberInput(attrs={'min': 10, 'max': 30})
@@ -57,19 +71,21 @@ class ThermostatStatusForm(forms.ModelForm):
         widget=forms.NumberInput(attrs={'min': 0, 'max': 100})
     )
     class Meta:
-        model = ThermostatStatus
-        fields = ['power', 'target_temperature', 'current_temperature', 'humidity', 'device_id']
+        model = Thermostat
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'target_temperature', 'current_temperature', 'humidity']
 
-class CurtainStatusForm(forms.ModelForm):
+
+class CurtainForm(BaseDeviceForm):
     open_percent = forms.IntegerField(
         min_value=0, max_value=100,
         widget=forms.NumberInput(attrs={'min': 0, 'max': 100})
     )
     class Meta:
-        model = CurtainStatus
-        fields = ['power', 'position', 'open_percent', 'device_id']
+        model = Curtain
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'position', 'open_percent']
 
-class WeatherStationStatusForm(forms.ModelForm):
+
+class WeatherStationForm(BaseDeviceForm):
     temperature_c = forms.FloatField(
         min_value=-50, max_value=50,
         widget=forms.NumberInput(attrs={'min': -50, 'max': 50})
@@ -90,10 +106,11 @@ class WeatherStationStatusForm(forms.ModelForm):
         min_value=0, widget=forms.NumberInput(attrs={'min': 0})
     )
     class Meta:
-        model = WeatherStationStatus
-        fields = ['temperature_c', 'humidity_percent', 'pressure_hpa', 'wind_speed_kmh', 'rainfall', 'device_id']
+        model = WeatherStation
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'temperature_c', 'humidity_percent', 'pressure_hpa', 'wind_speed_kmh', 'rainfall']
 
-class LawnMowerStatusForm(forms.ModelForm):
+
+class LawnMowerForm(BaseDeviceForm):
     battery_percent = forms.IntegerField(
         min_value=0, max_value=100,
         widget=forms.NumberInput(attrs={'min': 0, 'max': 100})
@@ -109,6 +126,6 @@ class LawnMowerStatusForm(forms.ModelForm):
         min_value=0, widget=forms.NumberInput(attrs={'min': 0})
     )
     class Meta:
-        model = LawnMowerStatus
-        fields = ['power', 'battery_percent', 'cutting_mode', 'cutting_height_mm',
-                  'current_area_m2', 'total_cutting_time_minutes', 'device_id']
+        model = LawnMower
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'battery_percent', 'cutting_mode', 'cutting_height_mm',
+                  'current_area_m2', 'total_cutting_time_minutes']
