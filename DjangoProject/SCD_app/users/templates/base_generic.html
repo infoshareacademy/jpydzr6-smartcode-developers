@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Code Developers</title>
+  <title>Smart Home</title>
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
   <header>
+    <h1>System Smart Home</h1>
     <nav>
       <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
@@ -17,7 +18,8 @@
           <li><a href="{% url 'register' %}">Register</a></li>
         {% endif %}
         {% if user.is_authenticated %}
-          <li><a href="{% url 'devices' %}">Devices</a></li>
+<!--          <li><a href="{% url 'device_list' %}">Devices</a></li>-->
+          <li><a href="{% url 'device_list' %}">Devices</a></li>
           <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
           <li><a href="{% url 'change_password' %}">Change Password</a></li>
           <li><a href="{% url 'delete_user' %}">Delete Account</a></li>

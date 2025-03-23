@@ -1,11 +1,36 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+class DeviceType(models.Model):
+    BULB = 1
+    PLUG = 2
+    THERMOSTAT = 3
+    CURTAIN = 4
+    WEATHER_STATION = 5
+    LAWN_MOWER = 6
+
+    TYPE_CHOICES = [
+        (BULB, 'Bulb'),
+        (PLUG, 'Plug'),
+        (THERMOSTAT, 'Thermostat'),
+        (CURTAIN, 'Curtain'),
+        (WEATHER_STATION, 'Weather Station'),
+        (LAWN_MOWER, 'Lawn Mower'),
+    ]
+
+    id = models.PositiveSmallIntegerField(primary_key=True, choices=TYPE_CHOICES)
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Device(models.Model):
     device_secret_key = models.CharField(max_length=100, unique=True, null=False)
     name = models.CharField(max_length=255, null=False)
-    type_id = models.IntegerField(null=False)
+    type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
     brand = models.CharField(max_length=100, null=True)
     model = models.CharField(max_length=100)
     location = models.CharField(max_length=255)
@@ -19,11 +44,11 @@ class Device(models.Model):
 
 class BulbStatus(models.Model):
     power = models.CharField(max_length=10)
-    brightness = models.IntegerField()
+    brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     color_temp = models.IntegerField()
-    red_temp = models.IntegerField()
-    green_temp = models.IntegerField()
-    blue_temp = models.IntegerField()
+    red_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    green_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    blue_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
@@ -50,7 +75,7 @@ class ThermostatStatus(models.Model):
     power = models.CharField(max_length=10)
     target_temperature = models.DecimalField(max_digits=10, decimal_places=2)
     current_temperature = models.DecimalField(max_digits=10, decimal_places=2)
-    humidity = models.IntegerField()
+    humidity = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
@@ -63,7 +88,7 @@ class ThermostatStatus(models.Model):
 class CurtainStatus(models.Model):
     power = models.CharField(max_length=10)
     position = models.IntegerField()
-    open_percent = models.IntegerField()
+    open_percent = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
@@ -90,11 +115,11 @@ class WeatherStationStatus(models.Model):
 
 class LawnMowerStatus(models.Model):
     power = models.CharField(max_length=10)
-    battery_percent = models.IntegerField(default=100)
+    battery_percent = models.IntegerField(default=100, validators=[MinValueValidator(0), MaxValueValidator(100)])
     cutting_mode = models.CharField(max_length=50)
-    cutting_height_mm = models.IntegerField()
-    current_area_m2 = models.IntegerField()
-    total_cutting_time_minutes = models.IntegerField()
+    cutting_height_mm = models.IntegerField(validators=[MinValueValidator(0)])
+    current_area_m2 = models.IntegerField(validators=[MinValueValidator(0)])
+    total_cutting_time_minutes = models.IntegerField(validators=[MinValueValidator(0)])
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     class Meta:
