@@ -1,39 +1,51 @@
 from django import forms
-from .models import Device, BulbStatus, PlugStatus, ThermostatStatus, CurtainStatus, WeatherStationStatus, LawnMowerStatus
+from .models import BaseDevice, Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower
 
 
-class DeviceForm(forms.ModelForm):
+class BaseDeviceForm(forms.ModelForm):
     class Meta:
-        model = Device
-        fields = ['device_secret_key', 'name', 'type', 'brand', 'model', 'location', 'connected']
+        model = BaseDevice
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected']
 
-class BulbStatusForm(forms.ModelForm):
-    class Meta:
-        model = BulbStatus
-        fields = ['power', 'brightness', 'color_temp', 'red_temp', 'green_temp', 'blue_temp', 'device_id']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Use PasswordInput widget for device_secret_key
+        self.fields['device_secret_key'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
+        # Optionally, add a custom help text if necessary
+        self.fields['device_secret_key'].help_text = "Enter a secure device secret key."
 
-class PlugStatusForm(forms.ModelForm):
-    class Meta:
-        model = PlugStatus
-        fields = ['power', 'current_power_w', 'total_energy_kwh', 'device_id']
+        # Remove owner field from form
+        if 'owner' in self.fields:
+            del self.fields['owner']
 
-class ThermostatStatusForm(forms.ModelForm):
+class BulbForm(BaseDeviceForm):
     class Meta:
-        model = ThermostatStatus
-        fields = ['power', 'target_temperature', 'current_temperature', 'humidity', 'device_id']
+        model = Bulb
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'brightness', 'color_temp', 'red_temp', 'green_temp', 'blue_temp']
 
-class CurtainStatusForm(forms.ModelForm):
-    class Meta:
-        model = CurtainStatus
-        fields = ['power', 'position', 'open_percent', 'device_id']
 
-class WeatherStationStatusForm(forms.ModelForm):
+class PlugForm(BaseDeviceForm):
     class Meta:
-        model = WeatherStationStatus
-        fields = ['temperature_c', 'humidity_percent', 'pressure_hpa', 'wind_speed_kmh', 'rainfall', 'device_id']
+        model = Plug
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'current_power_w', 'total_energy_kwh']
 
-class LawnMowerStatusForm(forms.ModelForm):
+class ThermostatForm(BaseDeviceForm):
     class Meta:
-        model = LawnMowerStatus
-        fields = ['power', 'battery_percent', 'cutting_mode', 'cutting_height_mm',
-                  'current_area_m2', 'total_cutting_time_minutes', 'device_id']
+        model = Thermostat
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'target_temperature', 'current_temperature', 'humidity']
+
+class CurtainForm(BaseDeviceForm):
+    class Meta:
+        model = Curtain
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'position', 'open_percent']
+
+class WeatherStationForm(BaseDeviceForm):
+    class Meta:
+        model = WeatherStation
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'temperature_c', 'humidity_percent', 'pressure_hpa', 'wind_speed_kmh', 'rainfall']
+
+class LawnMowerForm(BaseDeviceForm):
+    class Meta:
+        model = LawnMower
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'battery_percent', 'cutting_mode', 'cutting_height_mm',
+                  'current_area_m2', 'total_cutting_time_minutes']
