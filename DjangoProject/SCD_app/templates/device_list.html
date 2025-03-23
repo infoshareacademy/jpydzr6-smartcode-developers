@@ -2,22 +2,6 @@
 
 {% block content %}
   <h2>Lista urządzeń</h2>
-<p><a href="{% url 'add_device' %}">Dodaj nowe urządzenie</a></p>
-
-<ul>
-  {% for device in devices %}
-    <li>
-      <a href="{% url 'device_detail' device.id %}">
-        {{ device.name }} - {{ device.brand }}
-      </a>
-      (Połączone: {{ device.connected }})
-
-    </li>
-  {% empty %}
-    <p>Brak dostępnych urządzeń.</p>
-  {% endfor %}
-</ul>
-
   <ul>
     <li><a href="{% url 'bulb_list' %}">Żarówki</a></li>
     <li><a href="{% url 'plug_list' %}">Gniazdka</a></li>
