@@ -1,8 +1,6 @@
-from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class DeviceType(models.Model):
     BULB = 1
@@ -44,11 +42,11 @@ class BaseDevice(models.Model):
 
 
 class Bulb(BaseDevice):
-    brightness = models.IntegerField(default=100)
-    color_temp = models.IntegerField(default=2700)
-    red_temp = models.IntegerField(default=255)
-    green_temp = models.IntegerField(default=255)
-    blue_temp = models.IntegerField(default=255)
+    brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    color_temp = models.IntegerField()
+    red_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    green_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    blue_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
 
     class Meta:
         verbose_name_plural = "Bulbs"
@@ -71,7 +69,7 @@ class Plug(BaseDevice):
 class Thermostat(BaseDevice):
     target_temperature = models.DecimalField(max_digits=10, decimal_places=2)
     current_temperature = models.DecimalField(max_digits=10, decimal_places=2)
-    humidity = models.IntegerField()
+    humidity = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
         verbose_name_plural = "Thermostats"
@@ -82,7 +80,7 @@ class Thermostat(BaseDevice):
 
 class Curtain(BaseDevice):
     position = models.IntegerField()
-    open_percent = models.IntegerField()
+    open_percent = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
         verbose_name_plural = "Curtains"
@@ -106,11 +104,11 @@ class WeatherStation(BaseDevice):
 
 
 class LawnMower(BaseDevice):
-    battery_percent = models.IntegerField(default=100)
+    battery_percent = models.IntegerField(default=100, validators=[MinValueValidator(0), MaxValueValidator(100)])
     cutting_mode = models.CharField(max_length=50)
-    cutting_height_mm = models.IntegerField()
-    current_area_m2 = models.IntegerField()
-    total_cutting_time_minutes = models.IntegerField()
+    cutting_height_mm = models.IntegerField(validators=[MinValueValidator(0)])
+    current_area_m2 = models.IntegerField(validators=[MinValueValidator(0)])
+    total_cutting_time_minutes = models.IntegerField(validators=[MinValueValidator(0)])
 
     class Meta:
         verbose_name_plural = "Lawn Mowers"
