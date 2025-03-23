@@ -10,7 +10,7 @@ from django.contrib.auth import login
 from .models import CustomUser  # Import modelu użytkownika
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from devices.models import Device
+from devices.models import BaseDevice
 
 
 def home(request):
