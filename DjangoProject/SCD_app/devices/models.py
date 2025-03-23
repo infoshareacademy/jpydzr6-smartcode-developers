@@ -110,6 +110,7 @@ class LawnMower(BaseDevice):
     current_area_m2 = models.IntegerField(validators=[MinValueValidator(0)])
     total_cutting_time_minutes = models.IntegerField(validators=[MinValueValidator(0)])
 
+
     class Meta:
         verbose_name_plural = "Lawn Mowers"
 

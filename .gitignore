@@ -5,3 +5,4 @@ DjangoProject/SCD_app/venv/
 __pycache__/
 .vscode/
 .idea/
+db.sqlite3

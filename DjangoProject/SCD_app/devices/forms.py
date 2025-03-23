@@ -17,6 +17,7 @@ class BaseDeviceForm(forms.ModelForm):
         # Remove owner field from form
         if 'owner' in self.fields:
             del self.fields['owner']
+            
 
 class BulbForm(BaseDeviceForm):
     brightness = forms.IntegerField(
@@ -55,6 +56,7 @@ class PlugForm(BaseDeviceForm):
         model = Plug
         fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'current_power_w', 'total_energy_kwh']
 
+
 class ThermostatForm(BaseDeviceForm):
     target_temperature = forms.FloatField(
         min_value=10, max_value=30,
@@ -72,6 +74,7 @@ class ThermostatForm(BaseDeviceForm):
         model = Thermostat
         fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'target_temperature', 'current_temperature', 'humidity']
 
+
 class CurtainForm(BaseDeviceForm):
     open_percent = forms.IntegerField(
         min_value=0, max_value=100,
@@ -80,6 +83,7 @@ class CurtainForm(BaseDeviceForm):
     class Meta:
         model = Curtain
         fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'position', 'open_percent']
+
 
 class WeatherStationForm(BaseDeviceForm):
     temperature_c = forms.FloatField(
@@ -104,6 +108,7 @@ class WeatherStationForm(BaseDeviceForm):
     class Meta:
         model = WeatherStation
         fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'temperature_c', 'humidity_percent', 'pressure_hpa', 'wind_speed_kmh', 'rainfall']
+
 
 class LawnMowerForm(BaseDeviceForm):
     battery_percent = forms.IntegerField(

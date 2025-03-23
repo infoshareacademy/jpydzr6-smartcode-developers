@@ -40,6 +40,7 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/reset_password_done.html'), name='password_reset_complete'),
 
 # device
+
      path('devices/', views.devices, name='devices'),
      path('devices/list/', views.device_list, name='device_list'),
      #path('devices/<int:device_id>/', views.device_detail, name='device_detail'),
@@ -49,6 +50,7 @@ urlpatterns = [
      path('devices/update/success/', views.device_update_success, name='device_update_success'),
      path('devices/create/<str:device_type>/', views.DeviceCreateView.as_view(), name='device_create'),
      path('device/update/<str:device_type>/<int:pk>/', views.DeviceUpdateView.as_view(), name='device_update'),
+
 
 # bulb
     #path('bulbs/create/', views.BulbCreateView.as_view(), name='create_bulb'),
