@@ -20,7 +20,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 def dashboard(request):
-    devices = Device.objects.all()
+    devices = BaseDevice.objects.all()
     return render(request, 'dashboard.html', {'devices': devices})
 
 def about_us(request):
