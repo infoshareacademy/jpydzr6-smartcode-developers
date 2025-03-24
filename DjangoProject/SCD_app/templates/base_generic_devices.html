@@ -15,8 +15,7 @@
 				<ul>
 					<li><a href="{% url 'home' %}">Home</a></li>
 					{% if not user.is_authenticated %}
-					  <li><a href="{% url 'login' %}">Login</a></li>
-					  <li><a href="{% url 'register' %}">Register</a></li>
+                      <li><a href="{% url 'index' %}">Log in or Sign in</a></li>
 					{% endif %}
 					{% if user.is_authenticated %}
 					  <li><a href="{% url 'device_list' %}">Devices</a></li>
