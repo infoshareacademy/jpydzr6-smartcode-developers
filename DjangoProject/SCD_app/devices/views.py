@@ -6,12 +6,11 @@ from django.views.generic.edit import FormView
 from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, BaseDevice
 from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm
 from django.forms.models import model_to_dict
-from django import forms
 
 
 class DeviceCreateView(LoginRequiredMixin, FormView):
     template_name = 'device_form.html'
-    success_url = "/devices/create/success/"  # Redirect on success
+    success_url = "/devices/create/success/"
 
     def get_form_class(self):
         """
@@ -56,7 +55,7 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
         specific_form = forms['specific_form']
 
         if specific_form.is_valid():
-            specific_form.instance.owner = request.user  # set logged user as owner
+            specific_form.instance.owner = request.user
             specific_form.save()
 
             return redirect(self.success_url)
@@ -67,7 +66,7 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
 
 class DeviceUpdateView(LoginRequiredMixin, FormView):
     template_name = 'device_update_form.html'
-    success_url = "/devices/update/success/"  # Redirect on success
+    success_url = "/devices/update/success/"
 
     def get_object(self):
         """
@@ -76,10 +75,8 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
         device_type = self.kwargs.get('device_type')
         device_id = self.kwargs.get('pk')
 
-        # Fetch the base device
         base_device = BaseDevice.objects.get(pk=device_id, owner=self.request.user)
 
-        # Get the specific device type instance
         specific_device = device_type.lower()
         device_model = {
             'bulb': Bulb,
@@ -139,7 +136,7 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
         """
         context = super().get_context_data(**kwargs)
         forms = self.get_form()
-        context.update(forms)  # Add both forms to the context
+        context.update(forms)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -155,18 +152,14 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
             base_device = base_device_form.save(commit=False)
             specific_device = specific_form.save(commit=False)
 
-            # Set the owner to the logged-in user
-            specific_device.owner = request.user  # Ensure owner is set to the logged-in user
-
-            # Save the updated base device and specific device
+            specific_device.owner = request.user
 
             base_device.save()
             specific_device.save()
 
             return redirect(self.success_url)
-        print("LIPA")
-        print(specific_form.errors)  # Print/Log validation errors for debugging
-        print(base_device_form.errors, specific_form.errors)  # Print/Log validation errors for debugging
+
+        print(base_device_form.errors, specific_form.errors)
         return self.form_invalid(base_device_form)
 
 class DeviceDeleteView(LoginRequiredMixin, DeleteView):
@@ -180,7 +173,6 @@ class DeviceDeleteView(LoginRequiredMixin, DeleteView):
         device_type = self.kwargs.get('device_type')
         device_id = self.kwargs.get('device_id')
 
-        # Get the correct model class based on the device type
         device_model = {
             'bulb': Bulb,
             'plug': Plug,
@@ -221,7 +213,6 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
         if not device_class:
             raise ValueError("Invalid device type.")
 
-        # Fetch device instance
         device = get_object_or_404(device_class, basedevice_ptr_id=device_id, owner=self.request.user)
         return device
 
@@ -231,15 +222,13 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         device = self.get_object()
 
-        # Konwersja modelu na słownik
         device_fields = model_to_dict(device)
         print(device_fields)
-        # Lista pól do pominięcia
+
         excluded_fields = ["id", "device_secret_key", "owner", "basedevice_ptr"]
 
-        # Usuwanie wybranych pól
         for field in excluded_fields:
-            device_fields.pop(field, None)  # `None` zapobiega błędom, gdyby pola nie było
+            device_fields.pop(field, None)
 
         context["device_fields"] = device_fields
         context["device_type"] = self.kwargs.get('device_type')
@@ -266,7 +255,6 @@ def devices(request):
 def device_list(request):
     user = request.user
     devices = BaseDevice.objects.filter(owner=user)
-    # print(devices)
     return render(request, 'device_list.html', {'devices': devices})
 
 
