@@ -1,13 +1,13 @@
 {% extends 'base_generic_devices.html' %}
 {% block content %}
 <h2>Lista żarówek</h2>
-<a href="{% url 'bulb_create' %}">Dodaj nową żarówkę</a>
+<a href="{% url 'device_create' 'bulb'%}">Dodaj nową żarówkę</a>
 <ul>
     {% for bulb in bulbs %}
     <li>
-        <a href="{% url 'bulb_detail' bulb.id %}">{{ bulb.device_id.name }} - Jasność: {{ bulb.brightness }}</a> |
-        <a href="{% url 'bulb_update' bulb.id %}">Edytuj</a> |
-        <a href="{% url 'bulb_delete' bulb.id %}">Usuń</a>
+        <a href="{% url 'device_detail' 'bulb' bulb.id %}">{{ plug.device_id.name }} - {{ plug.current_power_w }}W</a> |
+        <a href="{% url 'device_update' 'bulb' bulb.id %}">Edytuj</a> |
+        <a href="{% url 'device_delete' 'bulb' bulb.id %}">Usuń</a>
 <!--        <a href="{% url 'device_list' %}">Powrót</a>-->
     </li>
     {% empty %}

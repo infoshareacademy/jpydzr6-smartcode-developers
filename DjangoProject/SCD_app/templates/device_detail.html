@@ -2,11 +2,15 @@
 
 {% block content %}
   <h2>{{ device.name }}</h2>
-  <p>Marka: {{ device.brand }}</p>
-  <p>Połączone: {{ device.connected }}</p>
-  <p>Ostatnia aktualizacja: {{ device.last_updated }}</p>
 
-  <a href="{% url 'device_update' device.id %}">Edytuj</a> |
-  <a href="{% url 'device_delete' device.id %}">Usuń</a> |
+  <h3>Podstawowe informacje:</h3>
+  <ul>
+    {% for field, value in device_fields.items %}
+      <li><strong>{{ field|title }}:</strong> {{ value }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'device_update' device_type device.id %}">Edytuj</a> |
+  <a href="{% url 'device_delete' device_type device.id %}">Usuń</a> |
   <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
 {% endblock %}

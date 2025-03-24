@@ -2,15 +2,15 @@
 
 {% block content %}
   <h2>Lista Termostatów</h2>
-  <a href="{% url 'thermostat_create' %}">Dodaj nowy termostat</a>
+  <a href="{% url 'device_create' 'thermostat'%}">Dodaj nowy termostat</a>
   <ul>
   {% for thermostat in thermostats %}
     <li>
-      <a href="{% url 'thermostat_detail' thermostat.id %}">
+      <a href="{% url 'device_detail' 'thermostat' thermostat.id %}">
         {{ thermostat.device_id.name }} - Status: {{ thermostat.power }} - Temperatura: {{ thermostat.current_temperature }}°C
       </a> |
-      <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a> |
-      <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
+      <a href="{% url 'device_update' 'thermostat' thermostat.id %}">Edytuj</a> |
+      <a href="{% url 'device_delete' 'thermostat' thermostat.id %}">Usuń</a>
     </li>
   {% empty %}
     <p>Brak dostępnych termostatów.</p>
