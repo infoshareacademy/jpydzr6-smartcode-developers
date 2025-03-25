@@ -508,6 +508,8 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
   z-index: 1030;
 }
 
+
+
 .collapse:not(.show) {
   display: none;
 }
@@ -738,7 +740,9 @@ section#contact .section-heading {
  .mb-5 {
   margin-bottom: 3rem !important;
 }
-
+.mb-md-0 {
+    margin-bottom: 0 !important;
+}
 
 #devices .devices-item {
   max-width: 26rem;
@@ -851,6 +855,17 @@ header.masthead {
   text-align: center;
   color: #fff;
   background-image: url("../images/background_pic.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.login {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+  color: black;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -1019,3 +1034,41 @@ header.masthead .masthead-heading {
   color: white;
   font-weight: var(--bs-nav-link-font-weight);
   }
+
+
+.align-items-stretch {
+  align-items: stretch !important;
+}
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.form {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    transition: border-color 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form textarea:focus {
+    border-color: #ffc800;
+    outline: none;
+}
+
