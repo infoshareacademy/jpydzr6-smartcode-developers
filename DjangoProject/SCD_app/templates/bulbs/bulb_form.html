@@ -1,10 +1,22 @@
-{% extends 'base_generic_devices.html' %}
-{% block content %}
-<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} żarówkę</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Zapisz</button>
-</form>
-<a href="{% url 'bulb_list' %}">Powrót</a>
-{% endblock %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-left">
+		<h2 style="text-align: center">
+			{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} żarówkę
+		</h2>
+
+		<form method="post">
+			{% csrf_token %} {{ form.as_p }}
+
+			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				Zapisz
+			</button>
+		</form>
+
+		<a href="{% url 'bulb_list' %}" class="btn btn-primary mt-3 d-block mx-auto"
+			>Powrót</a
+		>
+	</div>
+
+	{% endblock %}
+</body>

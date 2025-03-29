@@ -1,15 +1,141 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% load static %} {% block content %}
+<!-- Devices Section-->
+<section class="page-section bg-light" id="devices">
+	<div class="container text-center">
+		<div class="text-center">
+			<h2 class="section-heading text-uppercase">Lista urządzeń</h2>
+			<h3 class="section-subheading text-muted">
+				Wybierz typ urządzenia, aby zarządzać nimi lub sprawdzić dostępne
+				urządzenia.
+			</h3>
+		</div>
 
-{% block content %}
-  <h2>Lista urządzeń</h2>
-  <ul>
-    <li><a href="{% url 'bulb_list' %}">Żarówki</a></li>
-    <li><a href="{% url 'plug_list' %}">Gniazdka</a></li>
-    <li><a href="{% url 'thermostat_list' %}">Termostaty</a></li>
-    <li><a href="{% url 'curtain_list' %}">Rolety</a></li>
-    <li><a href="{% url 'weather_station_list' %}">Stacja Pogodowa</a></li>
-    <li><a href="{% url 'lawn_mower_list' %}">Kosiarka</a></li>
-  </ul>
+		<!-- Row of Devices -->
+		<div class="row justify-content-center">
+			<div class="col-lg-4 mb-4">
+				<!-- Bulbs Item-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'bulb_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-lightbulb fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="{% static 'images/bulb.webp' %}"
+							alt="Bulbs" />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Bulbs</h4>
+					</div>
+				</div>
+			</div>
 
-  <a href="{% url 'home' %}">Powrót</a>
+			<div class="col-lg-4 mb-4">
+				<!-- Plugs Item-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'plug_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plug fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="{% static 'images/plug.webp' %}"
+							alt="Plugs" />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Plugs</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 mb-4">
+				<!-- Curtains Item-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'curtain_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-blinds fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="{% static 'images/curtain.webp' %}"
+							alt="Curtains" />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Curtains</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 mb-4">
+				<!-- Lawn Mower Item-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'lawn_mower_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-mower fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="{% static 'images/lawnmower.webp' %}"
+							alt="Lawn Mower" />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Lawn mowers</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 mb-4">
+				<!-- Thermostats Item-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'thermostat_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-thermometer-half fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="{% static 'images/thermostat.webp' %}"
+							alt="Thermostats" />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Thermostats</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 mb-4">
+				<!-- Weather Station Item-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'weather_station_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-cloud-sun fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="{% static 'images/weatherstation.webp' %}"
+							alt="Weather Station" />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Weather stations</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="container text-center">
+	<a href="{% url 'dashboard' %}" class="btn btn-primary mt-5">Back</a>
+</div>
 {% endblock %}

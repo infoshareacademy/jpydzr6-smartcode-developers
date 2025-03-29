@@ -1,21 +1,22 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>Lista Termostatów</h2>
+	<a href="{% url 'thermostat_create' %}">Dodaj nowy termostat</a>
+	<ul>
+		{% for thermostat in thermostats %}
+		<li>
+			<a href="{% url 'thermostat_detail' thermostat.id %}">
+				{{ thermostat.device_id.name }} - Status: {{ thermostat.power }} -
+				Temperatura: {{ thermostat.current_temperature }}°C
+			</a>
+			| <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a> |
+			<a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
+		</li>
+		{% empty %}
+		<p>Brak dostępnych termostatów.</p>
+		{% endfor %}
+	</ul>
 
-{% block content %}
-  <h2>Lista Termostatów</h2>
-  <a href="{% url 'thermostat_create' %}">Dodaj nowy termostat</a>
-  <ul>
-  {% for thermostat in thermostats %}
-    <li>
-      <a href="{% url 'thermostat_detail' thermostat.id %}">
-        {{ thermostat.device_id.name }} - Status: {{ thermostat.power }} - Temperatura: {{ thermostat.current_temperature }}°C
-      </a> |
-      <a href="{% url 'thermostat_update' thermostat.id %}">Edytuj</a> |
-      <a href="{% url 'thermostat_delete' thermostat.id %}">Usuń</a>
-    </li>
-  {% empty %}
-    <p>Brak dostępnych termostatów.</p>
-  {% endfor %}
-</ul>
-
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+	<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+	{% endblock %}
+</body>

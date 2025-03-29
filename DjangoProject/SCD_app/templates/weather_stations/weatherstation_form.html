@@ -1,13 +1,16 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>
+		{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} stację pogodową
+	</h2>
 
-{% block content %}
-  <h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} stację pogodową</h2>
+	<form method="post">
+		{% csrf_token %} {{ form.as_p }}
+		<button type="submit">
+			{% if form.instance.pk %}Zapisz{% else %}Dodaj{% endif %}
+		</button>
+	</form>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Zapisz{% else %}Dodaj{% endif %}</button>
-  </form>
-
-  <a href="{% url 'weather_station_list' %}">Powrót do listy</a>
-{% endblock %}
+	<a href="{% url 'weather_station_list' %}">Powrót do listy</a>
+	{% endblock %}
+</body>

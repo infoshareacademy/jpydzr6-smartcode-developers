@@ -1,11 +1,12 @@
-{% extends 'base_generic_devices.html' %}
-
-{% block content %}
-  <h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} Termostat</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Zaktualizuj{% else %}Dodaj{% endif %}</button>
-  </form>
-  <a href="{% url 'thermostat_list' %}">Powrót do listy</a>
-{% endblock %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} Termostat</h2>
+	<form method="POST">
+		{% csrf_token %} {{ form.as_p }}
+		<button type="submit">
+			{% if form.instance.pk %}Zaktualizuj{% else %}Dodaj{% endif %}
+		</button>
+	</form>
+	<a href="{% url 'thermostat_list' %}">Powrót do listy</a>
+	{% endblock %}
+</body>

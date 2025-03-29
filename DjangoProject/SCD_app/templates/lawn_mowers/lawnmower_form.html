@@ -1,13 +1,17 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>
+		{% if form.instance.pk %}Edytuj kosiarkę{% else %}Dodaj nową kosiarkę{%
+		endif %}
+	</h2>
 
-{% block content %}
-  <h2>{% if form.instance.pk %}Edytuj kosiarkę{% else %}Dodaj nową kosiarkę{% endif %}</h2>
+	<form method="POST">
+		{% csrf_token %} {{ form.as_p }}
+		<button type="submit">
+			{% if form.instance.pk %}Zapisz zmiany{% else %}Dodaj {% endif %}
+		</button>
+	</form>
 
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Zapisz zmiany{% else %}Dodaj {% endif %}</button>
-  </form>
-
-  <a href="{% url 'lawn_mower_list' %}">Powrót do listy kosiarek</a>
-{% endblock %}
+	<a href="{% url 'lawn_mower_list' %}">Powrót do listy kosiarek</a>
+	{% endblock %}
+</body>

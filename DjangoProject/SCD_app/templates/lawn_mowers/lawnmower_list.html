@@ -1,21 +1,23 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>Lista Statusów Kosiarek</h2>
 
-{% block content %}
-  <h2>Lista Statusów Kosiarek</h2>
-
-  <a href="{% url 'lawn_mower_create' %}">Dodaj nową kosiarkę</a>
-  <ul>
-    {% for status in statusy %}
-      <li>
-        <a href="{% url 'lawn_mower_detail' status.id %}">
-          {{ status.device_id.name }} - Bateria: {{ status.battery_percent }}%, Tryb cięcia: {{ status.cutting_mode }}, Wysokość cięcia: {{ status.cutting_height_mm }} mm
-        </a> | 
-        <a href="{% url 'lawn_mower_update' status.id %}">Edytuj</a> |
-        <a href="{% url 'lawn_mower_delete' status.id %}">Usuń</a>
-      </li>
-    {% empty %}
-      <p>Brak statusów kosiarek.</p>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+	<a href="{% url 'lawn_mower_create' %}">Dodaj nową kosiarkę</a>
+	<ul>
+		{% for status in statusy %}
+		<li>
+			<a href="{% url 'lawn_mower_detail' status.id %}">
+				{{ status.device_id.name }} - Bateria: {{ status.battery_percent }}%,
+				Tryb cięcia: {{ status.cutting_mode }}, Wysokość cięcia: {{
+				status.cutting_height_mm }} mm
+			</a>
+			| <a href="{% url 'lawn_mower_update' status.id %}">Edytuj</a> |
+			<a href="{% url 'lawn_mower_delete' status.id %}">Usuń</a>
+		</li>
+		{% empty %}
+		<p>Brak statusów kosiarek.</p>
+		{% endfor %}
+	</ul>
+	<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+	{% endblock %}
+</body>

@@ -1,20 +1,19 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} Gniazdko</h2>
 
-{% block content %}
-<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} Gniazdko</h2>
+	<form method="post">
+		{% csrf_token %} {% for field in form %}
+		<div class="form-group">
+			<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+			{{ field }}
+		</div>
+		{% endfor %}
+		<button type="submit" class="btn btn-primary">
+			{% if form.instance.pk %}Zaktualizuj{% else %}Dodaj{% endif %}
+		</button>
+	</form>
 
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="form-group">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-        </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">
-        {% if form.instance.pk %}Zaktualizuj{% else %}Dodaj{% endif %}
-    </button>
-</form>
-
-<a href="{% url 'plug_list' %}">Powrót</a>
-{% endblock %}
+	<a href="{% url 'plug_list' %}">Powrót</a>
+	{% endblock %}
+</body>
