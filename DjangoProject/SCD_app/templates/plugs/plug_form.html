@@ -1,19 +1,28 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
-	<h2>{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} Gniazdko</h2>
+	<div class="container text-left">
+		<h2 style="text-align: center">
+			{% if form.instance.pk %}Edytuj{% else %}Dodaj{% endif %} Gniazdko
+		</h2>
 
-	<form method="post">
-		{% csrf_token %} {% for field in form %}
-		<div class="form-group">
-			<label for="{{ field.id_for_label }}">{{ field.label }}</label>
-			{{ field }}
-		</div>
-		{% endfor %}
-		<button type="submit" class="btn btn-primary">
-			{% if form.instance.pk %}Zaktualizuj{% else %}Dodaj{% endif %}
-		</button>
-	</form>
+		<form method="post">
+			{% csrf_token %} {% for field in form %}
 
-	<a href="{% url 'plug_list' %}">Powrót</a>
+			<div class="form-group">
+				<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+				{{ field }}
+			</div>
+
+			{% endfor %}
+
+			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				{% if form.instance.pk %}Zaktualizuj{% else %}Dodaj{% endif %}
+			</button>
+		</form>
+
+		<a href="{% url 'plug_list' %}" class="btn btn-primary mt-3 d-block mx-auto"
+			>Powrót do listy gniazdek</a
+		>
+	</div>
 	{% endblock %}
 </body>

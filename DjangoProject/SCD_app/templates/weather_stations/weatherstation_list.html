@@ -1,22 +1,28 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
-	<h2>Lista stacji pogodowych</h2>
+	<div class="container text-center">
+		<h2>Lista stacji pogodowych</h2>
 
-	<a href="{% url 'weather_station_create' %}">Dodaj nową stację pogodową</a>
-	<ul>
-		{% for station in stations %}
-		<li>
-			<a href="{% url 'weather_station_detail' station.id %}">
-				{{ station.device_id.name }} - Temp: {{ station.temperature_c }}°C,
-				Wilgotność: {{ station.humidity_percent }}%
-			</a>
-			| <a href="{% url 'weather_station_update' station.id %}">Edytuj</a> |
-			<a href="{% url 'weather_station_delete' station.id %}">Usuń</a>
-		</li>
-		{% empty %}
-		<p>Brak stacji pogodowych.</p>
-		{% endfor %}
-	</ul>
-	<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+		<a href="{% url 'weather_station_create' %}" class="btn btn-primary mb-3"
+			>Dodaj nową stację pogodową</a
+		>
+		<ul class="list-unstyled">
+			{% for station in stations %}
+			<li>
+				<a href="{% url 'weather_station_detail' station.id %}">
+					{{ station.device_id.name }} - Temp: {{ station.temperature_c }}°C,
+					Wilgotność: {{ station.humidity_percent }}%
+				</a>
+				| <a href="{% url 'weather_station_update' station.id %}">Edytuj</a> |
+				<a href="{% url 'weather_station_delete' station.id %}">Usuń</a>
+			</li>
+			{% empty %}
+			<p>Brak stacji pogodowych.</p>
+			{% endfor %}
+		</ul>
+		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
+			>Powrót do urządzeń</a
+		>
+	</div>
 	{% endblock %}
 </body>
