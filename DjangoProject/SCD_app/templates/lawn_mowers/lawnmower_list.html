@@ -3,15 +3,15 @@
 {% block content %}
   <h2>Lista Statusów Kosiarek</h2>
 
-  <a href="{% url 'lawn_mower_create' %}">Dodaj nową kosiarkę</a>
+  <a href="{% url 'device_create' 'lawnmower'%}">Dodaj nową kosiarkę</a>
   <ul>
     {% for status in statusy %}
       <li>
-        <a href="{% url 'lawn_mower_detail' status.id %}">
+        <a href="{% url 'device_detail' 'lawnmower' status.id %}">
           {{ status.device_id.name }} - Bateria: {{ status.battery_percent }}%, Tryb cięcia: {{ status.cutting_mode }}, Wysokość cięcia: {{ status.cutting_height_mm }} mm
         </a> | 
-        <a href="{% url 'lawn_mower_update' status.id %}">Edytuj</a> |
-        <a href="{% url 'lawn_mower_delete' status.id %}">Usuń</a>
+        <a href="{% url 'device_update' 'lawnmower' status.id %}">Edytuj</a> |
+        <a href="{% url 'device_delete' 'lawnmower' status.id %}">Usuń</a>
       </li>
     {% empty %}
       <p>Brak statusów kosiarek.</p>

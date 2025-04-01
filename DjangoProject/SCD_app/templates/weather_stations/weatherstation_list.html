@@ -3,15 +3,15 @@
 {% block content %}
   <h2>Lista stacji pogodowych</h2>
 
-<a href="{% url 'weather_station_create' %}">Dodaj nową stację pogodową</a>
+<a href="{% url 'device_create' 'weatherstation'%}">Dodaj nową stację pogodową</a>
   <ul>
     {% for station in stations %}
       <li>
-        <a href="{% url 'weather_station_detail' station.id %}">
+        <a href="{% url 'device_detail' 'weatherstation' station.id %}">
           {{ station.device_id.name }} - Temp: {{ station.temperature_c }}°C, Wilgotność: {{ station.humidity_percent }}%
         </a> | 
-        <a href="{% url 'weather_station_update' station.id %}">Edytuj</a> |
-        <a href="{% url 'weather_station_delete' station.id %}">Usuń</a>
+        <a href="{% url 'device_update' 'weatherstation' station.id %}">Edytuj</a> |
+        <a href="{% url 'device_delete' 'weatherstation' station.id %}">Usuń</a>
       </li>
     {% empty %}
       <p>Brak stacji pogodowych.</p>
