@@ -1,35 +1,35 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
 	<div class="container text-center">
-		<h2>Lista stacji pogodowych</h2>
+		<h2>Weather Station List</h2>
 
 		<a
 			href="{% url 'device_create' 'weatherstation'%}"
 			class="btn btn-primary mb-3"
-			>Dodaj nową stację pogodową</a
+			>Add New Weather Station</a
 		>
-		<ul class="list-unstyled" s>
+		<ul class="list-unstyled">
 			{% for station in stations %}
 			<li>
 				<a href="{% url 'device_detail' 'weatherstation' station.id %}">
 					Name: {{ station.name }} - Model: {{ station.model }} - Brand:
 					<!--  -->
-					{{ station.brand}} - Location: {{ station.location}} - Temperatura:
-					{{station.temperature_c}} C
+					{{ station.brand }} - Location: {{ station.location }} - Temperature:
+					{{ station.temperature_c }} °C
 				</a>
 				|
-				<a href="{% url 'device_update' 'weatherstation' station.id %}"
-					>Edytuj</a
-				>
+				<a href="{% url 'device_update' 'weatherstation' station.id %}">Edit</a>
 				|
-				<a href="{% url 'device_delete' 'weatherstation' station.id %}">Usuń</a>
+				<a href="{% url 'device_delete' 'weatherstation' station.id %}"
+					>Delete</a
+				>
 			</li>
 			{% empty %}
-			<p>Brak dostępnych stacji pogodowych.</p>
+			<p>No available weather stations.</p>
 			{% endfor %}
 		</ul>
 		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
-			>Powrót do urządzeń</a
+			>Back to Devices</a
 		>
 		{% endblock %}
 	</div>

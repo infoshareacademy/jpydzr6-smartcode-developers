@@ -1,9 +1,9 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
 	<div class="container text-center">
-		<h2>Lista żarówek</h2>
+		<h2>Bulb List</h2>
 		<a href="{% url 'device_create' 'bulb'%}" class="btn btn-primary mb-3"
-			>Dodaj nową żarówkę</a
+			>Add New Bulb</a
 		>
 		<ul class="list-unstyled" class="container text-left">
 			{% for bulb in bulbs %}
@@ -13,17 +13,17 @@
 					<!--  -->
 					{{ bulb.brand}} - Location: {{ bulb.location}}
 				</a>
-				| <a href="{% url 'device_update' 'bulb' bulb.id %}">Edytuj</a> |
-				<a href="{% url 'device_delete' 'bulb' bulb.id %}">Usuń</a>
-				<!--        <a href="{% url 'device_list' %}">Powrót</a>-->
+				| <a href="{% url 'device_update' 'bulb' bulb.id %}">Edit</a> |
+				<a href="{% url 'device_delete' 'bulb' bulb.id %}">Delete</a>
+				<!--        <a href="{% url 'device_list' %}">Back</a>-->
 			</li>
 			{% empty %}
-			<p>Brak dostępnych żarówek</p>
+			<p>No available bulbs</p>
 
 			{% endfor %}
 		</ul>
 		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
-			>Powrót do urządzeń</a
+			>Back to Devices</a
 		>
 	</div>
 	{% endblock %}

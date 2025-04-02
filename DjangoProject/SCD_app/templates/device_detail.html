@@ -18,16 +18,17 @@
 			{% else %} Device {% endif %}
 		</h2>
 
-		<h3>Podstawowe informacje:</h3>
+		<h3>Basic Information:</h3>
 		<ul>
 			{% for field, value in device_fields.items %}
 			<li><strong>{{ field|title }}:</strong> {{ value }}</li>
 			{% endfor %}
 		</ul>
 
-		<a href="{% url 'device_update' device_type device.id %}">Edytuj</a> |
-		<a href="{% url 'device_delete' device_type device.id %}">Usuń</a> |
-		<a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
-		{% endblock %}
+		<a href="{% url 'device_update' device_type device.id %}">Edit</a> |
+		<a href="{% url 'device_delete' device_type device.id %}">Delete</a> |
+		<a href="{% url 'device_list' %}">Back to device list</a>
 	</div>
+
+	{% endblock %}
 </body>

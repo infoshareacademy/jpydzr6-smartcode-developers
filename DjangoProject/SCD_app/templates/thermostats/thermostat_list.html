@@ -1,9 +1,9 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
 	<div class="container text-center">
-		<h2>Lista Termostatów</h2>
+		<h2>Thermostat List</h2>
 		<a href="{% url 'device_create' 'thermostat'%}" class="btn btn-primary mb-3"
-			>Dodaj nowy termostat</a
+			>Add New Thermostat</a
 		>
 		<ul>
 			{% for thermostat in thermostats %}
@@ -11,22 +11,22 @@
 				<a href="{% url 'device_detail' 'thermostat' thermostat.id %}">
 					Name: {{ thermostat.name }} - Model: {{ thermostat.model }} - Brand:
 					<!--  -->
-					{{ thermostat.brand}} - Location: {{ thermostat.location}}
+					{{ thermostat.brand }} - Location: {{ thermostat.location }}
 				</a>
 				|
-				<a href="{% url 'device_update' 'thermostat' thermostat.id %}"
-					>Edytuj</a
-				>
+				<a href="{% url 'device_update' 'thermostat' thermostat.id %}">Edit</a>
 				|
-				<a href="{% url 'device_delete' 'thermostat' thermostat.id %}">Usuń</a>
+				<a href="{% url 'device_delete' 'thermostat' thermostat.id %}"
+					>Delete</a
+				>
 			</li>
 			{% empty %}
-			<p>Brak dostępnych termostatów.</p>
+			<p>No available thermostats.</p>
 			{% endfor %}
 		</ul>
 
 		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
-			>Powrót do urządzeń</a
+			>Back to Devices</a
 		>
 	</div>
 	{% endblock %}

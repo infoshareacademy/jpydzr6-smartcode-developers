@@ -1,17 +1,32 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
 	<div class="container text-center">
-		<h2>Czy na pewno chcesz usunąć urządzenie "{{ device_type }}"?</h2>
-
+		<h2>
+			Are you sure you want to delete the
+			<!--  -->
+			"{% if view.kwargs.device_type == "bulb" %} Bulb
+			<!--  -->
+			{% elif view.kwargs.device_type == "plug" %} Plug
+			<!--  -->
+			{% elif view.kwargs.device_type == "thermostat" %} Thermostat
+			<!--  -->
+			{% elif view.kwargs.device_type == "curtain" %} Curtain
+			<!--  -->
+			{% elif view.kwargs.device_type == "weatherstation" %} Weather Station
+			<!--  -->
+			{% elif view.kwargs.device_type == "lawnmower" %} Lawn Mower
+			<!--  -->
+			{% else %}Device {% endif %}" device?
+		</h2>
 		<form method="post">
 			{% csrf_token %}
 			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
-				Tak, usuń
+				Yes, delete
 			</button>
 			<a
 				href="{% url 'device_list' %}"
 				class="btn btn-primary mt-3 d-block mx-auto"
-				>Anuluj</a
+				>Cancel</a
 			>
 		</form>
 		{% endblock %}
