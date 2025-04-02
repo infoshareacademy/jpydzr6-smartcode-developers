@@ -1,15 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, BaseDevice
 from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm
-from django import forms
+from django.forms.models import model_to_dict
 
 
 class DeviceCreateView(LoginRequiredMixin, FormView):
     template_name = 'device_form.html'
-    success_url = "/devices/create/success/"  # Redirect on success
+    success_url = "/devices/create/success/"
 
     def get_form_class(self):
         """
@@ -54,7 +55,7 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
         specific_form = forms['specific_form']
 
         if specific_form.is_valid():
-            specific_form.instance.owner = request.user  # set logged user as owner
+            specific_form.instance.owner = request.user
             specific_form.save()
 
             return redirect(self.success_url)
@@ -65,7 +66,7 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
 
 class DeviceUpdateView(LoginRequiredMixin, FormView):
     template_name = 'device_update_form.html'
-    success_url = "/devices/update/success/"  # Redirect on success
+    success_url = "/devices/update/success/"
 
     def get_object(self):
         """
@@ -74,10 +75,8 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
         device_type = self.kwargs.get('device_type')
         device_id = self.kwargs.get('pk')
 
-        # Fetch the base device
         base_device = BaseDevice.objects.get(pk=device_id, owner=self.request.user)
 
-        # Get the specific device type instance
         specific_device = device_type.lower()
         device_model = {
             'bulb': Bulb,
@@ -137,7 +136,7 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
         """
         context = super().get_context_data(**kwargs)
         forms = self.get_form()
-        context.update(forms)  # Add both forms to the context
+        context.update(forms)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -153,21 +152,87 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
             base_device = base_device_form.save(commit=False)
             specific_device = specific_form.save(commit=False)
 
-            # Set the owner to the logged-in user
-            specific_device.owner = request.user  # Ensure owner is set to the logged-in user
-
-            # Save the updated base device and specific device
+            specific_device.owner = request.user
 
             base_device.save()
             specific_device.save()
 
             return redirect(self.success_url)
-        print("LIPA")
-        print(specific_form.errors)  # Print/Log validation errors for debugging
-        print(base_device_form.errors, specific_form.errors)  # Print/Log validation errors for debugging
+
+        print(base_device_form.errors, specific_form.errors)
         return self.form_invalid(base_device_form)
 
+class DeviceDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'device_confirm_delete.html'
+    success_url = "/devices/delete/success/"
 
+    def get_object(self):
+        """
+        Retrieve the specific device to be deleted.
+        """
+        device_type = self.kwargs.get('device_type')
+        device_id = self.kwargs.get('device_id')
+
+        device_model = {
+            'bulb': Bulb,
+            'plug': Plug,
+            'thermostat': Thermostat,
+            'curtain': Curtain,
+            'weatherstation': WeatherStation,
+            'lawnmower': LawnMower
+        }.get(device_type.lower())
+
+        if not device_model:
+            raise ValueError("Invalid device type.")
+
+        # Retrieve the object ensuring that only the owner can delete it
+        return get_object_or_404(device_model, pk=device_id, owner=self.request.user)
+
+
+class DeviceDetailView(LoginRequiredMixin, DetailView):
+    template_name = "device_detail.html"
+    context_object_name = "device"
+
+    def get_object(self):
+        """
+        Retrieve the device object dynamically based on type and ID.
+        """
+        device_type = self.kwargs.get('device_type')
+        device_id = self.kwargs.get('device_id')
+
+        device_models = {
+            'bulb': Bulb,
+            'plug': Plug,
+            'thermostat': Thermostat,
+            'curtain': Curtain,
+            'weatherstation': WeatherStation,
+            'lawnmower': LawnMower
+        }
+
+        device_class = device_models.get(device_type.lower())
+        if not device_class:
+            raise ValueError("Invalid device type.")
+
+        device = get_object_or_404(device_class, basedevice_ptr_id=device_id, owner=self.request.user)
+        return device
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        device = self.get_object()
+
+        device_fields = model_to_dict(device)
+        print(device_fields)
+
+        excluded_fields = ["id", "device_secret_key", "owner", "basedevice_ptr"]
+
+        for field in excluded_fields:
+            device_fields.pop(field, None)
+
+        context["device_fields"] = device_fields
+        context["device_type"] = self.kwargs.get('device_type')
+        return context
 
 @login_required(login_url='login')
 def device_create_success(request):
@@ -175,6 +240,10 @@ def device_create_success(request):
 
 @login_required(login_url='login')
 def device_update_success(request):
+    return render(request, 'device_updated.html')
+
+@login_required(login_url='login')
+def device_delete_success(request):
     return render(request, 'device_updated.html')
 
 
@@ -186,7 +255,6 @@ def devices(request):
 def device_list(request):
     user = request.user
     devices = BaseDevice.objects.filter(owner=user)
-    # print(devices)
     return render(request, 'device_list.html', {'devices': devices})
 
 
@@ -197,44 +265,6 @@ def bulb_list(request):
     bulbs = Bulb.objects.filter(basedevice_ptr__owner=user)
     return render(request, 'bulbs/bulb_list.html', {'bulbs': bulbs})
 
-@login_required(login_url='login')
-def bulb_detail(request, pk):
-    user = request.user
-    bulb = get_object_or_404(Bulb, pk=pk, basedevice_ptr__owner=user)
-    return render(request, 'bulbs/bulb_detail.html', {'bulb': bulb})
-
-@login_required(login_url='login')
-def bulb_create(request):
-    if request.method == "POST":
-        form = BulbForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('bulb_list')
-    else:
-        form = BulbForm()
-    return render(request, 'bulbs/bulb_form.html', {'form': form})
-
-@login_required(login_url='login')
-def bulb_update(request, pk):
-    user = request.user
-    bulb = get_object_or_404(Bulb, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        form = BulbForm(request.POST, instance=bulb)
-        if form.is_valid():
-            form.save()
-            return redirect('bulb_list')
-    else:
-        form = BulbForm(instance=bulb)
-    return render(request, 'bulbs/bulb_form.html', {'form': form})
-
-@login_required(login_url='login')
-def bulb_delete(request, pk):
-    user = request.user
-    bulb = get_object_or_404(Bulb, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        bulb.delete()
-        return redirect('bulb_list')
-    return render(request, 'bulbs/bulb_confirm_delete.html', {'bulb': bulb})
 
 # plug
 @login_required(login_url='login')
@@ -243,44 +273,6 @@ def plug_list(request):
     plugs = Plug.objects.filter(basedevice_ptr__owner=user)
     return render(request, 'plugs/plug_list.html', {'plugs': plugs})
 
-@login_required(login_url='login')
-def plug_detail(request, plug_id):
-    user = request.user
-    plug = get_object_or_404(Plug, pk=plug_id, basedevice_ptr__owner=user)
-    return render(request, 'plugs/plug_detail.html', {'plug': plug})
-
-@login_required(login_url='login')
-def plug_create(request):
-    if request.method == 'POST':
-        form = PlugForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('plug_list')
-    else:
-        form = PlugForm()
-    return render(request, 'plugs/plug_form.html', {'form': form})
-
-@login_required(login_url='login')
-def plug_update(request, plug_id):
-    user = request.user
-    plug = get_object_or_404(Plug, pk=plug_id, basedevice_ptr__owner=user)
-    if request.method == 'POST':
-        form = PlugForm(request.POST, instance=plug)
-        if form.is_valid():
-            form.save()
-            return redirect('plug_list')
-    else:
-        form = PlugForm(instance=plug)
-    return render(request, 'plugs/plug_form.html', {'form': form})
-
-@login_required(login_url='login')
-def plug_delete(request, plug_id):
-    user = request.user
-    plug = get_object_or_404(Plug, pk=plug_id, basedevice_ptr__owner=user)
-    if request.method == 'POST':
-        plug.delete()
-        return redirect('plug_list')
-    return render(request, 'plugs/plug_confirm_delete.html', {'plug': plug})
 
 # thermostat
 @login_required(login_url='login')
@@ -289,44 +281,6 @@ def thermostat_list(request):
     thermostats = Thermostat.objects.filter(basedevice_ptr__owner=user)
     return render(request, 'thermostats/thermostat_list.html', {'thermostats': thermostats})
 
-@login_required(login_url='login')
-def thermostat_detail(request, pk):
-    user = request.user
-    thermostat = get_object_or_404(Thermostat, pk=pk, basedevice_ptr__owner=user)
-    return render(request, 'thermostats/thermostat_detail.html', {'thermostat': thermostat})
-
-@login_required(login_url='login')
-def thermostat_create(request):
-    if request.method == 'POST':
-        form = ThermostatForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('thermostat_list')
-    else:
-        form = ThermostatForm()
-    return render(request, 'thermostats/thermostat_form.html', {'form': form})
-
-@login_required(login_url='login')
-def thermostat_update(request, pk):
-    user = request.user
-    thermostat = get_object_or_404(Thermostat, pk=pk, basedevice_ptr__owner=user)
-    if request.method == 'POST':
-        form = ThermostatForm(request.POST, instance=thermostat)
-        if form.is_valid():
-            form.save()
-            return redirect('thermostat_list')
-    else:
-        form = ThermostatForm(instance=thermostat)
-    return render(request, 'thermostats/thermostat_form.html', {'form': form})
-
-@login_required(login_url='login')
-def thermostat_delete(request, pk):
-    user = request.user
-    thermostat = get_object_or_404(Thermostat, pk=pk, basedevice_ptr__owner=user)
-    if request.method == 'POST':
-        thermostat.delete()
-        return redirect('thermostat_list')
-    return render(request, 'thermostats/thermostat_confirm_delete.html', {'thermostat': thermostat})
 
 # curtain
 @login_required(login_url='login')
@@ -335,44 +289,6 @@ def curtain_list(request):
     curtains = Curtain.objects.filter(basedevice_ptr__owner=user)
     return render(request, 'curtains/curtain_list.html', {'curtains': curtains})
 
-@login_required(login_url='login')
-def curtain_detail(request, pk):
-    user = request.user
-    curtain = get_object_or_404(Curtain, pk=pk, basedevice_ptr__owner=user)
-    return render(request, 'curtains/curtain_detail.html', {'curtain': curtain})
-
-@login_required(login_url='login')
-def curtain_create(request):
-    if request.method == 'POST':
-        form = CurtainForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('curtain_list')
-    else:
-        form = CurtainForm()
-    return render(request, 'curtains/curtain_form.html', {'form': form})
-
-@login_required(login_url='login')
-def curtain_update(request, pk):
-    user = request.user
-    curtain = get_object_or_404(Curtain, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        form = CurtainForm(request.POST, instance=curtain)
-        if form.is_valid():
-            form.save()
-            return redirect('curtain_list')
-    else:
-        form = CurtainForm(instance=curtain)
-    return render(request, 'curtains/curtain_form.html', {'form': form})
-
-@login_required(login_url='login')
-def curtain_delete(request, pk):
-    user = request.user
-    curtain = get_object_or_404(Curtain, pk=pk, basedevice_ptr__owner=user)
-    if request.method == 'POST':
-        curtain.delete()
-        return redirect('curtain_list')
-    return render(request, 'curtains/curtain_confirm_delete.html', {'curtain': curtain})
 
 # weather station
 @login_required(login_url='login')
@@ -381,44 +297,6 @@ def weather_station_list(request):
     stations = WeatherStation.objects.filter(basedevice_ptr__owner=user)
     return render(request, "weather_stations/weatherstation_list.html", {"stations": stations})
 
-@login_required(login_url='login')
-def weather_station_detail(request, pk):
-    user = request.user
-    station = get_object_or_404(WeatherStation, pk=pk, basedevice_ptr__owner=user)
-    return render(request, "weather_stations/weatherstation_detail.html", {"station": station})
-
-@login_required(login_url='login')
-def weather_station_create(request):
-    if request.method == "POST":
-        form = WeatherStationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("weather_station_list")
-    else:
-        form = WeatherStationForm()
-    return render(request, "weather_stations/weatherstation_form.html", {"form": form})
-
-@login_required(login_url='login')
-def weather_station_update(request, pk):
-    user = request.user
-    station = get_object_or_404(WeatherStation, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        form = WeatherStationForm(request.POST, instance=station)
-        if form.is_valid():
-            form.save()
-            return redirect("weather_station_list")
-    else:
-        form = WeatherStationForm(instance=station)
-    return render(request, "weather_stations/weatherstation_form.html", {"form": form})
-
-@login_required(login_url='login')
-def weather_station_delete(request, pk):
-    user = request.user
-    station = get_object_or_404(WeatherStation, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        station.delete()
-        return redirect("weather_station_list")
-    return render(request, "weather_stations/weatherstation_confirm_delete.html", {"station": station})
 
 # lawn mower
 @login_required(login_url='login')
@@ -427,42 +305,4 @@ def lawn_mower_list(request):
     lawn_mowers = LawnMower.objects.filter(basedevice_ptr__owner=user)
     return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
 
-@login_required(login_url='login')
-def lawn_mower_detail(request, pk):
-    user = request.user
-    lawn_mower = get_object_or_404(LawnMower, pk=pk, basedevice_ptr__owner=user)
-    return render(request, "lawn_mowers/lawnmower_detail.html", {"status": lawn_mower})
-
-@login_required(login_url='login')
-def lawn_mower_create(request):
-    if request.method == "POST":
-        form = LawnMowerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("lawnmower_list")
-    else:
-        form = LawnMowerForm()
-    return render(request, "lawn_mowers/lawnmower_form.html", {"form": form})
-
-@login_required(login_url='login')
-def lawn_mower_update(request, pk):
-    user = request.user
-    lawn_mower = get_object_or_404(LawnMower, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        form = LawnMowerForm(request.POST, instance=lawn_mower)
-        if form.is_valid():
-            form.save()
-            return redirect("lawn_mower_list")
-    else:
-        form = LawnMowerForm(instance=lawn_mower)
-    return render(request, "lawn_mowers/lawnmower_form.html", {"form": form})
-
-@login_required(login_url='login')
-def lawn_mower_delete(request, pk):
-    user = request.user
-    lawn_mower = get_object_or_404(LawnMower, pk=pk, basedevice_ptr__owner=user)
-    if request.method == "POST":
-        lawn_mower.delete()
-        return redirect("lawn_mower_list")
-    return render(request, "lawn_mowers/lawnmower_confirm_delete.html", {"status": lawn_mower})
 
