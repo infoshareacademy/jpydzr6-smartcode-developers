@@ -1,18 +1,28 @@
-{% extends 'base_generic_devices.html' %}
-
-{% block content %}
-<h2>Lista Gniazdek</h2>
-<a href="{% url 'device_create' 'plug'%}">Dodaj nowe gniazdko</a>
-<ul>
-    {% for plug in plugs %}
-    <li>
-        <a href="{% url 'device_detail' 'plug' plug.id %}">{{ plug.device_id.name }} - {{ plug.current_power_w }}W</a> |
-        <a href="{% url 'device_update' 'plug' plug.id %}">Edytuj</a> |
-        <a href="{% url 'device_delete' 'plug' plug.id %}">Usuń</a>
-    </li>
-    {% empty %}
-    <p>Brak dostępnych gniazdek.</p>
-    {% endfor %}
-</ul>
-<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-center">
+		<h2>Lista Gniazdek</h2>
+		<a href="{% url 'device_create' 'plug'%}" class="btn btn-primary mb-3"
+			>Dodaj nowe gniazdko</a
+		>
+		<ul class="list-unstyled">
+			{% for plug in plugs %}
+			<li>
+				<a href="{% url 'device_detail' 'plug' plug.id %}">
+					Name: {{ plug.name }} - Model: {{ plug.model }} - Brand:
+					<!--  -->
+					{{ plug.brand}} - Location: {{ plug.location}}
+				</a>
+				| <a href="{% url 'device_update' 'plug' plug.id %}">Edytuj</a> |
+				<a href="{% url 'device_delete' 'plug' plug.id %}">Usuń</a>
+			</li>
+			{% empty %}
+			<p>Brak dostępnych gniazdek.</p>
+			{% endfor %}
+		</ul>
+		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
+			>Powrót do urządzeń</a
+		>
+		{% endblock %}
+	</div>
+</body>

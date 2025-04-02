@@ -1,16 +1,33 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-left">
+		<!-- <h2>{{ device_type }}</h2> -->
+		<h2>
+			{% if device_type == "bulb" %} Bulb
+			<!--  -->
+			{% elif device_type == "plug" %} Plug
+			<!--  -->
+			{% elif device_type == "thermostat" %} Thermostat
+			<!--  -->
+			{% elif device_type == "curtain" %} Curtain
+			<!--  -->
+			{% elif device_type == "weatherstation" %} Weather Station
+			<!--  -->
+			{% elif device_type == "lawnmower" %} Lawn Mower
+			<!--  -->
+			{% else %} Device {% endif %}
+		</h2>
 
-{% block content %}
-  <h2>{{ device.name }}</h2>
+		<h3>Podstawowe informacje:</h3>
+		<ul>
+			{% for field, value in device_fields.items %}
+			<li><strong>{{ field|title }}:</strong> {{ value }}</li>
+			{% endfor %}
+		</ul>
 
-  <h3>Podstawowe informacje:</h3>
-  <ul>
-    {% for field, value in device_fields.items %}
-      <li><strong>{{ field|title }}:</strong> {{ value }}</li>
-    {% endfor %}
-  </ul>
-
-  <a href="{% url 'device_update' device_type device.id %}">Edytuj</a> |
-  <a href="{% url 'device_delete' device_type device.id %}">Usuń</a> |
-  <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
-{% endblock %}
+		<a href="{% url 'device_update' device_type device.id %}">Edytuj</a> |
+		<a href="{% url 'device_delete' device_type device.id %}">Usuń</a> |
+		<a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
+		{% endblock %}
+	</div>
+</body>

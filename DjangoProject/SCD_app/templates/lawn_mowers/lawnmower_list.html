@@ -1,21 +1,31 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-center">
+		<h2>Lista Kosiarek</h2>
 
-{% block content %}
-  <h2>Lista Statusów Kosiarek</h2>
-
-  <a href="{% url 'device_create' 'lawnmower'%}">Dodaj nową kosiarkę</a>
-  <ul>
-    {% for status in statusy %}
-      <li>
-        <a href="{% url 'device_detail' 'lawnmower' status.id %}">
-          {{ status.device_id.name }} - Bateria: {{ status.battery_percent }}%, Tryb cięcia: {{ status.cutting_mode }}, Wysokość cięcia: {{ status.cutting_height_mm }} mm
-        </a> | 
-        <a href="{% url 'device_update' 'lawnmower' status.id %}">Edytuj</a> |
-        <a href="{% url 'device_delete' 'lawnmower' status.id %}">Usuń</a>
-      </li>
-    {% empty %}
-      <p>Brak statusów kosiarek.</p>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+		<a href="{% url 'device_create' 'lawnmower'%}" class="btn btn-primary mb-3"
+			>Dodaj nową kosiarkę</a
+		>
+		<ul class="list-unstyled" s>
+			{% for status in statusy %}
+			<li>
+				<a href="{% url 'device_detail' 'lawnmower' status.id %}">
+					Name: {{ status.name}} - Model: {{ status.model }} - Brand:
+					<!--  -->
+					{{ status.brand}} - Location: {{ status.location}}
+				</a>
+				|
+				<a href="{% url 'device_update' 'lawnmower' status.id %}">Edytuj</a>
+				|
+				<a href="{% url 'device_delete' 'lawnmower' status.id %}">Usuń</a>
+			</li>
+			{% empty %}
+			<p>Brak dostępnych kosiarek.</p>
+			{% endfor %}
+		</ul>
+		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
+			>Powrót do urządzeń</a
+		>
+		{% endblock %}
+	</div>
+</body>

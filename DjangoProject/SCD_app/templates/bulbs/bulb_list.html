@@ -1,20 +1,30 @@
-{% extends 'base_generic_devices.html' %}
-{% block content %}
-<h2>Lista żarówek</h2>
-<a href="{% url 'device_create' 'bulb'%}">Dodaj nową żarówkę</a>
-<ul>
-    {% for bulb in bulbs %}
-    <li>
-        <a href="{% url 'device_detail' 'bulb' bulb.id %}">{{ plug.device_id.name }} - {{ plug.current_power_w }}W</a> |
-        <a href="{% url 'device_update' 'bulb' bulb.id %}">Edytuj</a> |
-        <a href="{% url 'device_delete' 'bulb' bulb.id %}">Usuń</a>
-<!--        <a href="{% url 'device_list' %}">Powrót</a>-->
-    </li>
-    {% empty %}
-    <p>Brak żarówek w bazie.</p>
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-center">
+		<h2>Lista żarówek</h2>
+		<a href="{% url 'device_create' 'bulb'%}" class="btn btn-primary mb-3"
+			>Dodaj nową żarówkę</a
+		>
+		<ul class="list-unstyled" class="container text-left">
+			{% for bulb in bulbs %}
+			<li class="container text-left">
+				<a href="{% url 'device_detail' 'bulb' bulb.id %}">
+					Name: {{ bulb.name }} - Model: {{ bulb.model }} - Brand:
+					<!--  -->
+					{{ bulb.brand}} - Location: {{ bulb.location}}
+				</a>
+				| <a href="{% url 'device_update' 'bulb' bulb.id %}">Edytuj</a> |
+				<a href="{% url 'device_delete' 'bulb' bulb.id %}">Usuń</a>
+				<!--        <a href="{% url 'device_list' %}">Powrót</a>-->
+			</li>
+			{% empty %}
+			<p>Brak dostępnych żarówek</p>
 
-    {% endfor %}
-
-</ul>
-<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+			{% endfor %}
+		</ul>
+		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
+			>Powrót do urządzeń</a
+		>
+	</div>
+	{% endblock %}
+</body>
