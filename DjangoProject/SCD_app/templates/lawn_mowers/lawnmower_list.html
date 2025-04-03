@@ -1,31 +1,55 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
-	<div class="container text-center">
-		<h2>Lawnmower List</h2>
+	<div class="container">
+		<h2 class="text-center">Lawnmower List</h2>
 
-		<a href="{% url 'device_create' 'lawnmower'%}" class="btn btn-primary mb-3"
-			>Add New Lawnmower</a
-		>
-		<ul class="list-unstyled">
+		<div class="text-center">
+			<a
+				href="{% url 'device_create' 'lawnmower' %}"
+				class="btn btn-primary mb-3">
+				Add New Lawnmower
+			</a>
+		</div>
+
+		<ul class="list-group">
 			{% for status in statusy %}
-			<li>
-				<a href="{% url 'device_detail' 'lawnmower' status.id %}">
-					Name: {{ status.name }} - Model: {{ status.model }} - Brand:
+			<li
+				class="list-group-item d-flex justify-content-between align-items-center">
+				<a
+					href="{% url 'device_detail' 'lawnmower' status.id %}"
+					class="text-decoration-none text-dark">
+					<strong>Name:</strong> {{ status.name }} |
 					<!--  -->
-					{{ status.brand }} - Location: {{ status.location }}
+					<strong>Model:</strong> {{ status.model }} |
+					<!--  -->
+					<strong>Brand:</strong> {{ status.brand }} |
+					<!--  -->
+					<strong>Location:</strong> {{ status.location }}
 				</a>
-				|
-				<a href="{% url 'device_update' 'lawnmower' status.id %}">Edit</a>
-				|
-				<a href="{% url 'device_delete' 'lawnmower' status.id %}">Delete</a>
+
+				<div class="btn-group" role="group">
+					<a
+						href="{% url 'device_update' 'lawnmower' status.id %}"
+						class="btn btn-light btn-sm text-black">
+						Edit
+					</a>
+					<a
+						href="{% url 'device_delete' 'lawnmower' status.id %}"
+						class="btn btn-danger btn-sm text-black">
+						Delete
+					</a>
+				</div>
 			</li>
 			{% empty %}
-			<p>No available lawnmowers.</p>
+			<li class="list-group-item text-center">No available lawnmowers</li>
 			{% endfor %}
 		</ul>
-		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
-			>Back to Devices</a
-		>
-		{% endblock %}
+
+		<div class="text-center mt-3">
+			<a href="{% url 'device_list' %}" class="btn btn-primary">
+				Back to Devices
+			</a>
+		</div>
 	</div>
+	{% endblock %}
 </body>

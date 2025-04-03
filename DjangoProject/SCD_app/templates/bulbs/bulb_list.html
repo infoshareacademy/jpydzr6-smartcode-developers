@@ -1,30 +1,53 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
-	<div class="container text-center">
-		<h2>Bulb List</h2>
-		<a href="{% url 'device_create' 'bulb'%}" class="btn btn-primary mb-3"
-			>Add New Bulb</a
-		>
-		<ul class="list-unstyled" class="container text-left">
+	<div class="container">
+		<h2 class="text-center">Bulb List</h2>
+
+		<div class="text-center">
+			<a href="{% url 'device_create' 'bulb' %}" class="btn btn-primary mb-3">
+				Add New Bulb
+			</a>
+		</div>
+
+		<ul class="list-group">
 			{% for bulb in bulbs %}
-			<li class="container text-left">
-				<a href="{% url 'device_detail' 'bulb' bulb.id %}">
-					Name: {{ bulb.name }} - Model: {{ bulb.model }} - Brand:
+			<li
+				class="list-group-item d-flex justify-content-between align-items-center">
+				<a
+					href="{% url 'device_detail' 'bulb' bulb.id %}"
+					class="text-decoration-none text-dark">
+					<strong>Name:</strong> {{ bulb.name }} |
 					<!--  -->
-					{{ bulb.brand}} - Location: {{ bulb.location}}
+					<strong>Model:</strong> {{ bulb.model }} |
+					<!--  -->
+					<strong>Brand:</strong> {{ bulb.brand }} |
+					<!--  -->
+					<strong>Location:</strong> {{ bulb.location }}
 				</a>
-				| <a href="{% url 'device_update' 'bulb' bulb.id %}">Edit</a> |
-				<a href="{% url 'device_delete' 'bulb' bulb.id %}">Delete</a>
-				<!--        <a href="{% url 'device_list' %}">Back</a>-->
+
+				<div class="d-flex justify-content-center gap-2 mt-2">
+					<a
+						href="{% url 'device_update' 'bulb' bulb.id %}"
+						class="btn btn-light btn-sm text-black">
+						Edit
+					</a>
+					<a
+						href="{% url 'device_delete' 'bulb' bulb.id %}"
+						class="btn btn-danger btn-sm text-black">
+						Delete
+					</a>
+				</div>
 			</li>
 			{% empty %}
-			<p>No available bulbs</p>
-
+			<li class="list-group-item text-center">No available bulbs</li>
 			{% endfor %}
 		</ul>
-		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
-			>Back to Devices</a
-		>
+
+		<div class="text-center mt-3">
+			<a href="{% url 'device_list' %}" class="btn btn-primary">
+				Back to Devices
+			</a>
+		</div>
 	</div>
 	{% endblock %}
 </body>

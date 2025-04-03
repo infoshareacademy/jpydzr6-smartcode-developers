@@ -1,36 +1,59 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
-
 <body id="page-top" class="fixed-nav-page">
-	<div class="container text-center">
-		<h2>Curtain List</h2>
-		<a href="{% url 'device_create' 'curtain'%}" class="btn btn-primary mb-3"
-			>Add New Curtain</a
-		>
-		<ul class="list-unstyled">
-			{% for curtain in curtains %}
-			<li>
-				<a href="{% url 'device_detail' 'curtain' curtain.id %}">
-					Name: {{ curtain.name }} - Model: {{ curtain.model }} - Brand:
-					<!--  -->
-					{{ curtain.brand}} - Location: {{ curtain.location}} - Position:
-					<!--  -->
-					{{ curtain.position }} - Open Percentage:
-					<!--  -->
-					{{ curtain.open_percent }}
-				</a>
-				|
+	<div class="container">
+		<h2 class="text-center">Curtain List</h2>
 
-				<a href="{% url 'device_update' 'curtain' curtain.id %}">Edit</a> |
-				<a href="{% url 'device_delete' 'curtain' curtain.id %}">Delete</a>
+		<div class="text-center">
+			<a
+				href="{% url 'device_create' 'curtain' %}"
+				class="btn btn-primary mb-3">
+				Add New Curtain
+			</a>
+		</div>
+
+		<ul class="list-group">
+			{% for curtain in curtains %}
+			<li
+				class="list-group-item d-flex justify-content-between align-items-center">
+				<a
+					href="{% url 'device_detail' 'curtain' curtain.id %}"
+					class="text-decoration-none text-dark">
+					<strong>Name:</strong> {{ curtain.name }} |
+					<!--  -->
+					<strong>Model:</strong> {{ curtain.model }} |
+					<!--  -->
+					<strong>Brand:</strong> {{ curtain.brand }} |
+					<!--  -->
+					<strong>Location:</strong> {{ curtain.location }} |
+					<!--  -->
+					<strong>Position:</strong> {{ curtain.position }} |
+					<!--  -->
+					<strong>Open Percentage:</strong> {{ curtain.open_percent }} %
+				</a>
+
+				<div class="d-flex justify-content-center gap-2 mt-2">
+					<a
+						href="{% url 'device_update' 'curtain' curtain.id %}"
+						class="btn btn-light btn-sm text-black">
+						Edit
+					</a>
+					<a
+						href="{% url 'device_delete' 'curtain' curtain.id %}"
+						class="btn btn-danger btn-sm text-black">
+						Delete
+					</a>
+				</div>
 			</li>
 			{% empty %}
-			<p>No available curtains.</p>
+			<li class="list-group-item text-center">No available curtains</li>
 			{% endfor %}
 		</ul>
 
-		<a href="{% url 'device_list' %}" class="btn btn-primary mb-3"
-			>Back to Devices</a
-		>
+		<div class="text-center mt-3">
+			<a href="{% url 'device_list' %}" class="btn btn-primary">
+				Back to Devices
+			</a>
+		</div>
 	</div>
 	{% endblock %}
 </body>
