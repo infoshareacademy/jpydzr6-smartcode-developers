@@ -1,16 +1,59 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container">
+		<!-- <h2>{{ device_type }}</h2> -->
+		<h2 class="text-center mt-3">
+			{% if device_type == "bulb" %} Bulb
+			<!--  -->
+			{% elif device_type == "plug" %} Plug
+			<!--  -->
+			{% elif device_type == "thermostat" %} Thermostat
+			<!--  -->
+			{% elif device_type == "curtain" %} Curtain
+			<!--  -->
+			{% elif device_type == "weatherstation" %} Weather Station
+			<!--  -->
+			{% elif device_type == "lawnmower" %} Lawn Mower
+			<!--  -->
+			{% else %} Device {% endif %}
+		</h2>
 
-{% block content %}
-  <h2>{{ device.name }}</h2>
+		<table class="table table-striped mt-4">
+			<thead class="table-warning">
+				<tr>
+					<th class="col-3">Device Attribute</th>
+					<th class="col-9">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for field, value in device_fields.items %}
+				<tr>
+					<td><strong>{{ field|title }}</strong></td>
+					<td>{{ value }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-  <h3>Podstawowe informacje:</h3>
-  <ul>
-    {% for field, value in device_fields.items %}
-      <li><strong>{{ field|title }}:</strong> {{ value }}</li>
-    {% endfor %}
-  </ul>
+		<div class="d-flex justify-content-center gap-2 mt-3">
+			<a
+				href="{% url 'device_update' device_type device.id %}"
+				class="btn btn-light btn-sm text-black"
+				>Edit</a
+			>
+			<a
+				href="{% url 'device_delete' device_type device.id %}"
+				class="btn btn-danger btn-sm text-black"
+				>Delete</a
+			>
+		</div>
 
-  <a href="{% url 'device_update' device_type device.id %}">Edytuj</a> |
-  <a href="{% url 'device_delete' device_type device.id %}">Usuń</a> |
-  <a href="{% url 'device_list' %}">Powrót do listy urządzeń</a>
-{% endblock %}
+		<a
+			href="{% url 'device_list' %}"
+			class="btn btn-primary btn-sm d-block mx-auto mt-2"
+			>Back to device list</a
+		>
+	</div>
+
+	{% endblock %}
+</body>

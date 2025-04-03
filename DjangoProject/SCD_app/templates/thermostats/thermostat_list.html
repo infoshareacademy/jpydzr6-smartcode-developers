@@ -1,21 +1,55 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container">
+		<h2 class="text-center">Thermostat List</h2>
 
-{% block content %}
-  <h2>Lista Termostatów</h2>
-  <a href="{% url 'device_create' 'thermostat'%}">Dodaj nowy termostat</a>
-  <ul>
-  {% for thermostat in thermostats %}
-    <li>
-      <a href="{% url 'device_detail' 'thermostat' thermostat.id %}">
-        {{ thermostat.device_id.name }} - Status: {{ thermostat.power }} - Temperatura: {{ thermostat.current_temperature }}°C
-      </a> |
-      <a href="{% url 'device_update' 'thermostat' thermostat.id %}">Edytuj</a> |
-      <a href="{% url 'device_delete' 'thermostat' thermostat.id %}">Usuń</a>
-    </li>
-  {% empty %}
-    <p>Brak dostępnych termostatów.</p>
-  {% endfor %}
-</ul>
+		<div class="text-center">
+			<a
+				href="{% url 'device_create' 'thermostat' %}"
+				class="btn btn-primary mb-3">
+				Add New Thermostat
+			</a>
+		</div>
 
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+		<ul class="list-group">
+			{% for thermostat in thermostats %}
+			<li
+				class="list-group-item d-flex justify-content-between align-items-center">
+				<a
+					href="{% url 'device_detail' 'thermostat' thermostat.id %}"
+					class="text-decoration-none text-dark">
+					<strong>Name:</strong> {{ thermostat.name }} |
+					<!--  -->
+					<strong>Model:</strong> {{ thermostat.model }} |
+					<!--  -->
+					<strong>Brand:</strong> {{ thermostat.brand }} |
+					<!--  -->
+					<strong>Location:</strong> {{ thermostat.location }}
+				</a>
+
+				<div class="d-flex justify-content-center gap-2 mt-2">
+					<a
+						href="{% url 'device_update' 'thermostat' thermostat.id %}"
+						class="btn btn-light btn-sm text-black">
+						Edit
+					</a>
+					<a
+						href="{% url 'device_delete' 'thermostat' thermostat.id %}"
+						class="btn btn-danger btn-sm text-black">
+						Delete
+					</a>
+				</div>
+			</li>
+			{% empty %}
+			<li class="list-group-item text-center">No available thermostats</li>
+			{% endfor %}
+		</ul>
+
+		<div class="text-center mt-3">
+			<a href="{% url 'device_list' %}" class="btn btn-primary">
+				Back to Devices
+			</a>
+		</div>
+	</div>
+	{% endblock %}
+</body>

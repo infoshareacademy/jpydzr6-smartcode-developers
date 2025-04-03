@@ -1,12 +1,21 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-left">
+		<h2 style="text-align: center">Create a New Device</h2>
+		<form method="post">
+			{% csrf_token %}
+			<h3 style="text-align: left">Device Data</h3>
+			{{ specific_form.as_p }}
 
-{% block content %}
-    <h2>Create a New Device</h2>
-    <form method="post">
-        {% csrf_token %}
-        <h3>Device Data</h3>
-        {{ specific_form.as_p }}
-
-        <button type="submit">Create Device</button>
-    </form>
-{% endblock %}
+			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				Create Device
+			</button>
+			<a
+				href="{% url 'device_list' %}"
+				class="btn btn-primary mt-3 d-block mx-auto"
+				>Back to Devices</a
+			>
+		</form>
+		{% endblock %}
+	</div>
+</body>
