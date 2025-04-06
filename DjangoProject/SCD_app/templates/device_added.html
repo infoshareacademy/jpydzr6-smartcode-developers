@@ -1,13 +1,21 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-center">
+		<head>
+			<title>Success</title>
+		</head>
+		<body>
+			<h1>Device added successfully!</h1>
+			<p>
+				Your device has been created and is now available in your device list.
+			</p>
+		</body>
 
-{% block content %}
-  <head>
-    <title>Success</title>
-</head>
-<body>
-    <h1>Device updated successfully!</h1>
-    <p>Your device has been created and is now available in your device list.</p>
+		<a
+			href="{% url 'device_list' %}"
+			class="btn btn-primary mt-3 d-block mx-auto"
+			>Back to Devices</a
+		>
+		{% endblock %}
+	</div>
 </body>
-
-  <a href="{% url 'device_list' %}">Powrót</a>
-{% endblock %}

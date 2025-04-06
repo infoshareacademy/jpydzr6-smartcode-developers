@@ -1,20 +1,53 @@
-{% extends 'base_generic_devices.html' %}
-{% block content %}
-<h2>Lista żarówek</h2>
-<a href="{% url 'bulb_create' %}">Dodaj nową żarówkę</a>
-<ul>
-    {% for bulb in bulbs %}
-    <li>
-        <a href="{% url 'bulb_detail' bulb.id %}">{{ bulb.device_id.name }} - Jasność: {{ bulb.brightness }}</a> |
-        <a href="{% url 'bulb_update' bulb.id %}">Edytuj</a> |
-        <a href="{% url 'bulb_delete' bulb.id %}">Usuń</a>
-<!--        <a href="{% url 'device_list' %}">Powrót</a>-->
-    </li>
-    {% empty %}
-    <p>Brak żarówek w bazie.</p>
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container">
+		<h2 class="text-center">Bulb List</h2>
 
-    {% endfor %}
+		<div class="text-center">
+			<a href="{% url 'device_create' 'bulb' %}" class="btn btn-primary mb-3">
+				Add New Bulb
+			</a>
+		</div>
 
-</ul>
-<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+		<ul class="list-group">
+			{% for bulb in bulbs %}
+			<li
+				class="list-group-item d-flex justify-content-between align-items-center">
+				<a
+					href="{% url 'device_detail' 'bulb' bulb.id %}"
+					class="text-decoration-none text-dark">
+					<strong>Name:</strong> {{ bulb.name }} |
+					<!--  -->
+					<strong>Model:</strong> {{ bulb.model }} |
+					<!--  -->
+					<strong>Brand:</strong> {{ bulb.brand }} |
+					<!--  -->
+					<strong>Location:</strong> {{ bulb.location }}
+				</a>
+
+				<div class="d-flex justify-content-center gap-2 mt-2">
+					<a
+						href="{% url 'device_update' 'bulb' bulb.id %}"
+						class="btn btn-light btn-sm text-black">
+						Edit
+					</a>
+					<a
+						href="{% url 'device_delete' 'bulb' bulb.id %}"
+						class="btn btn-danger btn-sm text-black">
+						Delete
+					</a>
+				</div>
+			</li>
+			{% empty %}
+			<li class="list-group-item text-center">No available bulbs</li>
+			{% endfor %}
+		</ul>
+
+		<div class="text-center mt-3">
+			<a href="{% url 'device_list' %}" class="btn btn-primary">
+				Back to Devices
+			</a>
+		</div>
+	</div>
+	{% endblock %}
+</body>

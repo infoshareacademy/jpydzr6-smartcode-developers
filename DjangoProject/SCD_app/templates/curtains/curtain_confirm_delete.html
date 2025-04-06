@@ -1,12 +1,12 @@
-{% extends 'base_generic_devices.html' %}
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>Czy na pewno chcesz usunąć roletę "{{ curtain.device_id.name }}"?</h2>
+	<form method="post">
+		{% csrf_token %}
+		<button type="submit">Tak, usuń</button>
+	</form>
 
-{% block content %}
-  <h2>Czy na pewno chcesz usunąć roletę "{{ curtain.device_id.name }}"?</h2>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Tak, usuń</button>
-  </form>
-
-  <a href="{% url 'curtain_list' %}">Powrót do listy rolet</a> |
-  <a href="{% url 'device_list' %}">Powrót do urządzeń</a>
-{% endblock %}
+	<a href="{% url 'curtain_list' %}">Powrót do listy rolet</a> |
+	<a href="{% url 'device_list' %}">Powrót do urządzeń</a>
+	{% endblock %}
+</body>
