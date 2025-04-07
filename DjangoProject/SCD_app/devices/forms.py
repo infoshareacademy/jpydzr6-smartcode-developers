@@ -12,7 +12,11 @@ class BaseDeviceForm(forms.ModelForm):
         # Use PasswordInput widget for device_secret_key
         self.fields['device_secret_key'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
         # Optionally, add a custom help text if necessary
+
+
         self.fields['device_secret_key'].help_text = "Enter a secure device secret key."
+        if self.instance and self.instance.pk:
+            del self.fields['device_secret_key']
 
         # Remove owner field from form
         if 'owner' in self.fields:
