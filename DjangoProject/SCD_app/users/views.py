@@ -57,7 +57,7 @@ class ActivateUserView(View):
         user.activation_token = None
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('login')
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
