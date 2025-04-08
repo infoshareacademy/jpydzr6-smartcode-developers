@@ -1,3 +1,5 @@
+from enum import StrEnum
+
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -40,6 +42,18 @@ class BaseDevice(models.Model):
     def __str__(self):
         return f"{self.name} ({self.location}) - Connected: {self.connected}"
 
+
+LOCATION_CHOICES = ["LIVING ROOM", "KITCHEN", "HALLWAY", "BEDROOM", "BATHROOM", "GARDEN", "BACKYARD",]
+
+BaseDevice.objects.filter(location="LIVING ROOM")
+BaseDevice.objects.filter(location="KITCHEN")
+BaseDevice.objects.filter(location="HALLWAY")
+BaseDevice.objects.filter(location="BEDROOM")
+BaseDevice.objects.filter(location="BATHROOM")
+BaseDevice.objects.filter(location="GARDEN")
+BaseDevice.objects.filter(location="BACKYARD")
+
+BaseDevice.location.choices = LOCATION_CHOICES
 
 class Bulb(BaseDevice):
     brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
