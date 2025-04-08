@@ -307,8 +307,8 @@ def lawn_mower_list(request):
 
 # devices by location
 @login_required(login_url='login')
-def devices_by_location(request):
+def living_room_list(request):
     user = request.user
-    devices = BaseDevice.location.choices.filter(basedevice_ptr__owner=user)
-    return render(request, 'device_list.html', {'devices': devices})
+    living_room = BaseDevice.location.choices.filter(basedevice_ptr__owner=user)
+    return render(request, 'livingroom_list.html', {'livingroom': living_room})
 
