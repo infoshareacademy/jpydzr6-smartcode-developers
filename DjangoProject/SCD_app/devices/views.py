@@ -306,3 +306,9 @@ def lawn_mower_list(request):
     return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
 
 
+@login_required(login_url='login')
+def devices_by_location(request):
+    user = request.user
+    devices = BaseDevice.objects.filter(owner=user, location=request.GET.get('location'))
+    return render(request, 'device_list.html', {'devices': devices})
+
