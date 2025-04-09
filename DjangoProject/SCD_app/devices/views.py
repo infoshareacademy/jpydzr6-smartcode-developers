@@ -304,11 +304,3 @@ def lawn_mower_list(request):
     user = request.user
     lawn_mowers = LawnMower.objects.filter(basedevice_ptr__owner=user)
     return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
-
-# devices by location
-@login_required(login_url='login')
-def living_room_list(request):
-    user = request.user
-    living_room = BaseDevice.location.choices.filter(basedevice_ptr__owner=user)
-    return render(request, 'livingroom_list.html', {'livingroom': living_room})
-

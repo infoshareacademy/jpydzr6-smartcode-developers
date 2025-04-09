@@ -27,13 +27,22 @@ class DeviceType(models.Model):
     def __str__(self):
         return self.name
 
+LOCATION_CHOICES = [
+    ("LIVING ROOM", "Living Room"),
+    ("KITCHEN", "Kitchen"),
+    ("HALLWAY", "Hallway"),
+    ("BEDROOM", "Bedroom"),
+    ("BATHROOM", "Bathroom"),
+    ("GARDEN", "Garden"),
+    ("BACKYARD", "Backyard"),
+]
 
 class BaseDevice(models.Model):
     device_secret_key = models.CharField(max_length=100, null=False)
     name = models.CharField(max_length=255, null=False)
     brand = models.CharField(max_length=100, null=True)
     model = models.CharField(max_length=100)
-    location = models.CharField(max_length=255)
+    location = models.CharField(max_length=50, choices=LOCATION_CHOICES)
     power = models.BooleanField(default=False)
     connected = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
@@ -41,19 +50,6 @@ class BaseDevice(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.location}) - Connected: {self.connected}"
-
-
-LOCATION_CHOICES = ["LIVING ROOM", "KITCHEN", "HALLWAY", "BEDROOM", "BATHROOM", "GARDEN", "BACKYARD",]
-
-BaseDevice.objects.filter(location="LIVING ROOM")
-BaseDevice.objects.filter(location="KITCHEN")
-BaseDevice.objects.filter(location="HALLWAY")
-BaseDevice.objects.filter(location="BEDROOM")
-BaseDevice.objects.filter(location="BATHROOM")
-BaseDevice.objects.filter(location="GARDEN")
-BaseDevice.objects.filter(location="BACKYARD")
-
-BaseDevice.location.choices = LOCATION_CHOICES
 
 class Bulb(BaseDevice):
     brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
