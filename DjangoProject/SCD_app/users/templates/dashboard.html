@@ -1,216 +1,289 @@
-{% extends 'base_dashboard.html' %}
-
-{% block content %}
+{% extends 'base_dashboard.html' %} {% block content %}
 
 <!-- Devices Grid-->
-        <section class="page-section bg-light" id="devices">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Manage your devices</h2>
-                    <h3 class="section-subheading text-muted">Choose a device type to check all available devices, manage them or delete.</h3>
-                </div>
-                <div class="row text-center">
-                    <div class="col-lg-4 mb-4">
-                        <!-- devices item 1-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="{% url 'bulb_list' %}">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/bulb.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Bulbs</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <!-- devices item 2-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="{% url 'plug_list' %}">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/plug.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Plugs</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <!-- devices item 3-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="{% url 'curtain_list' %}">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/curtain.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Curtains</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <!-- devices item 4-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="{% url 'lawn_mower_list' %}">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/lawnmower.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Lawn mowers</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <!-- devices item 5-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="{% url 'thermostat_list' %}">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/thermostat.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Thermostats</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <!-- devices item 6-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="{% url 'weather_station_list' %}">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/weatherstation.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Weather stations</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    
+<section class="page-section bg-light" id="devices">
+	<div class="container">
+		<div class="text-center">
+			<h2 class="section-heading text-uppercase">Manage your devices</h2>
+			<h3 class="section-subheading text-muted">
+				Choose a device type to check all available devices, manage them or
+				delete.
+			</h3>
+		</div>
+		<div class="row text-center">
+			<div class="col-lg-4 mb-4">
+				<!-- devices item 1-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'bulb_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img class="img-fluid" src="../static/images/bulb.webp" alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Bulbs</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<!-- devices item 2-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'plug_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img class="img-fluid" src="../static/images/plug.webp" alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Plugs</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<!-- devices item 3-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'curtain_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/curtain.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Curtains</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4 mb-lg-0">
+				<!-- devices item 4-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'lawn_mower_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/lawnmower.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Lawn mowers</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<!-- devices item 5-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'thermostat_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/thermostat.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Thermostats</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- devices item 6-->
+				<div class="devices-item">
+					<a class="devices-link" href="{% url 'weather_station_list' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/weatherstation.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Weather stations</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <!-- Rooms -->
 
-        <section class="page-section bg-light" id="devices">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Manage your devices by location</h2>
-                    <h3 class="section-subheading text-muted">Choose location to manage devices there.</h3>
-                </div>
-                <div class="row text-center">
-                    <div class="col-lg-4 mb-4">
-                        <!-- room item 1-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/living_room.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Living Room</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <!-- room item 2-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/kitchen.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Kitchen</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <!-- room item 3-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/hallway.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Hallway</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4 mb-lg-0">
-                        <!-- room item 4-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/bedroom.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Bedroom</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <!-- room item 5-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/bathroom.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Bathroom</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <!-- room item 6-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/garden.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Garden</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <!-- room item 7-->
-                        <div class="devices-item">
-                            <a class="devices-link" href="...">
-                                <div class="devices-hover">
-                                    <div class="devices-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="../static/images/backyard.webp" alt="..." />
-                            </a>
-                            <div class="devices-caption">
-                            <h4 class="my-3">Backyard</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+<section class="page-section bg-light" id="devices">
+	<div class="container">
+		<div class="text-center">
+			<h2 class="section-heading text-uppercase">
+				Manage your devices by location
+			</h2>
+			<h3 class="section-subheading text-muted">
+				Choose location to manage devices there.
+			</h3>
+		</div>
+		<div class="row text-center">
+			<div class="col-lg-4 mb-4">
+				<!-- room item 1-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'LIVING ROOM' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/living_room.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Living Room</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<!-- room item 2-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'KITCHEN' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/kitchen.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Kitchen</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<!-- room item 3-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'HALLWAY' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/hallway.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Hallway</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4 mb-lg-0">
+				<!-- room item 4-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'BEDROOM' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/bedroom.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Bedroom</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- room item 5-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'BATHROOM' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/bathroom.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Bathroom</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<!-- room item 6-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'GARDEN' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/garden.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Garden</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- room item 7-->
+				<div class="devices-item">
+					<a
+						class="devices-link"
+						href="{% url 'devices_by_location' 'BACKYARD' %}">
+						<div class="devices-hover">
+							<div class="devices-hover-content">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img
+							class="img-fluid"
+							src="../static/images/backyard.webp"
+							alt="..." />
+					</a>
+					<div class="devices-caption">
+						<h4 class="my-3">Backyard</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 {% endblock %}
-
-
-
-
