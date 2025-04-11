@@ -23,12 +23,6 @@ def dashboard(request):
     devices = BaseDevice.objects.all()
     return render(request, 'dashboard.html', {'devices': devices})
 
-def about_us(request):
-    return render(request, 'about_us.html')
-
-def instruction(request):
-    return render(request, 'instruction.html')
-
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
