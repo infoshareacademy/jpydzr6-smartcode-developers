@@ -57,7 +57,7 @@ class ActivateUserView(View):
         user.activation_token = None
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('dashboard')
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
@@ -68,7 +68,7 @@ class UserEditView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     form_class = CustomUserChangeForm
     template_name = 'registration/edit_profile.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
 
     def get_object(self):
         return self.request.user
@@ -87,4 +87,4 @@ class DeleteUserAccount(LoginRequiredMixin, View):
         user_email = user.email
         user.delete()
         send_mail('Account deleted', f'Your account has been successfully deleted.', 'noreply@scd.com', [user_email])
-        return redirect('login')
+        return redirect('home')
