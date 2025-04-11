@@ -257,6 +257,11 @@ def device_list(request):
     devices = BaseDevice.objects.filter(owner=user)
     return render(request, 'device_list.html', {'devices': devices})
 
+@login_required(login_url='login')
+def devices_by_location(request, location):
+    devices = BaseDevice.objects.filter(location=location)
+    return render(request, 'devices_by_location.html', {'devices': devices, 'location': location})
+
 
 # bulb
 @login_required(login_url='login')
