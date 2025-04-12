@@ -18,4 +18,4 @@ def activate_device(device):
     print(f"Turning on device: {device.name} ({device.device_type})")
 
 def deactivate_device(device):
-    print(f"Turning off device: {device.name}")
+    print(f"Turning off device: {device.name} ({device.device_type})")

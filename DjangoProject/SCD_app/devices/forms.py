@@ -135,7 +135,7 @@ class LawnMowerForm(BaseDeviceForm):
                   'current_area_m2', 'total_cutting_time_minutes']
 
 class DeviceScheduleForm(forms.ModelForm):
-    id = forms.ChoiceField(choices=DeviceType.TYPE_CHOICES, required=True)
+    # id = forms.ChoiceField(choices=DeviceType.TYPE_CHOICES, required=True)
 
     class Meta:
         model = DeviceSchedule
