@@ -4,6 +4,9 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
+from django.utils.timesince import timesince
+
+
 
 class DeviceType(models.Model):
     BULB = 1
@@ -142,18 +145,37 @@ class DeviceSchedule(models.Model):
         if self.end_time:
             return self.end_time
         elif self.duration and self.start_time:
-            if not self.start_time:
-                raise ValueError("Start time must be set.")
-            from datetime import datetime, timedelta
-            dt = self.start_time + self.duration
-            return dt
+            return self.start_time + self.duration
         return None
 
     def save(self, *args, **kwargs):
         if self.device:
             self.device_type = self.device.__class__.__name__.lower()
             self.custom_device_id = self.device.id
+        if not self.end_time and self.duration and self.start_time:
+            self.end_time = self.start_time + self.duration
+
         super().save(*args, **kwargs)
+
+    def formatted_start_time(self):
+        return self.start_time.strftime('%Y-%m-%d %H:%M') if self.start_time else None
+
+    def formatted_end_time(self):
+        return self.end_time.strftime('%Y-%m-%d %H:%M') if self.end_time else None
+
+    def get_formatted_duration(self):
+        if self.duration:
+            total_minutes = int(self.duration.total_seconds() // 60)
+            hours = total_minutes // 60
+            minutes = total_minutes % 60
+            return f"{hours}:{minutes}"
+        elif self.start_time and self.end_time:
+            delta = self.end_time - self.start_time
+            total_minutes = int(delta.total_seconds() // 60)
+            hours = total_minutes // 60
+            minutes = total_minutes % 60
+            return f"{hours}:{minutes}"
+        return None
 
     def __str__(self):
         return f"{self.device.name}:  {self.start_time}-{self.get_end_time()}"

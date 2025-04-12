@@ -1,6 +1,8 @@
 from django import forms
 from .models import BaseDevice, Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, DeviceSchedule, DeviceType
-
+from django.forms.widgets import DateTimeInput
+from datetime import timedelta
+import re
 
 class BaseDeviceForm(forms.ModelForm):
     class Meta:
@@ -139,13 +141,22 @@ class DeviceScheduleForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
-
     class Meta:
         model = DeviceSchedule
         fields = ['device', 'start_time', 'end_time', 'duration']
         widgets = {
-            "start_time": forms.TimeInput(attrs={'type': 'time'}),
-            "end_time": forms.TimeInput(attrs={'type': 'time'}),
+            "start_time": DateTimeInput(attrs={
+                'type': 'datetime-local',
+                'class': 'form-control',
+            }, format='%Y-%-m-%-d %H:%M'),
+            "end_time": DateTimeInput(attrs={
+                'type': 'datetime-local',
+                'class': 'form-control',
+            }, format='%Y-%-m-%-d %H:%M'),
+            "duration": forms.TextInput(attrs={
+                'placeholder': 'hh:mm',
+                'class': 'form-control',
+            })
         }
 
     def __init__(self, *args, **kwargs):
@@ -161,3 +172,13 @@ class DeviceScheduleForm(forms.ModelForm):
         if cleaned_data.get('end_time') and cleaned_data.get('duration'):
             raise forms.ValidationError('Provide either device shutdown time or operation time.')
         return cleaned_data
+
+    def clean_duration(self):
+        duration_input = self.cleaned_data.get("duration")
+        if isinstance(duration_input, str):
+            match = re.match(r"^(\d+):([0-5]?\d)$", duration_input.strip())
+            if match:
+                hours, minutes = map(int, match.groups())
+                return timedelta(hours=hours, minutes=minutes)
+            raise forms.ValidationError("Duration must be in HH:MM format.")
+        return duration_input

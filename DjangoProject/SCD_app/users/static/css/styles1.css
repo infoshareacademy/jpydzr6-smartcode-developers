@@ -1174,3 +1174,7 @@ form textarea:focus {
     border-color: #ffc800;
     outline: none;
 }
+
+.margin_top {
+	margin-top: 5rem;
+}

@@ -1,20 +1,8 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
 	<div class="container text-left">
-		<h2 style="text-align: center">Set device's working time</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
-				Set schedule
-	  </button>
-			<a
-				href="{% url 'device_list' %}"
-				class="btn btn-primary mt-3 d-block mx-auto"
-				>Back to Devices</a
-			>
-	</form>
-	<div class="schedule-list">
+	<h2 style="text-align: center" class="margin_top">Device working schedules</h2>
+    <div class="schedule-list">
       {% for schedule in schedules %}
         <p>{{ schedule.device.name }}:
 			{{ schedule.formatted_start_time }} - {{ schedule.formatted_end_time }}
@@ -32,8 +20,6 @@
 				>Back to Devices</a>
         {% endfor %}
     </div>
-
-	</div>
 
 	</div>
 </body>

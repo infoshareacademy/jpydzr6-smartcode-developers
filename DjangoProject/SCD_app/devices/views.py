@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
-from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, BaseDevice
+from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, BaseDevice, DeviceSchedule
 from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm, DeviceScheduleForm, DeviceType
 from django.forms.models import model_to_dict
+from django.contrib import messages
 
 
 class DeviceCreateView(LoginRequiredMixin, FormView):
@@ -311,7 +312,7 @@ def device_schedule(request, device_type=None, device_id=None):
         form = DeviceScheduleForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')
+            return redirect('list_device_schedule')
     else:
         form = DeviceScheduleForm(user=request.user)
 
@@ -321,6 +322,20 @@ def device_schedule(request, device_type=None, device_id=None):
                 form.fields['device'].initial = device
             except BaseDevice.DoesNotExist:
                 pass
+    schedules = DeviceSchedule.objects.filter(device__owner=request.user)
 
-    return render(request, 'device_schedule.html', {'form': form, 'device_type': device_type, 'device_id': device_id})
+    return render(request, 'device_schedule.html', {'form': form, 'schedules': schedules})
+
+
+@login_required
+def delete_schedule(request, schedule_id):
+    schedule = get_object_or_404(DeviceSchedule, id=schedule_id)
+
+    if request.user != schedule.device.owner:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('device_list')
+    schedule.delete()
+    messages.success(request, f"Schedule for the device has been deleted.")
+    return redirect('device_list')
+
 
