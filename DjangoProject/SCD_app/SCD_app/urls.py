@@ -16,10 +16,10 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from devices import views
 from users.views import UserRegisterView, ActivateUserView, UserEditView, home, DeleteUserAccount, dashboard
-from django.contrib.auth import views as auth_views, logout
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,6 +51,7 @@ urlpatterns = [
      path('device/update/<str:device_type>/<int:pk>/', views.DeviceUpdateView.as_view(), name='device_update'),
      path('devices/details/<str:device_type>/<int:device_id>/', views.DeviceDetailView.as_view(), name='device_detail'),
      path('devices/delete/<str:device_type>/<int:device_id>/', views.DeviceDeleteView.as_view(), name='device_delete'),
+     path('devices/location/<str:location>/', views.devices_by_location, name='devices_by_location'),
 
 
 # bulb
@@ -70,6 +71,10 @@ urlpatterns = [
 
 # lawn mower
     path('lawn_mowers', views.lawn_mower_list, name='lawn_mower_list'),
+
+
+
+
 
 ]
 

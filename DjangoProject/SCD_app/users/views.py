@@ -57,7 +57,7 @@ class ActivateUserView(View):
         user.activation_token = None
         user.save()
         login(request, user)
-        return redirect('login')
+        return redirect('dashboard')
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
@@ -92,4 +92,4 @@ class DeleteUserAccount(LoginRequiredMixin, View):
         user_email = user.email
         user.delete()
         send_mail('Account deleted', f'Your account has been successfully deleted.', 'noreply@scd.com', [user_email])
-        return redirect('login')
+        return redirect('home')
