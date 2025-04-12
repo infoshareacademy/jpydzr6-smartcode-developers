@@ -7,8 +7,9 @@ A web-based SmartHome management system built with Django. This app allows users
 
 ## 🚀 Features
 
-- ✅ User registration & email authentication
+- 🔐 Secure user registration & email authentication 
 - 📱 Add and manage smart devices
+- 🔌 Remote control of smart devices
 - 🔁 Share devices with other users by email
 - 📊 Dashboard with owned and shared devices
 - 🛡️ Location-based device access
@@ -19,13 +20,13 @@ A web-based SmartHome management system built with Django. This app allows users
 
 - **Backend**: Django (Python)
 - **Database**: SQLite (default)
-- **Frontend**: HTML5, Bootstrap (or your UI of choice)
+- **Frontend**: HTML, Bootstrap
 
 ---
 
 ## 📦 Installation
 
-git clone 
+git clone https://github.com/infoshareacademy/jpydzr6-smartcode-developers.git
 cd DjangoProject
 cd SCD_app
 python -m venv venv
@@ -33,5 +34,3 @@ source venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
-
-
