@@ -136,10 +136,9 @@ class LawnMowerForm(BaseDeviceForm):
 
 class DeviceScheduleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        if user:
-            self.fields['device'].queryset = BaseDevice.objects.filter(owner=user)
+
 
     class Meta:
         model = DeviceSchedule
@@ -148,6 +147,12 @@ class DeviceScheduleForm(forms.ModelForm):
             "start_time": forms.TimeInput(attrs={'type': 'time'}),
             "end_time": forms.TimeInput(attrs={'type': 'time'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['device'].queryset = BaseDevice.objects.filter(owner=user)
 
     def clean(self):
         cleaned_data = super().clean()

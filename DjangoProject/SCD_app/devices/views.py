@@ -306,7 +306,7 @@ def lawn_mower_list(request):
     return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
 
 @login_required
-def device_schedule(request):
+def device_schedule(request, device_type=None, device_id=None):
     if request.method == "POST":
         form = DeviceScheduleForm(request.POST, user=request.user)
         if form.is_valid():
@@ -314,5 +314,13 @@ def device_schedule(request):
             return redirect('dashboard')
     else:
         form = DeviceScheduleForm(user=request.user)
-    return render(request, 'device_schedule.html', {'form': form})
+
+        if device_type and device_id:
+            try:
+                device = BaseDevice.objects.get(id=device_id, owner=request.user)
+                form.fields['device'].initial = device
+            except BaseDevice.DoesNotExist:
+                pass
+
+    return render(request, 'device_schedule.html', {'form': form, 'device_type': device_type, 'device_id': device_id})
 

@@ -132,6 +132,8 @@ class LawnMower(BaseDevice):
 
 class DeviceSchedule(models.Model):
     device = models.ForeignKey(BaseDevice, on_delete=models.CASCADE)
+    device_type = models.CharField(max_length=100, null=True, blank=True)
+    custom_device_id = models.IntegerField(null=True, blank=True)
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
@@ -139,13 +141,19 @@ class DeviceSchedule(models.Model):
     def get_end_time(self):
         if self.end_time:
             return self.end_time
-        elif self.duration:
+        elif self.duration and self.start_time:
             if not self.start_time:
                 raise ValueError("Start time must be set.")
             from datetime import datetime, timedelta
             dt = self.start_time + self.duration
             return dt
         return None
+
+    def save(self, *args, **kwargs):
+        if self.device:
+            self.device_type = self.device.__class__.__name__.lower()
+            self.custom_device_id = self.device.id
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.device.name}:  {self.start_time}-{self.get_end_time()}"
