@@ -135,25 +135,25 @@ class LawnMowerForm(BaseDeviceForm):
                   'current_area_m2', 'total_cutting_time_minutes']
 
 class DeviceScheduleForm(forms.ModelForm):
-    device_type = forms.ChoiceField(choices=DeviceType.TYPE_CHOICES, required=True)
+    id = forms.ChoiceField(choices=DeviceType.TYPE_CHOICES, required=True)
 
     class Meta:
         model = DeviceSchedule
-        fields = ['device_type', 'name', 'location', 'start_time', 'end_time', 'duration']
+        fields = ['device', 'start_time', 'end_time', 'duration']
+        widgets = {
+            "start_time": forms.TimeInput(attrs={'type': 'time'}),
+            "end_time": forms.TimeInput(attrs={'type': 'time'}),
+        }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        self.user = user
-        self.fields['device'].queryset = DeviceType.objects.filter(user=user)
-
-        if 'device_type' in self.data:
-            selected_device_type = self.data['device_type']
-            self.fields['device_type'].queryset = DeviceType.objects.filter(owner=user, device_type=selected_device_type)
+        if user:
+            self.fields['device'].queryset = DeviceType.objects.filter(owner=user)
 
     def clean(self):
         cleaned_data = super().clean()
-        if not cleaned_data.get('end_time') and not cleaned_data.get('durtion'):
+        if not cleaned_data.get('end_time') and not cleaned_data.get('duration'):
             raise forms.ValidationError('Provide the device shutdown time or device operation time.')
         if cleaned_data.get('end_time') and cleaned_data.get('duration'):
             raise forms.ValidationError('Provide either device shutdown time or operation time.')

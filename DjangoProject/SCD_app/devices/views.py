@@ -306,14 +306,12 @@ def lawn_mower_list(request):
     return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
 
 @login_required
-def schedule_device_view(request):
+def device_schedule(request):
     if request.method == "POST":
         form = DeviceScheduleForm(request.POST, user=request.user)
         if form.is_valid():
-            schedule = form.save(commit=False)
-            if schedule.device.owner == request.user:
-                schedule.save()
-            return redirect('device_list')
+            form.save()
+            return redirect('dashboard')
     else:
         form = DeviceScheduleForm(user=request.user)
     return render(request, 'device_schedule.html', {'form': form})

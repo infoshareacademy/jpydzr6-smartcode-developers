@@ -51,6 +51,7 @@ urlpatterns = [
      path('device/update/<str:device_type>/<int:pk>/', views.DeviceUpdateView.as_view(), name='device_update'),
      path('devices/details/<str:device_type>/<int:device_id>/', views.DeviceDetailView.as_view(), name='device_detail'),
      path('devices/delete/<str:device_type>/<int:device_id>/', views.DeviceDeleteView.as_view(), name='device_delete'),
+     path('devices/schedule/<str:device_type>/<int:device_id>/', views.device_schedule, name='device_schedule'),
 
 
 # bulb

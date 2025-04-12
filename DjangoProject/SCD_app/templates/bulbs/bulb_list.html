@@ -27,6 +27,11 @@
 
 				<div class="d-flex justify-content-center gap-2 mt-2">
 					<a
+						href="{% url 'device_schedule' 'bulb' bulb.id %}"
+						class="btn btn-light btn-sm text-black">
+						Set schedule
+					</a>
+					<a
 						href="{% url 'device_update' 'bulb' bulb.id %}"
 						class="btn btn-light btn-sm text-black">
 						Edit

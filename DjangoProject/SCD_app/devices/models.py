@@ -50,8 +50,7 @@ class BaseDevice(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} ({self.location}) - Connected: {self.connected}"
-
+        return f"{self.name}, {self.get_id_display()} ({self.location}) - Connected: {self.connected}"
 
 class Bulb(BaseDevice):
     brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
@@ -133,15 +132,9 @@ class LawnMower(BaseDevice):
 
 class DeviceSchedule(models.Model):
     device = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
-    name = models.CharField(choices=DeviceType.TYPE_CHOICES)
-    location = models.CharField(choices=LOCATION_CHOICES)
-    start_time = models.DateTimeField(blank=True, null=True)
+    start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.device.name} | start:  {self.start_time}"
 
     def get_end_time(self):
         if self.end_time:
@@ -151,3 +144,6 @@ class DeviceSchedule(models.Model):
             dt = datetime.combine(datetime.today(), self.start_time) + self.duration
             return dt.time()
         return None
+
+    def __str__(self):
+        return f"{self.device.name}:  {self.start_time}-{self.get_end_time()}"

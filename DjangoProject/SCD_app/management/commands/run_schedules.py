@@ -1,7 +1,8 @@
 from datetime import datetime
-from devices.models import DeviceSchedule
+from django.core.management.base import BaseCommand
+from .models import DeviceSchedule
 
-def process_schedules():
+def process_device_schedules():
     now = datetime.now().time()
     schedules = DeviceSchedule.objects.all()
 
