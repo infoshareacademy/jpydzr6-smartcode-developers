@@ -173,12 +173,3 @@ class DeviceScheduleForm(forms.ModelForm):
             raise forms.ValidationError('Provide either device shutdown time or operation time.')
         return cleaned_data
 
-    def clean_duration(self):
-        duration_input = self.cleaned_data.get("duration")
-        if isinstance(duration_input, str):
-            match = re.match(r"^(\d+):([0-5]?\d)$", duration_input.strip())
-            if match:
-                hours, minutes = map(int, match.groups())
-                return timedelta(hours=hours, minutes=minutes)
-            raise forms.ValidationError("Duration must be in HH:MM format.")
-        return duration_input

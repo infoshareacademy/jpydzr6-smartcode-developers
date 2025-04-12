@@ -312,7 +312,7 @@ def device_schedule(request, device_type=None, device_id=None):
         form = DeviceScheduleForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('list_device_schedule')
+
     else:
         form = DeviceScheduleForm(user=request.user)
 
@@ -323,19 +323,18 @@ def device_schedule(request, device_type=None, device_id=None):
             except BaseDevice.DoesNotExist:
                 pass
     schedules = DeviceSchedule.objects.filter(device__owner=request.user)
-
     return render(request, 'device_schedule.html', {'form': form, 'schedules': schedules})
 
 
-@login_required
-def delete_schedule(request, schedule_id):
-    schedule = get_object_or_404(DeviceSchedule, id=schedule_id)
-
-    if request.user != schedule.device.owner:
-        messages.error(request, "You are not authorized to perform this action.")
-        return redirect('device_list')
-    schedule.delete()
-    messages.success(request, f"Schedule for the device has been deleted.")
-    return redirect('device_list')
+# @login_required
+# def delete_schedule(request, schedule_id):
+#     schedule = get_object_or_404(DeviceSchedule, id=schedule_id)
+#
+#     if request.user != schedule.device.owner:
+#         messages.error(request, "You are not authorized to perform this action.")
+#         return redirect('device_list')
+#     schedule.delete()
+#     messages.success(request, f"Schedule for the device has been deleted.")
+#     return redirect('device_list')
 
 
