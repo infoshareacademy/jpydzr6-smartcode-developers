@@ -38,13 +38,11 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
         if form_class is None:
             form_class = self.get_form_class()
 
+        base_device_form = BaseDeviceForm(self.request.POST or None)
         specific_form = form_class(self.request.POST or None)
-        return {'specific_form': specific_form}
+        return {'base_device_form': base_device_form, 'specific_form': specific_form}
 
     def get_context_data(self, **kwargs):
-        """
-        Pass the specific form to the template.
-        """
         context = super().get_context_data(**kwargs)
         forms = self.get_form()
         context.update(forms)  # Add the specific form to the context
@@ -52,16 +50,23 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
 
     def post(self, request, *args, **kwargs):
         forms = self.get_form()
+        base_device_form = forms['base_device_form']
         specific_form = forms['specific_form']
 
-        if specific_form.is_valid():
-            specific_form.instance.owner = request.user
-            specific_form.save()
+        if base_device_form.is_valid() and specific_form.is_valid():
+            base_device = base_device_form.save(commit=False)
+            base_device.owner = request.user
+            base_device.save()
+
+            specific_device = specific_form.save(commit=False)
+            specific_device.owner = request.user
+            specific_device.basedevice_ptr = base_device
+            specific_device.save()
 
             return redirect(self.success_url)
 
-        print(specific_form.errors)
-        return self.form_invalid(specific_form)
+        print(base_device_form.errors, specific_form.errors)
+        return self.render_to_response(self.get_context_data(base_device_form=base_device_form, specific_form=specific_form))
 
 
 class DeviceUpdateView(LoginRequiredMixin, FormView):

@@ -32,21 +32,28 @@ class BulbForm(BaseDeviceForm):
         min_value=2000, max_value=6500,
         widget=forms.NumberInput(attrs={'min': 2000, 'max': 6500})
     )
-    red_temp = forms.IntegerField(
-        min_value=0, max_value=255,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
+    # red_temp = forms.IntegerField(
+    #     min_value=0, max_value=255,
+    #     widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
+    # )
+    # green_temp = forms.IntegerField(
+    #     min_value=0, max_value=255,
+    #     widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
+    # )
+    # blue_temp = forms.IntegerField(
+    #     min_value=0, max_value=255,
+    #     widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
+    # )
+    color = forms.CharField(
+        widget=forms.TextInput(attrs={'type': 'color'})
     )
-    green_temp = forms.IntegerField(
-        min_value=0, max_value=255,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
-    )
-    blue_temp = forms.IntegerField(
-        min_value=0, max_value=255,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
-    )
+
     class Meta:
         model = Bulb
-        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'brightness', 'color_temp', 'red_temp', 'green_temp', 'blue_temp']
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'brightness', 'color_temp', 
+                #   'red_temp', 'green_temp', 'blue_temp'
+                  'color'
+                  ]
 
 
 class PlugForm(BaseDeviceForm):

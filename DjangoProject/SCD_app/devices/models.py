@@ -1,4 +1,3 @@
-from enum import StrEnum
 
 from django.db import models
 from django.conf import settings
@@ -54,9 +53,10 @@ class BaseDevice(models.Model):
 class Bulb(BaseDevice):
     brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     color_temp = models.IntegerField()
-    red_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
-    green_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
-    blue_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    # red_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    # green_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    # blue_temp = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(255)])
+    color = models.CharField(max_length=7, default="#ffffff")  
 
     class Meta:
         verbose_name_plural = "Bulbs"
