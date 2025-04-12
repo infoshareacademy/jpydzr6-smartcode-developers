@@ -28,13 +28,22 @@ class DeviceType(models.Model):
     def __str__(self):
         return self.name
 
+LOCATION_CHOICES = [
+    ("LIVING ROOM", "Living Room"),
+    ("KITCHEN", "Kitchen"),
+    ("HALLWAY", "Hallway"),
+    ("BEDROOM", "Bedroom"),
+    ("BATHROOM", "Bathroom"),
+    ("GARDEN", "Garden"),
+    ("BACKYARD", "Backyard"),
+]
 
 class BaseDevice(models.Model):
     device_secret_key = models.CharField(max_length=100, null=False)
     name = models.CharField(max_length=255, null=False)
     brand = models.CharField(max_length=100, null=True)
     model = models.CharField(max_length=100)
-    location = models.CharField(max_length=255)
+    location = models.CharField(max_length=50, choices=LOCATION_CHOICES)
     power = models.BooleanField(default=False)
     connected = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
