@@ -1,0 +1,1 @@
+* * * * * /DjangoProject/venv/bin/python /DjangoProject/SCD_app/manage.py check_schedules

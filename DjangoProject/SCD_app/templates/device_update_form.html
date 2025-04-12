@@ -1,0 +1,21 @@
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-left">
+		<h2 class="container text-center">Update Device</h2>
+		<form method="post">
+			{% csrf_token %}
+			<h3>Device Data</h3>
+			{{ specific_form.as_p }}
+
+			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				Update Device
+			</button>
+			<a
+				href="{% url 'device_list' %}"
+				class="btn btn-primary mt-3 d-block mx-auto"
+				>Back to Devices</a
+			>
+		</form>
+		{% endblock %}
+	</div>
+</body>
