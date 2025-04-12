@@ -1,6 +1,9 @@
+from random import choices
+
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 
 class DeviceType(models.Model):
     BULB = 1
@@ -118,3 +121,24 @@ class LawnMower(BaseDevice):
         return (f"{self.name}, {self.battery_percent}, {self.cutting_mode}, {self.cutting_height_mm},"
                 f"{self.current_area_m2}, {self.total_cutting_time_minutes}")
 
+
+class DeviceSchedule(models.Model):
+    device = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
+    name = models.CharField(choices=DeviceType.TYPE_CHOICES)
+    location = models.CharField(choices=LOCATION_CHOICES)
+    start_time = models.DateTimeField(blank=True, null=True)
+    end_time = models.DateTimeField(blank=True, null=True)
+    duration = models.DurationField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.device.name} | start:  {self.start_time}"
+
+    def get_end_time(self):
+        if self.end_time:
+            return self.end_time
+        elif self.duration:
+            from datetime import datetime, timedelta
+            dt = datetime.combine(datetime.today(), self.start_time) + self.duration
+            return dt.time()
+        return None

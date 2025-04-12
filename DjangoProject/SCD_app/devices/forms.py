@@ -1,5 +1,5 @@
 from django import forms
-from .models import BaseDevice, Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower
+from .models import BaseDevice, Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, DeviceSchedule, DeviceType
 
 
 class BaseDeviceForm(forms.ModelForm):
@@ -133,3 +133,28 @@ class LawnMowerForm(BaseDeviceForm):
         model = LawnMower
         fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'battery_percent', 'cutting_mode', 'cutting_height_mm',
                   'current_area_m2', 'total_cutting_time_minutes']
+
+class DeviceScheduleForm(forms.ModelForm):
+    device_type = forms.ChoiceField(choices=DeviceType.TYPE_CHOICES, required=True)
+
+    class Meta:
+        model = DeviceSchedule
+        fields = ['device_type', 'name', 'location', 'start_time', 'end_time', 'duration']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.user = user
+        self.fields['device'].queryset = DeviceType.objects.filter(user=user)
+
+        if 'device_type' in self.data:
+            selected_device_type = self.data['device_type']
+            self.fields['device_type'].queryset = DeviceType.objects.filter(owner=user, device_type=selected_device_type)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not cleaned_data.get('end_time') and not cleaned_data.get('durtion'):
+            raise forms.ValidationError('Provide the device shutdown time or device operation time.')
+        if cleaned_data.get('end_time') and cleaned_data.get('duration'):
+            raise forms.ValidationError('Provide either device shutdown time or operation time.')
+        return cleaned_data

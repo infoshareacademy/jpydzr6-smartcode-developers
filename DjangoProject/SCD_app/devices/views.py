@@ -4,7 +4,7 @@ from django.views.generic import DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, BaseDevice
-from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm
+from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm, DeviceScheduleForm, DeviceType
 from django.forms.models import model_to_dict
 
 
@@ -305,4 +305,15 @@ def lawn_mower_list(request):
     lawn_mowers = LawnMower.objects.filter(basedevice_ptr__owner=user)
     return render(request, "lawn_mowers/lawnmower_list.html", {"statusy": lawn_mowers})
 
-
+@login_required
+def schedule_device_view(request):
+    if request.method == "POST":
+        form = DeviceScheduleForm(request.POST, user=request.user)
+        if form.is_valid():
+            schedule = form.save(commit=False)
+            if schedule.device.owner == request.user:
+                schedule.save()
+            return redirect('device_list')
+    else:
+        form = DeviceScheduleForm(user=request.user)
+    return render(request, 'device_schedule.html', {'form': form})
