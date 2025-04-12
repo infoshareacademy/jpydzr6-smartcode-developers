@@ -315,3 +315,4 @@ def device_schedule(request):
     else:
         form = DeviceScheduleForm(user=request.user)
     return render(request, 'device_schedule.html', {'form': form})
+
