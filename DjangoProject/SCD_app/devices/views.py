@@ -8,6 +8,7 @@ from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, 
 from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm, ShareDeviceForm
 from django.forms.models import model_to_dict
 from django.contrib import messages
+from django.http import Http404
 from django.core.exceptions import PermissionDenied
 
 User = get_user_model()
@@ -95,7 +96,7 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
             ).exists()
 
             if not shared_access:
-                raise PermissionDenied("You don't have access to this device.")
+                raise Http404("Device not found")
 
         # Store ownership status for use in other methods
         self.is_owner = is_owner
@@ -159,6 +160,7 @@ class DeviceUpdateView(LoginRequiredMixin, FormView):
         forms = self.get_form()
         context.update(forms)
         context['is_owner'] = self.is_owner
+        context['device_type'] = self.kwargs.get('device_type').lower()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -295,7 +297,7 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
             ).exists()
 
             if not shared_access:
-                raise PermissionDenied("You don't have access to this device.")
+                raise Http404("Device not found")
 
         # Store ownership status for use in context
         self.is_owner = is_owner
