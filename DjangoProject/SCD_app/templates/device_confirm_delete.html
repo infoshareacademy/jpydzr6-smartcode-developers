@@ -2,7 +2,11 @@
 <body id="page-top" class="fixed-nav-page">
 	<div class="container text-center">
 		<h2>
+			{% if is_owner %}
 			Are you sure you want to delete the
+			{% else %}
+			Are you sure you want to remove access to the
+			{% endif %}
 			<!--  -->
 			"{% if view.kwargs.device_type == "bulb" %} Bulb
 			<!--  -->
@@ -18,16 +22,22 @@
 			<!--  -->
 			{% else %}Device {% endif %}" device?
 		</h2>
+
+		{% if not is_owner %}
+		<div class="alert alert-info mt-2">
+			This will only remove your access to this device. The device itself will not be deleted.
+		</div>
+		{% endif %}
+
 		<form method="post">
 			{% csrf_token %}
 			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				{% if is_owner %}
 				Yes, delete
+				{% else %}
+				Yes, remove access
+				{% endif %}
 			</button>
-			<!-- <a
-				href="{% url 'device_list' %}"
-				class="btn btn-primary mt-3 d-block mx-auto"
-				>Cancel</a
-			> -->
 			<a
 				href="{% url 'dashboard' %}"
 				class="btn btn-primary mt-3 d-block mx-auto"

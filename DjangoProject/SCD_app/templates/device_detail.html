@@ -1,59 +1,90 @@
 {% extends 'base_generic_devices.html' %} {% block content %}
 <body id="page-top" class="fixed-nav-page">
-	<div class="container">
-		<!-- <h2>{{ device_type }}</h2> -->
-		<h2 class="text-center mt-3">
-			{% if device_type == "bulb" %} Bulb
-			<!--  -->
-			{% elif device_type == "plug" %} Plug
-			<!--  -->
-			{% elif device_type == "thermostat" %} Thermostat
-			<!--  -->
-			{% elif device_type == "curtain" %} Curtain
-			<!--  -->
-			{% elif device_type == "weatherstation" %} Weather Station
-			<!--  -->
-			{% elif device_type == "lawnmower" %} Lawn Mower
-			<!--  -->
-			{% else %} Device {% endif %}
-		</h2>
+ <div class="container">
+  <h2 class="text-center mt-3">
+   {% if device_type == "bulb" %} Bulb
+   <!--  -->
+   {% elif device_type == "plug" %} Plug
+   <!--  -->
+   {% elif device_type == "thermostat" %} Thermostat
+   <!--  -->
+   {% elif device_type == "curtain" %} Curtain
+   <!--  -->
+   {% elif device_type == "weatherstation" %} Weather Station
+   <!--  -->
+   {% elif device_type == "lawnmower" %} Lawn Mower
+   <!--  -->
+   {% else %} Device {% endif %}
+  </h2>
 
-		<table class="table table-striped mt-4">
-			<thead class="table-warning">
-				<tr>
-					<th class="col-3">Device Attribute</th>
-					<th class="col-9">Details</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for field, value in device_fields.items %}
-				<tr>
-					<td><strong>{{ field|title }}</strong></td>
-					<td>{{ value }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+  <table class="table table-striped mt-4">
+   <thead class="table-warning">
+    <tr>
+     <th class="col-3">Device Attribute</th>
+     <th class="col-9">Details</th>
+    </tr>
+   </thead>
+   <tbody>
+    {% for field, value in device_fields.items %}
+    <tr>
+     <td><strong>{{ field|title }}</strong></td>
+     <td>
+      {% if field == "color" and device_type == "bulb" %}
+        <div class="d-flex align-items-center">
+          <div style="width: 30px; height: 30px; background-color: {{ value }}; border: 1px solid #ccc; margin-right: 10px; border-radius: 4px;"></div>
+          <span>{{ value }}</span>
+        </div>
+      {% else %}
+        {{ value }}
+      {% endif %}
+     </td>
+    </tr>
+    {% endfor %}
+   </tbody>
+  </table>
 
-		<div class="d-flex justify-content-center gap-2 mt-3">
-			<a
-				href="{% url 'device_update' device_type device.id %}"
-				class="btn btn-light btn-sm text-black"
-				>Edit</a
-			>
-			<a
-				href="{% url 'device_delete' device_type device.id %}"
-				class="btn btn-danger btn-sm text-black"
-				>Delete</a
-			>
-		</div>
+  <div class="d-flex justify-content-center gap-2 mt-3">
+   <a
+    href="{% url 'device_update' device_type device.id %}"
+    class="btn btn-light btn-sm text-black"
+    >Edit</a
+   >
+   {% if is_owner %}
+   <a
+    href="{% url 'device_delete' device_type device.id %}"
+    class="btn btn-danger btn-sm text-black"
+    >Delete</a
+   >
+   <a
+    href="{% url 'share_device' device.id %}"
+    class="btn btn-info btn-sm text-black"
+    >Share</a
+   >
+   {% else %}
+   <a
+    href="{% url 'device_delete' device_type device.id %}"
+    class="btn btn-warning btn-sm text-black"
+    >Remove Access</a
+   >
+   {% endif %}
+  </div>
 
-		<a
-			href="{% url 'device_list' %}"
-			class="btn btn-primary btn-sm d-block mx-auto mt-2"
-			>Back to device list</a
-		>
-	</div>
+  {% if device_type == "bulb" %}
+  <a href="{% url 'bulb_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to bulb list</a>
+  {% elif device_type == "plug" %}
+  <a href="{% url 'plug_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to plug list</a>
+  {% elif device_type == "thermostat" %}
+  <a href="{% url 'thermostat_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to thermostat list</a>
+  {% elif device_type == "curtain" %}
+  <a href="{% url 'curtain_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to curtain list</a>
+  {% elif device_type == "weatherstation" %}
+  <a href="{% url 'weather_station_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to weather station list</a>
+  {% elif device_type == "lawnmower" %}
+  <a href="{% url 'lawn_mower_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to lawn mower list</a>
+  {% else %}
+  <a href="{% url 'device_list' %}" class="btn btn-primary btn-sm d-block mx-auto mt-2">Back to device list</a>
+  {% endif %}
+ </div>
 
-	{% endblock %}
+ {% endblock %}
 </body>

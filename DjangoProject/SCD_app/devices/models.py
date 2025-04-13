@@ -3,6 +3,9 @@ from enum import StrEnum
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class DeviceType(models.Model):
     BULB = 1
@@ -128,3 +131,11 @@ class LawnMower(BaseDevice):
         return (f"{self.name}, {self.battery_percent}, {self.cutting_mode}, {self.cutting_height_mm},"
                 f"{self.current_area_m2}, {self.total_cutting_time_minutes}")
 
+class SharedDevice(models.Model):
+    device = models.ForeignKey(BaseDevice, on_delete=models.CASCADE, related_name='shared_with')
+    shared_with = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shared_devices')
+    shared_by_email = models.EmailField()  # for record-keeping
+    date_shared = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('device', 'shared_with')
