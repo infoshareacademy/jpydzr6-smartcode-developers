@@ -20,7 +20,7 @@ A web-based SmartHome management system built with Django. This app allows users
 
 - **Backend**: Django (Python)
 - **Database**: SQLite (default)
-- **Frontend**: HTML, Bootstrap
+- **Frontend**: HTML5, Bootstrap
 
 ---
 
