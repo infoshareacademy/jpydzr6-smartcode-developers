@@ -26,11 +26,11 @@ A web-based SmartHome management system built with Django. This app allows users
 
 ## 📦 Installation
 
-git clone https://github.com/infoshareacademy/jpydzr6-smartcode-developers.git
-cd DjangoProject
-cd SCD_app
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+- git clone https://github.com/infoshareacademy/jpydzr6-smartcode-developers.git
+- cd DjangoProject
+- cd SCD_app
+- python -m venv venv
+- source venv/bin/activate
+- pip install -r requirements.txt
+- python manage.py migrate
+- python manage.py runserver
