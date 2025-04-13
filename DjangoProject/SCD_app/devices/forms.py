@@ -3,6 +3,10 @@ from .models import BaseDevice, Bulb, Plug, Thermostat, Curtain, WeatherStation,
 from django.forms.widgets import DateTimeInput
 from datetime import timedelta
 import re
+from django.utils import timezone
+from django.core.exceptions import ValidationError
+
+
 
 class BaseDeviceForm(forms.ModelForm):
     class Meta:
@@ -167,9 +171,22 @@ class DeviceScheduleForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        if not cleaned_data.get('end_time') and not cleaned_data.get('duration'):
+        start_time = cleaned_data.get('start_time')
+        duration_str = cleaned_data.get('duration')
+
+        if start_time and duration_str:
+            try:
+                if isinstance(duration_str, str):
+                    hours, minutes = map(int, duration_str.split(':'))
+                    duration_timedelta = timedelta(hours=hours, minutes=minutes)
+                    cleaned_data['end_time'] = start_time + duration_timedelta
+                else:
+                    raise ValidationError('Invalid duration format. Use hh:mm.')
+            except ValueError:
+                raise forms.ValidationError('Invalid duration format. Use hh:mm.')
+        elif not cleaned_data.get('end_time') and not cleaned_data.get('duration'):
             raise forms.ValidationError('Provide the device shutdown time or device operation time.')
-        if cleaned_data.get('end_time') and cleaned_data.get('duration'):
+        elif cleaned_data.get('end_time') and cleaned_data.get('duration'):
             raise forms.ValidationError('Provide either device shutdown time or operation time.')
         return cleaned_data
 

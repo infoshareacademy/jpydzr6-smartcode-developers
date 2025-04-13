@@ -7,6 +7,8 @@ from .models import Bulb, Plug, Thermostat, Curtain, WeatherStation, LawnMower, 
 from .forms import BulbForm, PlugForm, ThermostatForm, CurtainForm, WeatherStationForm, LawnMowerForm, BaseDeviceForm, DeviceScheduleForm, DeviceType
 from django.forms.models import model_to_dict
 from django.contrib import messages
+from django.utils import timezone
+from django.http import HttpResponse
 
 
 class DeviceCreateView(LoginRequiredMixin, FormView):
@@ -308,11 +310,18 @@ def lawn_mower_list(request):
 
 @login_required
 def device_schedule(request, device_type=None, device_id=None):
+    current_time = timezone.now()
+    expired_schedules = DeviceSchedule.objects.filter(end_time__lt=current_time)
+    expired_schedules.delete()
+
     if request.method == "POST":
+        print("form valid")
         form = DeviceScheduleForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('list_device_schedule')
+        else:
+            print(form.errors)
     else:
         form = DeviceScheduleForm(user=request.user)
 
