@@ -259,7 +259,6 @@ class DeviceDeleteView(LoginRequiredMixin, DeleteView):
 class DeviceDetailView(LoginRequiredMixin, DetailView):
     template_name = "device_detail.html"
     context_object_name = "device"
-    print("NO ELO")
 
     def get_object(self):
         """
@@ -311,9 +310,7 @@ class DeviceDetailView(LoginRequiredMixin, DetailView):
         device_fields = model_to_dict(device)
 
         # Add calculated color field for bulbs
-        print(self.kwargs.get('device_type'))
         if self.kwargs.get('device_type') == 'bulb':
-            print("Calculating color for bulb")
             # Calculate hex color from RGB components
             r = getattr(device, 'red_temp', 255)
             g = getattr(device, 'green_temp', 255)
