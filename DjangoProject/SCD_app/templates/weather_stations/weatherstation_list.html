@@ -35,11 +35,24 @@
 						class="btn btn-light btn-sm text-black">
 						Edit
 					</a>
-					<a
-						href="{% url 'device_delete' 'weatherstation' station.id %}"
-						class="btn btn-danger btn-sm text-black">
-						Delete
-					</a>
+					{% if station.owner == user %}
+					 <a
+					  href="{% url 'device_delete' 'weatherstation' station.id %}"
+					  class="btn btn-danger btn-sm text-black">
+					  Delete
+					 </a>
+					 <a
+					  href="{% url 'share_device' station.id %}"
+					  class="btn btn-info btn-sm text-black">
+					  Share
+					 </a>
+					 {% else %}
+					 <a
+					  href="{% url 'device_delete' 'weatherstation' station.id %}"
+					  class="btn btn-warning btn-sm text-black">
+					  Remove Access
+					 </a>
+					 {% endif %}
 				</div>
 			</li>
 			{% empty %}

@@ -37,11 +37,24 @@
 						class="btn btn-light btn-sm text-black">
 						Edit
 					</a>
-					<a
-						href="{% url 'device_delete' 'curtain' curtain.id %}"
-						class="btn btn-danger btn-sm text-black">
-						Delete
-					</a>
+					{% if curtain.owner == user %}
+					 <a
+					  href="{% url 'device_delete' 'curtain' curtain.id %}"
+					  class="btn btn-danger btn-sm text-black">
+					  Delete
+					 </a>
+					 <a
+					  href="{% url 'share_device' curtain.id %}"
+					  class="btn btn-info btn-sm text-black">
+					  Share
+					 </a>
+					 {% else %}
+					 <a
+					  href="{% url 'device_delete' 'curtain' curtain.id %}"
+					  class="btn btn-warning btn-sm text-black">
+					  Remove Access
+					 </a>
+					 {% endif %}
 				</div>
 			</li>
 			{% empty %}

@@ -21,33 +21,66 @@ class BaseDeviceForm(forms.ModelForm):
         # Remove owner field from form
         if 'owner' in self.fields:
             del self.fields['owner']
-            
+
 
 class BulbForm(BaseDeviceForm):
     brightness = forms.IntegerField(
         min_value=0, max_value=100,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 100})
+        widget=forms.NumberInput(attrs={'min': 0, 'max': 100, 'class': 'form-control'})
     )
     color_temp = forms.IntegerField(
         min_value=2000, max_value=6500,
-        widget=forms.NumberInput(attrs={'min': 2000, 'max': 6500})
+        widget=forms.NumberInput(attrs={'min': 2000, 'max': 6500, 'class': 'form-control'})
     )
-    red_temp = forms.IntegerField(
-        min_value=0, max_value=255,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
+    color_picker = forms.CharField(
+        widget=forms.TextInput(attrs={'type': 'color', 'class': 'form-control'}),
+        required=False,
+        label="Bulb Color"
     )
-    green_temp = forms.IntegerField(
-        min_value=0, max_value=255,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
-    )
-    blue_temp = forms.IntegerField(
-        min_value=0, max_value=255,
-        widget=forms.NumberInput(attrs={'min': 0, 'max': 255})
-    )
+
     class Meta:
         model = Bulb
-        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'brightness', 'color_temp', 'red_temp', 'green_temp', 'blue_temp']
+        fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected',
+                  'brightness', 'color_temp']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+
+        # If we're editing an existing bulb, set the initial color picker value
+        if instance:
+            r = getattr(instance, 'red_temp', 255)
+            g = getattr(instance, 'green_temp', 255)
+            b = getattr(instance, 'blue_temp', 255)
+            hex_color = f'#{r:02x}{g:02x}{b:02x}'
+            self.fields['color_picker'].initial = hex_color
+
+    def clean(self):
+        cleaned_data = super().clean()
+        color_hex = cleaned_data.get('color_picker')
+
+        if color_hex:
+            # Remove the '#' and convert to RGB
+            color_hex = color_hex.lstrip('#')
+            cleaned_data['red_temp'] = int(color_hex[0:2], 16)
+            cleaned_data['green_temp'] = int(color_hex[2:4], 16)
+            cleaned_data['blue_temp'] = int(color_hex[4:6], 16)
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Set RGB values from color_picker
+        cleaned_data = self.cleaned_data
+        if 'red_temp' in cleaned_data:
+            instance.red_temp = cleaned_data['red_temp']
+            instance.green_temp = cleaned_data['green_temp']
+            instance.blue_temp = cleaned_data['blue_temp']
+
+        if commit:
+            instance.save()
+        return instance
 
 class PlugForm(BaseDeviceForm):
     current_power_w = forms.FloatField(
@@ -133,3 +166,6 @@ class LawnMowerForm(BaseDeviceForm):
         model = LawnMower
         fields = ['device_secret_key', 'name', 'brand', 'model', 'location', 'power', 'connected', 'battery_percent', 'cutting_mode', 'cutting_height_mm',
                   'current_area_m2', 'total_cutting_time_minutes']
+
+class ShareDeviceForm(forms.Form):
+    email = forms.EmailField(label="Email to share with")
