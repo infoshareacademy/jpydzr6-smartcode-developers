@@ -9,22 +9,18 @@
 				Set schedule
 	  </button>
 			<a
+				href="{% url 'list_device_schedule' %}"
+				class="btn btn-primary mt-3 d-block mx-auto"
+				>Check schedules</a>
+			<a
 				href="{% url 'device_list' %}"
 				class="btn btn-primary mt-3 d-block mx-auto"
 				>Back to Devices</a>
+
+
 	</form>
-	<h2 style="text-align: center" class="margin_top">Device working schedules</h2>
-	<div class="schedule-list">
-    {% for schedule in schedules %}
-        <p>{{ schedule.device.name }}:
-			{{ schedule.formatted_start_time }} - {{ schedule.formatted_end_time }}
-			(Duration: {{ schedule.get_formatted_duration }})
-		</p>
-      	{% empty %}
-			<p>No schedules set yet.</p>
-			<a href="{% url 'device_list' %}" class="btn btn-primary mt-3 d-block mx-auto">Back to Devices</a>
-				{% endfor %}
-    	</div>
+
+
 	</div>
 </body>
 {% endblock %}

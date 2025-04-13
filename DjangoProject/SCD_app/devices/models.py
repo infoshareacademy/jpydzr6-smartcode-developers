@@ -53,7 +53,7 @@ class BaseDevice(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name}, ({self.location}) - Connected: {self.connected}"
+        return f"{self.name}, ({self.location})"
 
 class Bulb(BaseDevice):
     brightness = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])

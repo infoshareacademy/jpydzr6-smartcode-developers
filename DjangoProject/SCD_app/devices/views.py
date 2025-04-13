@@ -312,7 +312,7 @@ def device_schedule(request, device_type=None, device_id=None):
         form = DeviceScheduleForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-
+            return redirect('list_device_schedule')
     else:
         form = DeviceScheduleForm(user=request.user)
 
@@ -325,6 +325,10 @@ def device_schedule(request, device_type=None, device_id=None):
     schedules = DeviceSchedule.objects.filter(device__owner=request.user)
     return render(request, 'device_schedule.html', {'form': form, 'schedules': schedules})
 
+@login_required
+def list_device_schedule(request):
+    schedules = DeviceSchedule.objects.filter(device__owner=request.user)
+    return render(request, 'list_device_schedule.html', {'schedules': schedules})
 
 # @login_required
 # def delete_schedule(request, schedule_id):
