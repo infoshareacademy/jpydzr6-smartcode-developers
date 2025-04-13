@@ -353,9 +353,23 @@ def device_list(request):
     devices = BaseDevice.objects.filter(owner=user)
     return render(request, 'device_list.html', {'devices': devices})
 
+
 @login_required(login_url='login')
 def devices_by_location(request, location):
-    devices = BaseDevice.objects.filter(location=location)
+    user = request.user
+
+    # Get devices owned by the user in this location
+    owned_devices = BaseDevice.objects.filter(owner=user, location=location)
+
+    # Get IDs of devices shared with the user
+    shared_device_ids = SharedDevice.objects.filter(shared_with=user).values_list('device_id', flat=True)
+
+    # Get shared devices in this location
+    shared_devices = BaseDevice.objects.filter(id__in=shared_device_ids, location=location)
+
+    # Combine the querysets
+    devices = (owned_devices | shared_devices).distinct()
+
     return render(request, 'devices_by_location.html', {'devices': devices, 'location': location})
 
 
