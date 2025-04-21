@@ -1,0 +1,49 @@
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-center">
+		<h2>
+			{% if is_owner %}
+			Are you sure you want to delete the
+			{% else %}
+			Are you sure you want to remove access to the
+			{% endif %}
+			<!--  -->
+			"{% if view.kwargs.device_type == "bulb" %} Bulb
+			<!--  -->
+			{% elif view.kwargs.device_type == "plug" %} Plug
+			<!--  -->
+			{% elif view.kwargs.device_type == "thermostat" %} Thermostat
+			<!--  -->
+			{% elif view.kwargs.device_type == "curtain" %} Curtain
+			<!--  -->
+			{% elif view.kwargs.device_type == "weatherstation" %} Weather Station
+			<!--  -->
+			{% elif view.kwargs.device_type == "lawnmower" %} Lawn Mower
+			<!--  -->
+			{% else %}Device {% endif %}" device?
+		</h2>
+
+		{% if not is_owner %}
+		<div class="alert alert-info mt-2">
+			This will only remove your access to this device. The device itself will not be deleted.
+		</div>
+		{% endif %}
+
+		<form method="post">
+			{% csrf_token %}
+			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				{% if is_owner %}
+				Yes, delete
+				{% else %}
+				Yes, remove access
+				{% endif %}
+			</button>
+			<a
+				href="{% url 'dashboard' %}"
+				class="btn btn-primary mt-3 d-block mx-auto"
+				>Cancel</a
+			>
+		</form>
+		{% endblock %}
+	</div>
+</body>

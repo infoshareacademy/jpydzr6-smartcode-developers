@@ -1,0 +1,64 @@
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container">
+		<h2 class="text-center">Plug List</h2>
+
+		<div class="text-center">
+			<a href="{% url 'device_create' 'plug' %}" class="btn btn-primary mb-3">
+				Add New Plug
+			</a>
+		</div>
+
+		<ul class="list-group">
+			{% for plug in plugs %}
+			<li
+				class="list-group-item d-flex justify-content-between align-items-center">
+				<a
+					href="{% url 'device_detail' 'plug' plug.id %}"
+					class="text-decoration-none text-dark">
+					<strong>Name:</strong> {{ plug.name }} |
+					<!--  -->
+					<strong>Model:</strong> {{ plug.model }} |
+					<!--  -->
+					<strong>Brand:</strong> {{ plug.brand }} |
+					<!--  -->
+					<strong>Location:</strong> {{ plug.location }}
+				</a>
+
+				<div class="d-flex justify-content-center gap-2 mt-2">
+					<a
+						href="{% url 'device_update' 'plug' plug.id %}"
+						class="btn btn-light btn-sm text-black">
+						Edit
+					</a>
+					{% if plug.owner == user %}
+					 <a
+					  href="{% url 'device_delete' 'plug' plug.id %}"
+					  class="btn btn-danger btn-sm text-black">
+					  Delete
+					 </a>
+					 <a
+					  href="{% url 'share_device' plug.id %}"
+					  class="btn btn-info btn-sm text-black">
+					  Share
+					 </a>
+					 {% else %}
+					 <a
+					  href="{% url 'device_delete' 'plug' plug.id %}"
+					  class="btn btn-warning btn-sm text-black">
+					  Remove Access
+					 </a>
+					 {% endif %}
+				</div>
+			</li>
+			{% empty %}
+			<li class="list-group-item text-center">No available plugs</li>
+			{% endfor %}
+		</ul>
+
+		<div class="text-center mt-3">
+			<a href="{% url 'dashboard' %}" class="btn btn-primary"> Back </a>
+		</div>
+	</div>
+	{% endblock %}
+</body>

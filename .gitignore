@@ -1,4 +1,11 @@
 .env
 .venv/
+venv/
+DjangoProject/SCD_app/venv/
 __pycache__/
 .vscode/
+.idea/
+db.sqlite3
+node_modules/
+package-lock.json
+package.json

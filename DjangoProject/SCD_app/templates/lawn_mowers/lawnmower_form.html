@@ -1,0 +1,24 @@
+{% extends 'base_generic_devices.html' %} {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<div class="container text-left">
+		<h2 style="text-align: center">
+			{% if form.instance.pk %}Edytuj kosiarkę{% else %}Dodaj kosiarkę
+			<!--  -->
+			{% endif %}
+		</h2>
+
+		<form method="post">
+			{% csrf_token %} {{ form.as_p }}
+			<button type="submit" class="btn btn-primary mt-3 d-block mx-auto">
+				{% if form.instance.pk %}Zapisz zmiany{% else %}Dodaj {% endif %}
+			</button>
+		</form>
+
+		<a
+			href="{% url 'lawn_mower_list' %}"
+			class="btn btn-primary mt-3 d-block mx-auto"
+			>Powrót do listy kosiarek</a
+		>
+	</div>
+	{% endblock %}
+</body>

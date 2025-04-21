@@ -1,0 +1,29 @@
+{% extends 'base_dashboard.html' %}
+
+{% block content %}
+    <header class="login">
+    <section class="page-section" id="login">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Log in to the Smart Home APP</h2>
+            </div>
+            <form id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {% csrf_token %}
+                                <div class="form" data-sb-validations="required">{{ form.as_p }}</div>
+                                <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">Login</button>
+                        </div>
+                    </div>
+                </div>
+                    <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'password_reset' %}">Forgot your password? Click here</a>
+                    <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'register' %}">Don't have an account? Register</a>
+            </form>
+        </div>
+    </section>
+    </header>
+{% endblock %}
+
+
+

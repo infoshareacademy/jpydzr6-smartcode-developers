@@ -1,0 +1,13 @@
+{% extends 'base_generic_devices.html' %}bulb_form {% block content %}
+<body id="page-top" class="fixed-nav-page">
+	<h2>Żarówka: {{ bulb.device_id.name }}</h2>
+	<p>Moc: {{ bulb.power }}</p>
+	<p>Jasność: {{ bulb.brightness }}</p>
+	<p>Temperatura koloru: {{ bulb.color_temp }}</p>
+	<p>RGB: {{ bulb.red_temp }}, {{ bulb.green_temp }}, {{ bulb.blue_temp }}</p>
+	<a href="{% url 'bulb_update' bulb.id %}">Edytuj</a> |
+	<a href="{% url 'bulb_delete' bulb.id %}">Usuń</a> |
+	<a href="{% url 'bulb_list' %}">Powrót do listy żarówek</a>
+
+	{% endblock %}
+</body>
